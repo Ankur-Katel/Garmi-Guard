@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Garmi Guard - Explore</title>
+    <!-- Premium Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* CSS Reset & Setup */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Outfit', sans-serif;
+        }
+        
+        body, html {
+            width: 100%;
+            height: 100%;
+            background-color: #050505;
+        }
+
+        /* -----------------------------------
+           NEW LANDING PAGE UI
+        ------------------------------------ */
+        .landing-ui {
+            width: 100%;
+            position: relative;
+            z-index: 1;
+            padding-bottom: 90px;
+            transition: opacity 0.8s ease-in-out;
+        }
+
+        .product-image {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .fixed-bottom-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px;
+            background: linear-gradient(to top, rgba(5,5,5,1) 10%, rgba(5,5,5,0) 100%);
+            z-index: 5;
+            display: flex;
+            justify-content: center;
+        }
+
+        .get-now-btn {
+            width: 100%;
+            max-width: 280px;
+            padding: 16px;
+            border-radius: 14px;
+            border: none;
+            background: linear-gradient(135deg, #ff5e3a 0%, #d83a18 100%);
+            color: white;
+            font-size: 1.15rem;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 8px 25px -5px rgba(255, 94, 58, 0.6);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .get-now-btn:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 30px -5px rgba(255, 94, 58, 0.8);
+        }
+
+        /* -----------------------------------
+           POPUP & IFRAME STYLES 
+        ------------------------------------ */
+        .content-frame {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+            transition: opacity 0.8s ease-in-out;
+            z-index: 1;
+        }
+
+        #popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            z-index: 10;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.5s ease;
+        }
+
+        /* Silent Auto-Check Screen (For Next Day Verification) */
+        #silent-loader-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #050505;
+            z-index: 20;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            transition: opacity 0.5s ease;
+        }
+
+        .silent-spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(255, 94, 58, 0.2);
+            border-top: 4px solid #ff5e3a;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+        }
+
+        .silent-text {
+            font-size: 1.1rem;
+            color: #aaa;
+            letter-spacing: 1px;
+            font-weight: 300;
+        }
+
+        .glass-popup {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(255,255,255,0.1);
+            border-radius: 20px;
+            padding: 45px 35px;
+            width: 92%;
+            max-width: 480px;
+            text-align: center;
+            color: #ffffff;
+            transform: translateY(0) scale(0.98);
+            animation: popupAppear 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Top Controls: Language & Close */
+        .lang-toggle {
+            position: absolute;
+            top: 16px;
+            left: 16px;
+            background: rgba(255, 94, 58, 0.15);
+            border: 1px solid rgba(255, 94, 58, 0.3);
+            color: #ff7657;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            cursor: pointer;
+            z-index: 10;
+            transition: all 0.3s ease;
+        }
+
+        .lang-toggle:hover {
+            background: rgba(255, 94, 58, 0.3);
+            color: #fff;
+        }
+
+        .popup-close {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #fff;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+        .popup-close:hover {
+            background: rgba(255, 94, 58, 0.8);
+            border-color: rgba(255, 94, 58, 0.8);
+            transform: rotate(90deg);
+        }
+
+        .glass-popup::before {
+            content: '';
+            position: absolute;
+            top: -50px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150px;
+            height: 150px;
+            background: #ff5e3a;
+            filter: blur(100px);
+            opacity: 0.25;
+            z-index: -1;
+        }
+
+        @keyframes popupAppear {
+            0% { opacity: 0; transform: translateY(30px) scale(0.95); }
+            100% { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .brand-badge {
+            display: inline-block;
+            background: rgba(255, 94, 58, 0.15);
+            color: #ff7657;
+            border: 1px solid rgba(255, 94, 58, 0.3);
+            padding: 6px 14px;
+            border-radius: 30px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            margin-top: 15px; /* Added spacing to clear top buttons */
+        }
+
+        .glass-popup h2 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+            background: linear-gradient(135deg, #ffffff 0%, #b3b3b3 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.5px;
+        }
+
+        .glass-popup p.subtitle {
+            font-size: 0.95rem;
+            color: #999;
+            margin-bottom: 30px;
+            font-weight: 300;
+            line-height: 1.5;
+        }
+
+        .inline-form-group {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 25px;
+            background: rgba(0, 0, 0, 0.4);
+            padding: 6px;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.5);
+        }
+
+        input[type="tel"] {
+            flex: 1;
+            padding: 16px 20px;
+            border: none;
+            background: transparent;
+            color: #fff;
+            font-size: 1.05rem;
+            font-weight: 500;
+            outline: none;
+            letter-spacing: 1px;
+            width: 100%;
+        }
+
+        input[type="tel"]::placeholder {
+            color: rgba(255, 255, 255, 0.3);
+            font-weight: 400;
+        }
+
+        .submit-btn {
+            padding: 16px 28px;
+            border-radius: 12px;
+            border: none;
+            background: linear-gradient(135deg, #ff5e3a 0%, #d83a18 100%);
+            color: white;
+            font-size: 1.05rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 20px -6px rgba(255, 94, 58, 0.5);
+            white-space: nowrap;
+        }
+
+        .submit-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 25px -6px rgba(255, 94, 58, 0.7);
+        }
+
+        .submit-btn:disabled {
+            background: #333;
+            color: #777;
+            box-shadow: none;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .feedback-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            align-items: center;
+            min-height: 20px;
+        }
+
+        .error-msg {
+            color: #ff4757;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            font-weight: 400;
+            opacity: 0;
+            display: none;
+            transition: opacity 0.3s;
+        }
+
+        .whatsapp-btn {
+            display: none;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background-color: #25D366;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            box-shadow: 0 8px 20px -6px rgba(37, 211, 102, 0.5);
+            transition: all 0.3s ease;
+            width: 100%;
+            opacity: 0;
+        }
+
+        .whatsapp-btn:hover {
+            background-color: #1ebd5a;
+            transform: translateY(-2px);
+        }
+
+        /* Fixed WhatsApp icon stretching issue */
+        .whatsapp-btn svg {
+            width: 22px !important;
+            height: 22px !important;
+            min-width: 22px;
+            min-height: 22px;
+            flex-shrink: 0;
+            fill: currentColor;
+            display: inline-block;
+        }
+
+        .loader {
+            border: 3px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            border-top: 3px solid #fff;
+            width: 20px;
+            height: 20px;
+            animation: spin 0.8s linear infinite;
+            display: none;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @media (max-width: 480px) {
+            .inline-form-group {
+                flex-direction: column;
+                background: transparent;
+                border: none;
+                box-shadow: none;
+                padding: 0;
+                gap: 15px;
+            }
+            input[type="tel"] {
+                background: rgba(0, 0, 0, 0.4);
+                border: 1px solid rgba(255, 255, 255, 0.08);
+                border-radius: 16px;
+                text-align: center;
+            }
+            .submit-btn {
+                width: 100%;
+                border-radius: 16px;
+                padding: 18px;
+            }
+            .glass-popup { padding: 35px 20px; }
+            .brand-badge { margin-top: 25px; } /* More space for buttons on mobile */
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Silent Auto-Loader for Next Day Check -->
+    <div id="silent-loader-overlay">
+        <div class="silent-spinner"></div>
+        <p class="silent-text">Verifying Access...</p>
+    </div>
+
+    <!-- Static Landing UI -->
+    <div id="landing-ui" class="landing-ui">
+        <img src="https://i.ibb.co/whR4WgbY/file-00000000eca082089c84fda754c4ad80.png" alt="Garmi Guard" class="product-image">
+    </div>
+    
+    <!-- Fixed Get Now Button Area -->
+    <div class="fixed-bottom-bar" id="bottom-bar">
+        <button id="get-now-btn" class="get-now-btn">Explore Garmi Guard</button>
+    </div>
+
+    <!-- Glassmorphism Login Popup Overlay -->
+    <div id="popup-overlay">
+        <div class="glass-popup" id="glass-popup">
+            
+            <!-- New Top Controls -->
+            <button class="lang-toggle" id="lang-toggle" title="Toggle Language">A/अ</button>
+            <button class="popup-close" id="popup-close" aria-label="Close Popup">✕</button>
+
+            <div class="brand-badge" id="popup-badge">Purchase Verification</div>
+            <h2 id="popup-title">Unlock Garmi Guard</h2>
+            <p class="subtitle" id="popup-subtitle">Enter the 10-digit mobile number you used during checkout to verify your purchase.</p>
+            
+            <form id="access-form">
+                <div class="inline-form-group">
+                    <input type="tel" id="phone" placeholder="Enter 10-Digit Mobile Number" autocomplete="off" maxlength="10" oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 10);" required>
+                    <button type="submit" id="submit-btn" class="submit-btn">
+                        <span id="btn-text">Unlock</span>
+                        <div class="loader" id="loader"></div>
+                    </button>
+                </div>
+            </form>
+
+            <div class="feedback-container">
+                <div class="error-msg" id="error-msg"></div>
+                <a href="#" id="wa-btn" class="whatsapp-btn" target="_blank">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+                    </svg>
+                    Contact Support
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ==========================================
+        // CONFIGURATION
+        // ==========================================
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx8jjxnah-ffk6yzC9TulRqgQOCRO6DK7PAHrRKN2ejMXj_hLHCNyOyTqHD3ajG5ujz/exec';
+        const SUPPORT_WHATSAPP_NUMBER = '919954418356';
+        
+        // ==========================================
+        // UI ELEMENTS
+        // ==========================================
+        const overlay = document.getElementById('popup-overlay');
+        const silentLoaderOverlay = document.getElementById('silent-loader-overlay');
+        const form = document.getElementById('access-form');
+        const phoneInput = document.getElementById('phone');
+        const submitBtn = document.getElementById('submit-btn');
+        const btnText = document.getElementById('btn-text');
+        const loader = document.getElementById('loader');
+        const errorMsg = document.getElementById('error-msg');
+        const waBtn = document.getElementById('wa-btn');
+        
+        const landingUI = document.getElementById('landing-ui');
+        const bottomBar = document.getElementById('bottom-bar');
+        const getNowBtn = document.getElementById('get-now-btn');
+        const popupCloseBtn = document.getElementById('popup-close');
+        
+        // Language Toggle Elements
+        const langToggleBtn = document.getElementById('lang-toggle');
+        const popupTitle = document.getElementById('popup-title');
+        const popupSubtitle = document.getElementById('popup-subtitle');
+        const popupBadge = document.getElementById('popup-badge');
+
+        let isHinglish = false;
+
+        // ==========================================
+        // INITIALIZATION & EVENT LISTENERS
+        // ==========================================
+        document.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const accessMode = urlParams.get('access');
+
+            // Button click redirects to index.html
+            getNowBtn.addEventListener('click', () => {
+                window.location.href = 'index.html';
+            });
+
+            if (accessMode === 'try') {
+                checkSession(true); 
+            } else {
+                checkSession(false);
+            }
+        });
+
+        // Close functionality
+        const closePopup = () => {
+            overlay.style.display = 'none';
+            clearError();
+        };
+
+        popupCloseBtn.addEventListener('click', closePopup);
+        
+        overlay.addEventListener('click', (e) => {
+            if(e.target === overlay) closePopup();
+        });
+
+        // Transliteration / Language Toggle
+        langToggleBtn.addEventListener('click', () => {
+            isHinglish = !isHinglish;
+            
+            if (isHinglish) {
+                langToggleBtn.textContent = 'EN';
+                popupTitle.textContent = 'Garmi Guard Unlock Karein';
+                popupSubtitle.textContent = 'Apna purchase verify karne ke liye wo 10-digit mobile number dalein jo aapne checkout ke waqt use kiya tha.';
+                phoneInput.placeholder = '10-Digit Mobile Number Dalein';
+                btnText.textContent = 'Unlock Karein';
+            } else {
+                langToggleBtn.textContent = 'A/अ';
+                popupTitle.textContent = 'Unlock Garmi Guard';
+                popupSubtitle.textContent = 'Enter the 10-digit mobile number you used during checkout to verify your purchase.';
+                phoneInput.placeholder = 'Enter 10-Digit Mobile Number';
+                btnText.textContent = 'Unlock';
+            }
+        });
+
+        // ==========================================
+        // DEVICE FINGERPRINTING & UTILITY
+        // ==========================================
+        function generateDeviceFingerprint() {
+            try {
+                const screenRes = window.screen.width + 'x' + window.screen.height;
+                const platform = navigator.platform || '';
+                const language = navigator.language || '';
+                
+                const rawString = `${screenRes}|${platform}|${language}`;
+                let hash = 5381;
+                for (let i = 0; i < rawString.length; i++) {
+                    hash = ((hash << 5) + hash) + rawString.charCodeAt(i); 
+                }
+                return 'dev_' + Math.abs(hash).toString(16);
+            } catch (e) {
+                return 'dev_fallback_' + Math.random().toString(36).substring(2,10);
+            }
+        }
+
+        function getBrowserId() {
+            let browserId = localStorage.getItem('garmiguard_device_id');
+            const hardwarePrint = generateDeviceFingerprint();
+            
+            if (!browserId || !browserId.includes(hardwarePrint)) {
+                const randomPart = Math.random().toString(36).substring(2, 10);
+                browserId = hardwarePrint + '_' + randomPart;
+                localStorage.setItem('garmiguard_device_id', browserId);
+            }
+            return browserId;
+        }
+
+        function getBrowserInfo() {
+            const ua = navigator.userAgent;
+            let browser = "Unknown";
+            if(ua.includes("Firefox")) browser = "Firefox";
+            else if(ua.includes("Chrome")) browser = "Chrome";
+            else if(ua.includes("Safari")) browser = "Safari";
+            
+            let platform = navigator.platform || "Unknown";
+            return { browser, platform };
+        }
+
+        function showError(message, phone) {
+            errorMsg.textContent = message;
+            errorMsg.style.display = 'block';
+            
+            const messageText = `Hi, I am facing a login problem with Garmi Guard.\nThe phone number I entered is: ${phone}\n\nI confirm that this is the same number I used for my purchase.`;
+            waBtn.href = `https://wa.me/${SUPPORT_WHATSAPP_NUMBER}?text=${encodeURIComponent(messageText)}`;
+            waBtn.style.display = 'flex';
+            
+            setTimeout(() => { 
+                errorMsg.style.opacity = '1'; 
+                waBtn.style.opacity = '1';
+            }, 10);
+        }
+
+        function clearError() {
+            errorMsg.style.opacity = '0';
+            waBtn.style.opacity = '0';
+            setTimeout(() => { 
+                errorMsg.style.display = 'none'; 
+                waBtn.style.display = 'none';
+            }, 300);
+        }
+
+        function toggleLoading(isLoading) {
+            if (isLoading) {
+                submitBtn.disabled = true;
+                btnText.style.display = 'none';
+                loader.style.display = 'block';
+            } else {
+                submitBtn.disabled = false;
+                btnText.style.display = 'block';
+                loader.style.display = 'none';
+            }
+        }
+
+        function clearSession() {
+            localStorage.removeItem('garmiguard_access');
+            localStorage.removeItem('garmiguard_phone');
+            localStorage.removeItem('garmiguard_last_check');
+            localStorage.removeItem('garmiguard_secret_url');
+        }
+
+        // ==========================================
+        // AUTHENTICATION LOGIC
+        // ==========================================
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            clearError();
+            
+            const phone = phoneInput.value.trim();
+            if (!phone || phone.length !== 10) {
+                // Adjust error text based on selected language
+                showError(isHinglish ? 'Kripya sahi 10-digit mobile number dalein.' : 'Please enter a valid 10-digit mobile number.', phone);
+                return;
+            }
+
+            await authenticateUser(phone, false);
+        });
+
+        async function authenticateUser(phone, isSilent = false) {
+            if (isSilent) {
+                silentLoaderOverlay.style.display = 'flex';
+            } else {
+                toggleLoading(true);
+            }
+
+            const { browser, platform } = getBrowserInfo();
+            const browserId = getBrowserId(); 
+
+            const payload = {
+                phone: phone,
+                browserId: browserId, 
+                browser: browser,
+                platform: platform,
+                action: 'verify'
+            };
+
+            try {
+                const response = await fetch(SCRIPT_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                    body: JSON.stringify(payload)
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    saveSession(phone, browserId, data.url);
+                    loadProduct(data.url);
+                } else {
+                    clearSession();
+                    if (isSilent) {
+                        silentLoaderOverlay.style.display = 'none';
+                        overlay.style.display = 'flex'; 
+                        phoneInput.value = phone;
+                        showError(data.message || 'Access Expired or Denied. Please verify again.', phone);
+                    } else {
+                        showError(data.message || 'Access Denied. Record not found.', phone);
+                    }
+                }
+            } catch (error) {
+                console.error('Login Error:', error);
+                if (isSilent) silentLoaderOverlay.style.display = 'none';
+                clearSession();
+                
+                if (isSilent) {
+                    overlay.style.display = 'flex';
+                    phoneInput.value = phone;
+                }
+                showError('Connection error. Please check your internet and try again.', phone);
+            } finally {
+                if (!isSilent) toggleLoading(false);
+            }
+        }
+
+        async function checkSession(forcedByUrl) {
+            const storedAccess = localStorage.getItem('garmiguard_access');
+            const storedPhone = localStorage.getItem('garmiguard_phone');
+            const storedBrowserId = localStorage.getItem('garmiguard_device_id');
+            const storedUrl = localStorage.getItem('garmiguard_secret_url');
+            const lastCheckDate = localStorage.getItem('garmiguard_last_check');
+            
+            let indexPhone = null;
+            try {
+                const customerData = JSON.parse(localStorage.getItem('gg_checkout_customer'));
+                if (customerData && customerData.phone) {
+                    indexPhone = customerData.phone.replace(/[^0-9]/g, '').slice(-10);
+                }
+            } catch(e) {
+                console.error("Index phone parsing error");
+            }
+            
+            const currentBrowserId = getBrowserId(); 
+            const today = new Date().toDateString(); 
+            
+            if (storedAccess === 'true' && storedPhone && (currentBrowserId === storedBrowserId)) {
+                if (lastCheckDate === today && storedUrl) {
+                    loadProduct(storedUrl, true);
+                } else {
+                    await authenticateUser(storedPhone, true); 
+                }
+            } 
+            else if (indexPhone && indexPhone.length === 10) {
+                overlay.style.display = 'flex';
+                phoneInput.value = indexPhone; 
+                await authenticateUser(indexPhone, false); 
+            } 
+            else if (forcedByUrl) {
+                overlay.style.display = 'flex';
+                setTimeout(() => phoneInput.focus(), 100);
+            }
+        }
+
+        function saveSession(phone, browserId, secretUrl) {
+            const today = new Date().toDateString();
+            localStorage.setItem('garmiguard_access', 'true');
+            localStorage.setItem('garmiguard_phone', phone);
+            localStorage.setItem('garmiguard_device_id', browserId);
+            localStorage.setItem('garmiguard_last_check', today);
+            localStorage.setItem('garmiguard_secret_url', secretUrl);
+        }
+
+        // ==========================================
+        // PRODUCT LOADING LOGIC
+        // ==========================================
+        function loadProduct(secretUrl, instantLoad = false) {
+            document.querySelector('.glass-popup').style.transform = 'scale(0.95)';
+            document.querySelector('.glass-popup').style.opacity = '0';
+            overlay.style.opacity = '0';
+            silentLoaderOverlay.style.opacity = '0';
+            landingUI.style.opacity = '0';
+            bottomBar.style.opacity = '0';
+            
+            const delay = instantLoad ? 50 : 500; 
+            
+            setTimeout(() => {
+                overlay.remove();
+                silentLoaderOverlay.remove();
+                landingUI.remove();
+                bottomBar.remove();
+
+                const productFrame = document.createElement('iframe');
+                productFrame.className = 'content-frame';
+                productFrame.style.opacity = '0'; 
+                productFrame.src = secretUrl; 
+
+                document.body.appendChild(productFrame);
+
+                setTimeout(() => {
+                    productFrame.style.opacity = '1';
+                }, 100);
+
+            }, delay);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,942 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Garmi Guard Dashboard</title>
+    <!-- Chart.js for data visualization -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- html2canvas for downloading the Result Card -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        /* Modern Premium CSS styling with Mobile-First approach */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+        :root {
+            --bg-color: #0f172a;
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --accent-primary: #3b82f6;
+            --accent-glow: rgba(59, 130, 246, 0.5);
+            --success: #10b981;
+            --error: #ef4444;
+            --card-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            --badge-bg: rgba(255, 255, 255, 0.05);
+            --input-bg: rgba(255, 255, 255, 0.03);
+            --btn-secondary-bg: rgba(255, 255, 255, 0.1);
+        }
+
+        body.light-mode {
+            --bg-color: #f8fafc;
+            --glass-bg: rgba(255, 255, 255, 0.7);
+            --glass-border: rgba(0, 0, 0, 0.1);
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --accent-primary: #2563eb;
+            --card-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.05);
+            --badge-bg: rgba(255, 255, 255, 0.9);
+            --input-bg: rgba(0, 0, 0, 0.02);
+            --btn-secondary-bg: rgba(0, 0, 0, 0.05);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            background-image: radial-gradient(circle at 15% 50%, rgba(59, 130, 246, 0.1), transparent 25%),
+                              radial-gradient(circle at 85% 30%, rgba(16, 185, 129, 0.1), transparent 25%);
+            background-attachment: fixed;
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+            transition: background-color 0.4s ease, color 0.4s ease;
+            
+            /* Text Selection Off globally */
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        .glass {
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            box-shadow: var(--card-shadow);
+            transition: all 0.4s ease;
+        }
+
+        h1, h2, h3 { font-weight: 600; }
+        button { cursor: pointer; border: none; outline: none; transition: all 0.3s ease; }
+        
+        /* Enable text selection only inside inputs */
+        input { 
+            outline: none; 
+            -webkit-user-select: auto;
+            -moz-user-select: auto;
+            -ms-user-select: auto;
+            user-select: auto;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem;
+            width: 100%;
+        }
+
+        /* --- Top Brand Bar --- */
+        .brand-bar {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 0.8rem 1.2rem; margin-bottom: 0.8rem;
+            border-bottom: 1px solid var(--glass-border);
+            position: sticky; top: 0; z-index: 100;
+            background: var(--bg-color);
+        }
+        .brand-name {
+            font-size: 1.3rem; font-weight: 700; color: var(--text-primary);
+        }
+        .mode-switch-btn {
+            background: var(--btn-secondary-bg); color: var(--text-primary);
+            padding: 0.5rem; border-radius: 50%; display: flex;
+            align-items: center; justify-content: center; border: 1px solid var(--glass-border);
+        }
+
+        /* --- Login Modal --- */
+        #login-section {
+            position: fixed; inset: 0; display: none; align-items: center; justify-content: center;
+            z-index: 50; padding: 1rem; background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(8px); transition: opacity 0.5s ease;
+        }
+        body.light-mode #login-section { background: rgba(248, 250, 252, 0.8); }
+
+        .login-card { width: 100%; max-width: 380px; padding: 1.8rem 1.5rem; text-align: center; }
+        .login-card h2 { font-size: 1.5rem; margin-bottom: 0.2rem; color: var(--text-primary); }
+        .login-card p.subtitle { color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 1.5rem; }
+
+        .input-group { margin-bottom: 1.25rem; text-align: left; }
+        .input-group label { display: block; font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 0.5rem; text-transform: uppercase; }
+        .input-group input {
+            width: 100%; padding: 0.8rem 1rem; background: var(--input-bg);
+            border: 1px solid var(--glass-border); border-radius: 8px;
+            color: var(--text-primary); font-size: 1rem;
+        }
+        .input-group input:focus { border-color: var(--accent-primary); }
+        .btn-primary {
+            width: 100%; padding: 0.85rem; background: var(--accent-primary);
+            color: white; font-size: 1rem; font-weight: 500; border-radius: 8px; margin-top: 0.5rem;
+        }
+        .error-message { color: var(--error); font-size: 0.85rem; margin-top: 1rem; min-height: 1.2rem; }
+
+        .btn-outline {
+            width: 100%; padding: 0.85rem; background: var(--btn-secondary-bg);
+            color: var(--text-primary); font-size: 0.9rem; font-weight: 500; 
+            border-radius: 8px; border: 1px solid var(--glass-border); margin-top: 1rem;
+        }
+        .btn-outline:hover { background: rgba(255,255,255,0.1); }
+
+        /* --- Dashboard Area --- */
+        #dashboard-section { display: none; flex-direction: column; gap: 1rem; animation: fadeIn 0.5s ease-in; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        /* Master Row */
+        .top-master-row {
+            display: flex; align-items: center; justify-content: space-between;
+            gap: 1rem; flex-wrap: wrap; width: 100%;
+            padding: 1rem; background: var(--glass-bg); border-radius: 12px;
+            border: 1px solid var(--glass-border);
+        }
+
+        .name-row {
+            display: flex; align-items: center; gap: 0.75rem;
+            flex-wrap: nowrap; 
+            width: 100%;
+        }
+        @media(min-width: 768px) { .name-row { width: auto; } }
+        
+        .name-row h1 {
+            font-size: 1.3rem; margin: 0; white-space: nowrap;
+            background: linear-gradient(to right, var(--text-primary), var(--text-secondary));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+
+        .phone-wrapper {
+            display: flex; align-items: center; gap: 0.4rem;
+            background: var(--btn-secondary-bg); padding: 4px 8px; 
+            border-radius: 20px; border: 1px solid var(--glass-border);
+            cursor: pointer; user-select: none;
+        }
+        .phone-text {
+            color: var(--text-primary); font-size: 0.85rem; font-weight: 500;
+            filter: blur(5px); transition: filter 0.3s ease; white-space: nowrap;
+        }
+        .phone-text.unblurred { filter: blur(0); }
+        .eye-icon { color: var(--text-secondary); display: flex; align-items: center; }
+
+        .btn-action-group { 
+            display: flex; gap: 0.5rem; flex-wrap: nowrap; width: 100%;
+        }
+        @media(min-width: 768px) { .btn-action-group { width: auto; } }
+        
+        .btn-result, .btn-affiliate {
+            flex: 1; display: inline-flex; align-items: center; justify-content: center; gap: 0.4rem;
+            padding: 0.6rem 0.5rem; border-radius: 8px;
+            font-size: 0.85rem; font-weight: 600; text-align: center; white-space: nowrap;
+        }
+        .btn-result { background: #f59e0b; color: white; border: none; }
+        .btn-result:hover { background: #d97706; }
+        .btn-affiliate { background: rgba(16, 185, 129, 0.15); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.3); }
+
+        .refresh-box {
+            display: flex; align-items: center; gap: 0.5rem; 
+            background: var(--btn-secondary-bg); padding: 0.5rem 1rem;
+            border-radius: 8px; border: 1px solid var(--glass-border);
+            cursor: pointer; width: 100%; justify-content: center;
+        }
+        @media(min-width: 768px) { .refresh-box { width: auto; } }
+        
+        .btn-refresh-icon { color: var(--accent-primary); display: flex; align-items: center; transition: transform 0.5s ease-in-out; }
+        .sync-status { font-size: 0.8rem; color: var(--text-secondary); font-weight: 500; }
+
+        .metrics-grid { display: grid; grid-template-columns: 1fr; gap: 1rem; }
+        @media(min-width: 768px) { .metrics-grid { grid-template-columns: repeat(2, 1fr); } }
+
+        .metric-card { padding: 1.25rem; display: flex; flex-direction: column; justify-content: center;}
+        .metric-card h3 { font-size: 0.85rem; color: var(--text-secondary); text-transform: uppercase; margin-bottom: 0.5rem; }
+        .metric-card .value {
+            font-size: 2rem; font-weight: 700;
+            background: linear-gradient(135deg, var(--text-primary), var(--text-secondary));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        .metric-card.highlight { border: 1px solid rgba(16, 185, 129, 0.4); background: rgba(16, 185, 129, 0.05); }
+        .metric-card.highlight .value { background: linear-gradient(135deg, #34d399, #059669); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .metric-card .sub-value { font-size: 0.75rem; color: var(--text-secondary); margin-top: 0.3rem; }
+        
+        .sales-breakdown {
+            display: flex; justify-content: space-between; margin-top: 1rem; padding-top: 1rem;
+            border-top: 1px solid var(--glass-border); font-size: 0.85rem;
+        }
+
+        .content-grid { display: grid; grid-template-columns: 1fr; gap: 1rem; margin-bottom: 1rem;}
+        @media(min-width: 1024px) { .content-grid { grid-template-columns: 2fr 1fr; } }
+        .chart-container { padding: 1rem; min-height: 280px; }
+        .chart-container h3 { margin-bottom: 1rem; font-size: 1rem; }
+        canvas { width: 100% !important; height: 240px !important; }
+
+        .activity-container { padding: 1rem; display: flex; flex-direction: column; max-height: 320px; }
+        .activity-container h3 { margin-bottom: 1rem; font-size: 1rem; }
+        .activity-list { list-style: none; overflow-y: auto; flex: 1; padding-right: 0.5rem; }
+        .activity-item { display: flex; justify-content: space-between; align-items: center; padding: 0.8rem 0; border-bottom: 1px solid var(--glass-border); }
+        .activity-item:last-child { border-bottom: none; }
+        .activity-date { font-size: 0.85rem; color: var(--text-secondary); }
+        .activity-amount {
+            font-weight: 600; color: #10b981; background: rgba(16, 185, 129, 0.1);
+            padding: 0.2rem 0.6rem; border-radius: 15px; font-size: 0.8rem;
+            border: 1px solid rgba(16, 185, 129, 0.2);
+        }
+
+        .badges-container { 
+            display: flex; gap: 0.8rem; flex-wrap: wrap; 
+            justify-content: center; margin-top: 1rem; margin-bottom: 2rem;
+        }
+        .badge {
+            background: var(--badge-bg); border: 1px solid var(--glass-border);
+            padding: 0.6rem 1rem; border-radius: 8px; font-size: 0.85rem; color: var(--text-primary);
+            display: flex; align-items: center; gap: 0.4rem; font-weight: 500;
+        }
+
+        /* --- Result View Modal --- */
+        #result-modal {
+            position: fixed; inset: 0; background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(10px); z-index: 200; display: none;
+            justify-content: center; align-items: center; padding: 1rem;
+            opacity: 0; transition: opacity 0.3s ease;
+        }
+        .modal-body {
+            display: flex; flex-direction: column; align-items: center; gap: 1rem;
+            transform: translateY(20px); transition: transform 0.3s ease;
+            width: 100%; max-width: 380px; position: relative;
+        }
+        
+        .close-modal { 
+            position: absolute; top: -15px; right: -10px; 
+            background: #ef4444; color: white; font-size: 1.2rem; 
+            border: none; cursor: pointer; border-radius: 50%;
+            width: 34px; height: 34px; display: flex; align-items: center; justify-content: center;
+            z-index: 999; box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+        }
+        
+        /* Capture Card - Image Background Implementation */
+        #capture-card {
+            background-color: #050b14; /* Fallback deep navy/black */
+            background-image: url('https://i.ibb.co/b5cZz9v2/file-00000000610c8211a535ec20664bbd02.png');
+            background-size: 100% 100%; 
+            background-position: center;
+            background-repeat: no-repeat;
+            border: none;
+            border-radius: 24px; /* Soft match to the border style */
+            width: 360px;
+            aspect-ratio: 9 / 16; /* Force Portrait mode */
+            display: flex; flex-direction: column; text-align: center; color: white;
+            position: relative; overflow: hidden;
+            padding: 4.5rem 2rem 2.5rem 2rem; /* Adjusted padding to fit inside the image's golden border */
+            justify-content: space-between;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+        }
+        
+        .card-brand { font-size: 1.25rem; font-weight: 700; color: #60a5fa; text-transform: uppercase; letter-spacing: 2px;}
+        .card-header h2 { font-size: 1.6rem; color: #fff; margin-bottom: 0.2rem; }
+        .card-header p { color: #94a3b8; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1.2px; }
+        
+        .card-earnings { margin: 1rem 0; padding: 1rem 0; border-top: 1px solid rgba(255,255,255,0.1); border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .card-earnings p { font-size: 0.85rem; color: #cbd5e1; margin-bottom: 0.5rem; text-transform: uppercase; }
+        .card-earnings h1 { 
+            font-size: 3rem; font-weight: 800; margin: 0; 
+            color: #fbbf24; 
+            text-shadow: 0 2px 10px rgba(245, 158, 11, 0.4);
+            transition: font-size 0.2s; 
+        }
+
+        .card-qr-section {
+            background: rgba(255, 255, 255, 0.05); padding: 1rem; border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.1); display: flex;
+            align-items: center; justify-content: space-between; gap: 0.8rem;
+            backdrop-filter: blur(5px);
+        }
+        .card-qr-text { text-align: left; }
+        .card-qr-text h4 { font-size: 1.1rem; color: #34d399; margin-bottom: 0.2rem; font-weight: 700;}
+        .card-qr-text p { font-size: 0.7rem; color: #94a3b8; line-height: 1.4; }
+        .qr-img-box { background: #fff; padding: 4px; border-radius: 8px; width: 70px; height: 70px; flex-shrink: 0;}
+        .qr-img-box img { width: 100%; height: 100%; object-fit: contain; }
+
+        /* Modal Actions */
+        .modal-actions { display: flex; gap: 0.8rem; width: 100%; }
+        .btn-modal { padding: 0.8rem 1rem; border-radius: 8px; font-size: 0.9rem; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 0.4rem; flex: 1; border: none; color: white;}
+        .btn-download { background: #3b82f6; }
+        .btn-modal-share { background: #10b981; }
+
+        #loader {
+            position: fixed; inset: 0; background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(5px); z-index: 100; display: none;
+            justify-content: center; align-items: center; flex-direction: column; gap: 1rem; color: white;
+        }
+        .spinner {
+            width: 40px; height: 40px; border: 3px solid rgba(255,255,255,0.1);
+            border-top-color: #3b82f6; border-radius: 50%; animation: spin 1s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+    </style>
+</head>
+<body>
+
+    <!-- Loading Overlay -->
+    <div id="loader">
+        <div class="spinner"></div>
+        <p>Syncing Data...</p>
+    </div>
+
+    <!-- Garmi Guard Top Brand Bar (Fixed) -->
+    <div class="brand-bar">
+        <div class="brand-name">Garmi Guard Dashboard</div>
+        <button id="theme-toggle" class="mode-switch-btn" title="Toggle Mode">
+            <svg id="theme-icon" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+        </button>
+    </div>
+
+    <!-- Login Section -->
+    <div id="login-section">
+        <div class="login-card glass" id="login-card-container">
+            
+            <!-- Standard Login View -->
+            <div id="login-form-view">
+                <h2>Affiliate Portal</h2>
+                <p class="subtitle">Secure access to your dashboard</p>
+                <div class="input-group">
+                    <label>Full Name</label>
+                    <input type="text" id="affiliate-name" placeholder="John Doe" autocomplete="off">
+                </div>
+                <div class="input-group">
+                    <label>Phone Number</label>
+                    <input type="tel" id="phone-number" placeholder="Enter 10-digit number" autocomplete="off">
+                </div>
+                <button id="login-btn" class="btn-primary">Continue</button>
+                <p id="login-error" class="error-message"></p>
+            </div>
+
+            <!-- Auto Login View -->
+            <div id="auto-login-view" style="display: none; padding: 1rem 0;">
+                <div class="spinner" id="auto-login-spinner" style="margin: 0 auto 1.5rem auto; border-top-color: #10b981;"></div>
+                <h2 id="auto-login-text" style="font-size: 1.4rem; margin-bottom: 0.5rem; color: var(--text-primary);">Loading Your Data...</h2>
+                <p id="auto-login-error" class="error-message" style="margin-bottom: 1.5rem;"></p>
+                <button id="auto-login-refresh-btn" class="btn-outline">
+                    <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="vertical-align: middle; margin-right: 5px;"><path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+                    Refresh
+                </button>
+                <button id="auto-login-back-btn" class="btn-primary" style="display: none; background: #ef4444; box-shadow: 0 0 15px rgba(239,68,68,0.3);">Go to Manual Login</button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Result View Modal (Popup) -->
+    <div id="result-modal">
+        <div class="modal-body" id="modal-content-body">
+            <button class="close-modal" id="close-modal-btn">&times;</button>
+            
+            <div id="capture-card">
+                <div>
+                    <div class="card-brand">☀️ Garmi Guard</div>
+                    <div class="card-header">
+                        <h2 id="card-disp-name">User Name</h2>
+                        <p>Verified Partner</p>
+                    </div>
+                </div>
+                
+                <div class="card-earnings">
+                    <p>Total Lifetime Earnings</p>
+                    <h1 id="card-disp-earning">₹0</h1>
+                </div>
+
+                <div class="card-qr-section">
+                    <div class="card-qr-text">
+                        <h4>Scan to Join!</h4>
+                        <p>And Start Earning Using Garmi Guard</p>
+                    </div>
+                    <div class="qr-img-box">
+                        <img id="qr-code-image" src="" alt="QR Code" crossorigin="anonymous">
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-actions">
+                <button id="download-card-btn" class="btn-modal btn-download">
+                    <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                    Download
+                </button>
+                <button id="share-card-btn" class="btn-modal btn-modal-share">
+                    <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"></path></svg>
+                    Share
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dashboard Section -->
+    <div class="container">
+        <div id="dashboard-section">
+            
+            <!-- Unified Master Row -->
+            <div class="top-master-row">
+                <div class="name-row">
+                    <h1 id="disp-name">Loading...</h1>
+                    <div class="phone-wrapper" id="phone-toggle-wrapper">
+                        <span id="disp-phone" class="phone-text">0000000000</span>
+                        <div class="eye-icon">
+                            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="btn-action-group">
+                    <button id="result-view-btn" class="btn-result">
+                        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"></path></svg>
+                        View Results
+                    </button>
+                    <button id="go-affiliate-btn" class="btn-affiliate">
+                        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                        Go to Affiliate Page
+                    </button>
+                </div>
+
+                <div class="refresh-box" id="refresh-box-trigger">
+                    <div class="btn-refresh-icon">
+                        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+                    </div>
+                    <span id="disp-sync" class="sync-status">Last Updated: Just now</span>
+                </div>
+            </div>
+
+            <!-- Metrics Cards (Combined) -->
+            <div class="metrics-grid">
+                <div class="metric-card glass highlight">
+                    <h3>Lifetime Earning</h3>
+                    <div class="value" id="val-lifetime-earning" data-value="0">₹0</div>
+                    <div class="sub-value">Total Exact 30% Commission</div>
+                </div>
+                
+                <div class="metric-card glass">
+                    <h3>Total Sales</h3>
+                    <div class="value" id="val-total-sales" data-value="0">0</div>
+                    <div class="sales-breakdown">
+                        <span style="color: #3b82f6; font-weight: 500;">● Offer: <span id="val-offer-sales">0</span></span>
+                        <span style="color: #10b981; font-weight: 500;">● Normal: <span id="val-normal-sales">0</span></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Charts & Activity -->
+            <div class="content-grid">
+                <div class="chart-container glass">
+                    <h3>Sales Trend</h3>
+                    <canvas id="salesChart"></canvas>
+                </div>
+
+                <div class="activity-container glass">
+                    <h3>Recent Activity</h3>
+                    <ul class="activity-list" id="activity-list">
+                        <!-- Populated dynamically -->
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Badges Moved to Bottom -->
+            <div class="badges-container">
+                <span class="badge">💳 Minimum Payout: ₹100</span>
+                <span class="badge badge-highlight">⚡ Payments Received Daily Basis</span>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Application Logic -->
+    <script>
+        const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxHUdHb9Ko1TmeGd2qlgiHX8EZiEoMqJk8LcBnQS6B_LOecx_r0CpBKsvP3Mag1/exec";
+
+        // DOM Elements
+        const loginSection = document.getElementById('login-section');
+        const loginFormView = document.getElementById('login-form-view');
+        const autoLoginView = document.getElementById('auto-login-view');
+        const dashboardSection = document.getElementById('dashboard-section');
+        const loginBtn = document.getElementById('login-btn');
+        const errorMsg = document.getElementById('login-error');
+        const loader = document.getElementById('loader');
+        
+        // Modal Elements
+        const resultModal = document.getElementById('result-modal');
+        const resultViewBtn = document.getElementById('result-view-btn');
+        const closeModalBtn = document.getElementById('close-modal-btn');
+        const downloadCardBtn = document.getElementById('download-card-btn');
+        const shareCardBtn = document.getElementById('share-card-btn');
+        const goAffiliateBtn = document.getElementById('go-affiliate-btn');
+        const refreshBox = document.getElementById('refresh-box-trigger');
+        const phoneWrapper = document.getElementById('phone-toggle-wrapper');
+        const phoneText = document.getElementById('disp-phone');
+        const themeBtn = document.getElementById('theme-toggle');
+        const themeIcon = document.getElementById('theme-icon');
+        
+        let salesChartInstance = null;
+        let currentLifetimeEarningsNum = 0; 
+        let lastRefreshTime = 0; 
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem('garmiTheme');
+            if (savedTheme === 'light') {
+                document.body.classList.add('light-mode');
+                themeIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>';
+            }
+
+            // Check URL parameters for Auto-Login override
+            const urlParams = new URLSearchParams(window.location.search);
+            const urlName = urlParams.get('n');
+            const urlPhone = urlParams.get('p');
+
+            if (urlName && urlPhone) {
+                const cleanPhone = urlPhone.replace(/\D/g, '');
+                if (cleanPhone.length === 10) {
+                    const encodedPhone = encodePhoneNumber(cleanPhone);
+                    // Show auto login loader UI instead of the form
+                    loginFormView.style.display = 'none';
+                    autoLoginView.style.display = 'block';
+                    loginSection.style.display = 'flex';
+                    
+                    authenticateAndFetch(urlName, cleanPhone, encodedPhone, true);
+                    return; // Stop further execution, wait for fetch
+                }
+            }
+
+            // Fallback to cache if no valid auto-login params
+            const cachedPhone = localStorage.getItem('encodedPhone');
+            if (cachedPhone) {
+                showDashboard();
+                loadFromCache();
+            } else {
+                loginSection.style.display = 'flex';
+            }
+        });
+
+        // Theme Toggle Logic
+        themeBtn.addEventListener('click', () => {
+            document.body.classList.toggle('light-mode');
+            const isLight = document.body.classList.contains('light-mode');
+            localStorage.setItem('garmiTheme', isLight ? 'light' : 'dark');
+            
+            if (isLight) {
+                themeIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>';
+            } else {
+                themeIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>';
+            }
+            if (salesChartInstance) renderChart(JSON.parse(localStorage.getItem('dashboardCache')).chartData);
+        });
+
+        phoneWrapper.addEventListener('click', (e) => {
+            e.stopPropagation();
+            phoneText.classList.toggle('unblurred');
+        });
+        document.addEventListener('click', () => {
+            if (phoneText.classList.contains('unblurred')) phoneText.classList.remove('unblurred');
+        });
+
+        // Auto Login Actions
+        document.getElementById('auto-login-refresh-btn').addEventListener('click', () => {
+            window.location.reload(); // simple page reload triggers logic again
+        });
+
+        document.getElementById('auto-login-back-btn').addEventListener('click', () => {
+            window.history.replaceState({}, document.title, window.location.pathname);
+            autoLoginView.style.display = 'none';
+            loginFormView.style.display = 'block';
+        });
+
+        function encodePhoneNumber(phone) {
+            return Array.from(phone).map(digit => {
+                const num = parseInt(digit);
+                if (isNaN(num)) return '';
+                return String.fromCharCode(65 + num);
+            }).join('');
+        }
+
+        function formatCurrencyExact(amount) {
+            return new Intl.NumberFormat('en-IN', {
+                style: 'currency', currency: 'INR', 
+                minimumFractionDigits: amount % 1 === 0 ? 0 : 2, 
+                maximumFractionDigits: 2
+            }).format(amount);
+        }
+
+        function animateValue(obj, start, end, duration, isCurrency = false) {
+            let startTimestamp = null;
+            const step = (timestamp) => {
+                if (!startTimestamp) startTimestamp = timestamp;
+                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                const easeOut = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
+                const current = start + (end - start) * easeOut;
+                obj.innerHTML = isCurrency ? formatCurrencyExact(current) : Math.floor(current);
+                if (progress < 1) window.requestAnimationFrame(step);
+                else obj.innerHTML = isCurrency ? formatCurrencyExact(end) : end;
+            };
+            window.requestAnimationFrame(step);
+        }
+
+        loginBtn.addEventListener('click', async () => {
+            const name = document.getElementById('affiliate-name').value.trim();
+            const phone = document.getElementById('phone-number').value.trim();
+            if (!name || !phone) { errorMsg.textContent = 'Please enter both name and phone number.'; return; }
+            const cleanPhone = phone.replace(/\D/g, '');
+            if (cleanPhone.length < 10) { errorMsg.textContent = 'Please enter a valid phone number.'; return; }
+            const encodedPhone = encodePhoneNumber(cleanPhone);
+            errorMsg.textContent = '';
+            await authenticateAndFetch(name, cleanPhone, encodedPhone, false);
+        });
+
+        refreshBox.addEventListener('click', async () => {
+            const now = Date.now();
+            if (now - lastRefreshTime < 60000 && lastRefreshTime !== 0) {
+                const remaining = Math.ceil((60000 - (now - lastRefreshTime))/1000);
+                document.getElementById('disp-sync').textContent = `Wait ${remaining}s...`;
+                setTimeout(() => { document.getElementById('disp-sync').textContent = `Last Updated: ${localStorage.getItem('lastSync') || 'Just now'}`; }, 2000);
+                return;
+            }
+            lastRefreshTime = now;
+            const encodedPhone = localStorage.getItem('encodedPhone');
+            if (encodedPhone) await syncData(encodedPhone);
+        });
+
+        // ---------------- MODAL & SHARE LOGIC ----------------
+        
+        function getAffiliateLink() {
+            const encodedPhone = localStorage.getItem('encodedPhone') || '';
+            const baseUrl = window.location.origin; 
+            return `${baseUrl}/Affiliate.html?aff=${encodedPhone}`;
+        }
+
+        goAffiliateBtn.addEventListener('click', () => { window.location.href = getAffiliateLink(); });
+
+        resultViewBtn.addEventListener('click', () => {
+            const name = localStorage.getItem('affiliateName') || 'Affiliate';
+            document.getElementById('card-disp-name').textContent = name;
+            
+            const earningEl = document.getElementById('card-disp-earning');
+            const formattedEarning = formatCurrencyExact(currentLifetimeEarningsNum);
+            earningEl.textContent = formattedEarning;
+            
+            // Dynamic Font Sizing
+            if (formattedEarning.length >= 10) earningEl.style.fontSize = "2.1rem";
+            else if (formattedEarning.length >= 8) earningEl.style.fontSize = "2.5rem";
+            else earningEl.style.fontSize = "3rem";
+            
+            const affLink = encodeURIComponent(getAffiliateLink());
+            document.getElementById('qr-code-image').src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${affLink}&bgcolor=ffffff&color=000000&margin=0`;
+
+            resultModal.style.display = 'flex';
+            setTimeout(() => {
+                resultModal.style.opacity = '1';
+                document.getElementById('modal-content-body').style.transform = 'translateY(0)';
+            }, 10);
+        });
+
+        closeModalBtn.addEventListener('click', () => {
+            resultModal.style.opacity = '0';
+            document.getElementById('modal-content-body').style.transform = 'translateY(20px)';
+            setTimeout(() => { resultModal.style.display = 'none'; }, 300);
+        });
+
+        downloadCardBtn.addEventListener('click', async () => {
+            const card = document.getElementById('capture-card');
+            try {
+                downloadCardBtn.innerHTML = "Processing...";
+                
+                // Allow cross-origin to fetch the background image properly
+                const canvas = await html2canvas(card, { 
+                    scale: 2, 
+                    useCORS: true, 
+                    allowTaint: true,
+                    backgroundColor: null 
+                });
+                const link = document.createElement('a');
+                
+                // Add Unique Date-Time String to prevent overwrite issues
+                const d = new Date();
+                const pad = (n) => n.toString().padStart(2, '0');
+                const timeString = `${d.getFullYear()}${pad(d.getMonth()+1)}${pad(d.getDate())}_${pad(d.getHours())}${pad(d.getMinutes())}${pad(d.getSeconds())}`;
+                
+                link.download = `GarmiGuard_${localStorage.getItem('affiliateName')}_${timeString}.png`;
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+            } catch (err) { 
+                alert("Failed to download image. Ensure background image is accessible."); 
+                console.error(err);
+            } 
+            finally {
+                downloadCardBtn.innerHTML = `<svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg> Download`;
+            }
+        });
+
+        shareCardBtn.addEventListener('click', async () => {
+            const card = document.getElementById('capture-card');
+            const affLink = getAffiliateLink();
+            const fixedText = `☀️ Garmi Guard Partner!\nI'm earning daily through this amazing platform. My total earnings are ${formatCurrencyExact(currentLifetimeEarningsNum)}. Scan my QR or click the link to join me now!\nSolve Others Summer Problem And earn money now`;
+
+            try {
+                shareCardBtn.innerHTML = "Sharing...";
+                const canvas = await html2canvas(card, { scale: 2, useCORS: true, allowTaint: true, backgroundColor: null });
+                canvas.toBlob(async (blob) => {
+                    const file = new File([blob], "GarmiGuard_Earnings.png", { type: "image/png" });
+                    const shareData = { title: 'Join Garmi Guard!', text: fixedText, url: affLink };
+                    if (navigator.canShare && navigator.canShare({ files: [file] })) shareData.files = [file];
+
+                    if (navigator.share) await navigator.share(shareData);
+                    else { navigator.clipboard.writeText(`${fixedText}\nLink: ${affLink}`); alert("Link and text copied to clipboard!"); }
+                    shareCardBtn.innerHTML = `<svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367-2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"></path></svg> Share`;
+                }, 'image/png');
+            } catch (err) {
+                if (navigator.share) navigator.share({ title: 'Join Garmi Guard!', text: fixedText, url: affLink });
+                shareCardBtn.innerHTML = `<svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"></path></svg> Share`;
+            }
+        });
+
+        // ---------------- DATA FETCHING ----------------
+
+        async function authenticateAndFetch(name, phone, encodedPhone, isAutoLogin = false) {
+            if (!isAutoLogin) {
+                setLoading(true);
+            } else {
+                document.getElementById('auto-login-text').textContent = "Loading Your Data...";
+                document.getElementById('auto-login-error').textContent = "";
+                document.getElementById('auto-login-spinner').style.display = "block";
+                document.getElementById('auto-login-back-btn').style.display = "none";
+            }
+            
+            try {
+                const response = await fetch(APPS_SCRIPT_URL, { method: 'POST', body: JSON.stringify({ encodedPhone }), headers: { 'Content-Type': 'text/plain;charset=utf-8' } });
+                const result = await response.json();
+                if (result.success) {
+                    localStorage.setItem('affiliateName', name);
+                    localStorage.setItem('phone', phone);
+                    localStorage.setItem('encodedPhone', encodedPhone);
+                    localStorage.setItem('loginTime', new Date().getTime());
+                    saveCache(result.data);
+                    
+                    if(isAutoLogin) window.history.replaceState({}, document.title, window.location.pathname);
+                    
+                    showDashboard();
+                    renderDashboard(result.data, true);
+                } else { 
+                    if(isAutoLogin) {
+                        document.getElementById('auto-login-spinner').style.display = "none";
+                        document.getElementById('auto-login-text').textContent = "Data Verification Failed";
+                        document.getElementById('auto-login-error').textContent = result.message || "Account not found.";
+                        document.getElementById('auto-login-back-btn').style.display = "block";
+                    } else {
+                        errorMsg.textContent = result.message || 'Login failed.'; 
+                    }
+                }
+            } catch (err) { 
+                if(isAutoLogin) {
+                    document.getElementById('auto-login-spinner').style.display = "none";
+                    document.getElementById('auto-login-text').textContent = "Connection Error";
+                    document.getElementById('auto-login-error').textContent = "Please check your network and try again.";
+                    document.getElementById('auto-login-back-btn').style.display = "block";
+                } else {
+                    errorMsg.textContent = 'Network error. Please try again later.'; 
+                }
+            } 
+            finally { 
+                if (!isAutoLogin) setLoading(false); 
+            }
+        }
+
+        async function syncData(encodedPhone) {
+            const icon = document.querySelector('.btn-refresh-icon');
+            icon.style.transform = "rotate(360deg)";
+            try {
+                const response = await fetch(APPS_SCRIPT_URL, { method: 'POST', body: JSON.stringify({ encodedPhone }), headers: { 'Content-Type': 'text/plain;charset=utf-8' } });
+                const result = await response.json();
+                if (result.success) {
+                    saveCache(result.data);
+                    renderDashboard(result.data, true); 
+                } else { alert('Sync failed: ' + result.message); }
+            } catch (err) { alert('Sync failed. Check network connection.'); } 
+            finally { setTimeout(() => { icon.style.transform = "none"; }, 500); }
+        }
+
+        function saveCache(data) {
+            localStorage.setItem('dashboardCache', JSON.stringify(data));
+            const now = new Date();
+            const timeString = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            localStorage.setItem('lastSync', timeString);
+        }
+
+        function loadFromCache() {
+            const cache = localStorage.getItem('dashboardCache');
+            if (cache) {
+                try { renderDashboard(JSON.parse(cache), true); } catch(e) { localStorage.removeItem('dashboardCache'); }
+            } else {
+                const encodedPhone = localStorage.getItem('encodedPhone');
+                if(encodedPhone) syncData(encodedPhone);
+            }
+        }
+
+        function showDashboard() {
+            loginSection.style.opacity = '0';
+            setTimeout(() => {
+                loginSection.style.display = 'none';
+                dashboardSection.style.display = 'flex';
+                document.getElementById('disp-name').textContent = localStorage.getItem('affiliateName') || 'Affiliate';
+                document.getElementById('disp-phone').textContent = localStorage.getItem('phone') || '';
+            }, 300);
+        }
+
+        function renderDashboard(data, animate = false) {
+            const lastSync = localStorage.getItem('lastSync') || 'Just now';
+            document.getElementById('disp-sync').textContent = `Last Updated: ${lastSync}`;
+
+            let calcOfferSales = 0; let calcNormalSales = 0;
+            let calcTotalSales = 0; let calcTotalCommission = 0;
+
+            if (data.recentActivity && data.recentActivity.length > 0) {
+                calcTotalSales = data.recentActivity.length;
+                data.recentActivity.forEach(item => {
+                    let amt = parseFloat(item.amount) || 0;
+                    calcTotalCommission += (amt * 0.30);
+                    if (amt <= 199) calcOfferSales++; else calcNormalSales++;
+                });
+            }
+
+            currentLifetimeEarningsNum = calcTotalCommission;
+
+            const elEarning = document.getElementById('val-lifetime-earning');
+            const elTotal = document.getElementById('val-total-sales');
+            const elOffer = document.getElementById('val-offer-sales');
+            const elNormal = document.getElementById('val-normal-sales');
+
+            if (animate) {
+                animateValue(elEarning, 0, calcTotalCommission, 5000, true);
+                animateValue(elTotal, 0, calcTotalSales, 5000, false);
+                if(elOffer) animateValue(elOffer, 0, calcOfferSales, 5000, false);
+                if(elNormal) animateValue(elNormal, 0, calcNormalSales, 5000, false);
+            } else {
+                elEarning.textContent = formatCurrencyExact(calcTotalCommission);
+                elTotal.textContent = calcTotalSales;
+                if(elOffer) elOffer.textContent = calcOfferSales;
+                if(elNormal) elNormal.textContent = calcNormalSales;
+            }
+
+            const activityList = document.getElementById('activity-list');
+            activityList.innerHTML = '';
+            if (data.recentActivity && data.recentActivity.length > 0) {
+                data.recentActivity.forEach(item => {
+                    const li = document.createElement('li'); li.className = 'activity-item';
+                    const dateDiv = document.createElement('div'); dateDiv.className = 'activity-date'; dateDiv.textContent = item.date;
+                    const amountDiv = document.createElement('div'); amountDiv.className = 'activity-amount'; amountDiv.textContent = formatCurrencyExact(item.amount);
+                    li.appendChild(dateDiv); li.appendChild(amountDiv); activityList.appendChild(li);
+                });
+            } else {
+                activityList.innerHTML = '<li class="activity-item"><div class="activity-date">No recent activity</div></li>';
+            }
+            renderChart(data.chartData);
+        }
+
+        function renderChart(chartData) {
+            const ctx = document.getElementById('salesChart').getContext('2d');
+            if (salesChartInstance) salesChartInstance.destroy();
+            
+            const isLightMode = document.body.classList.contains('light-mode');
+            const lineColor = '#3b82f6';
+            const gridColor = isLightMode ? 'rgba(0,0,0,0.05)' : 'rgba(255,255,255,0.05)';
+            const tickColor = isLightMode ? '#64748b' : '#94a3b8';
+            
+            const gradient = ctx.createLinearGradient(0, 0, 0, 300);
+            gradient.addColorStop(0, isLightMode ? 'rgba(59, 130, 246, 0.3)' : 'rgba(59, 130, 246, 0.5)'); 
+            gradient.addColorStop(1, 'rgba(59, 130, 246, 0.0)');
+
+            salesChartInstance = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: chartData.labels,
+                    datasets: [{
+                        label: 'Successful Sales', data: chartData.data, borderColor: lineColor,
+                        backgroundColor: gradient, borderWidth: 2, pointBackgroundColor: '#10b981',
+                        pointBorderColor: '#fff', pointRadius: 4, fill: true, tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true, maintainAspectRatio: false,
+                    plugins: { legend: { display: false }, tooltip: { backgroundColor: 'rgba(15, 23, 42, 0.9)', titleColor: '#fff', bodyColor: '#fff', titleFont: { family: 'Inter', size: 13 }, bodyFont: { family: 'Inter', size: 14 }, padding: 10, displayColors: false } },
+                    scales: { x: { grid: { color: gridColor }, ticks: { color: tickColor, font: { family: 'Inter' } } }, y: { grid: { color: gridColor }, ticks: { color: tickColor, font: { family: 'Inter' }, stepSize: 1 } } },
+                    interaction: { intersect: false, mode: 'index' },
+                }
+            });
+        }
+
+        function setLoading(isLoad) {
+            loader.style.display = isLoad ? 'flex' : 'none';
+            loginBtn.disabled = isLoad;
+        }
+    </script>
+</body>
+</html>

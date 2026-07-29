@@ -15,7 +15,8 @@
 :root{--bg:#faf5ec;--soft:#fffdf8;--surface:#fff;--surface2:#f5ecdc;--text:#13273a;--muted:#5c6d7c;--mute:#81909c;--border:rgba(14,34,51,.11);--navy:#0e2233;--navy2:#16344b;--orange:#ff7a2e;--coral:#ff5c46;--aqua:#2fb8d6;--leaf:#3fb07a;--sun:#ffc24b;--cta:linear-gradient(135deg,#ff8a3d,#ff5240);--shadow:0 24px 60px rgba(14,34,51,.13);--shadow2:0 10px 30px rgba(14,34,51,.10);--display:'Fraunces',Georgia,serif;--body:'Plus Jakarta Sans',system-ui,sans-serif;--header:66px}
 html[data-theme=dark]{--bg:#071320;--soft:#0a1a28;--surface:#0f2839;--surface2:#133046;--text:#eef4f8;--muted:#bac8d2;--mute:#8195a5;--border:rgba(255,255,255,.10);--shadow:0 28px 70px rgba(0,0,0,.48);--shadow2:0 12px 34px rgba(0,0,0,.34)}
 *{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}body{font-family:var(--body);background:var(--bg);color:var(--text);line-height:1.6;overflow-x:hidden}a{text-decoration:none;color:inherit}button,input{font:inherit}.container{width:min(1120px,100%);margin:auto;padding:0 22px}
-header{position:sticky;top:0;z-index:100;height:var(--header);display:flex;align-items:center;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(16px);border-bottom:1px solid var(--border)}.head{display:flex;align-items:center;justify-content:space-between}.brand{display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:800;letter-spacing:.02em}.sun{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle at 35% 30%,var(--sun),var(--orange));color:#fff;box-shadow:0 0 0 6px rgba(255,194,75,.11),0 7px 18px rgba(255,122,46,.25)}.head-actions{display:flex;align-items:center;gap:8px}.icon-btn{width:40px;height:40px;border:0;background:transparent;color:var(--text);border-radius:12px;display:grid;place-items:center;cursor:pointer;transition:.2s}.icon-btn:hover{color:var(--orange);transform:translateY(-2px)}
+header{position:sticky;top:0;z-index:100;height:var(--header);display:flex;align-items:center;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(16px);border-bottom:1px solid var(--border)}.head{display:flex;align-items:center;justify-content:space-between}.brand{display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:800;letter-spacing:.02em}.sun{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle at 35% 30%,var(--sun),var(--orange));color:#fff;box-shadow:0 0 0 6px rgba(255,194,75,.11),0 7px 18px rgba(255,122,46,.25)}.head-actions{display:flex;align-items:center;gap:10px}.icon-btn{width:40px;height:40px;border:0;background:transparent;color:var(--text);border-radius:12px;display:grid;place-items:center;cursor:pointer;transition:.2s}.icon-btn:hover{color:var(--orange);transform:translateY(-2px)}
+.btn-home-nav{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:999px;background:var(--cta);color:#fff!important;font-weight:700;font-size:0.88rem;transition:.2s;box-shadow:0 4px 12px rgba(255,122,46,.25)}.btn-home-nav:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(255,122,46,.35)}
 .hero{position:relative;overflow:hidden;padding:76px 0 64px;background:linear-gradient(155deg,var(--navy),var(--navy2));color:#fff}.hero:before{content:'';position:absolute;width:620px;height:620px;border-radius:50%;right:-230px;top:-260px;background:radial-gradient(circle,rgba(255,194,75,.36),transparent 65%)}.hero:after{content:'';position:absolute;width:560px;height:400px;left:-200px;bottom:-270px;background:radial-gradient(circle,rgba(47,184,214,.28),transparent 66%)}.hero-grid{position:relative;z-index:2;display:grid;grid-template-columns:1.15fr .85fr;gap:44px;align-items:center}.eyebrow{display:inline-flex;align-items:center;gap:8px;padding:7px 13px;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.08);border-radius:999px;color:#ffd890;font-weight:700;font-size:.75rem}.hero h1{font-family:var(--display);font-size:clamp(2.5rem,6vw,4.3rem);line-height:1.02;margin:20px 0 16px}.hero h1 span{background:linear-gradient(120deg,var(--sun),var(--orange));-webkit-background-clip:text;color:transparent}.hero p{color:rgba(255,255,255,.84);font-size:1.06rem;max-width:650px}.hero-cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:24px}.btn{border:0;border-radius:999px;padding:14px 22px;font-weight:800;display:inline-flex;align-items:center;justify-content:center;gap:9px;cursor:pointer;transition:.24s}.btn-primary{background:var(--cta);color:#fff;box-shadow:0 13px 30px rgba(255,82,64,.28)}.btn-primary:hover{transform:translateY(-2px);box-shadow:0 18px 40px rgba(255,82,64,.38)}.btn-soft{background:rgba(255,255,255,.10);color:#fff;border:1px solid rgba(255,255,255,.20)}
 .hero-card{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:26px;padding:22px;backdrop-filter:blur(12px);box-shadow:0 30px 70px rgba(0,0,0,.25)}.hero-card h3{font-family:var(--display);font-size:1.35rem;margin-bottom:14px}.mini-step{display:flex;gap:12px;padding:11px 0;border-bottom:1px solid rgba(255,255,255,.09)}.mini-step:last-child{border:0}.mini-num{width:34px;height:34px;border-radius:12px;display:grid;place-items:center;background:rgba(47,184,214,.18);color:#8ae7f5;font-weight:800}.mini-step strong{display:block;font-size:.88rem}.mini-step span{display:block;font-size:.75rem;color:rgba(255,255,255,.67);margin-top:2px}
 .section{padding:72px 0}.section-head{text-align:center;max-width:700px;margin:0 auto 38px}.section-head span{color:var(--orange);font-size:.74rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase}.section-head h2{font-family:var(--display);font-size:clamp(1.8rem,4vw,2.8rem);line-height:1.1;margin:10px 0}.section-head p{color:var(--muted)}.benefits{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.card{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:23px;box-shadow:0 4px 16px rgba(14,34,51,.04);transition:.28s}.card:hover{transform:translateY(-5px);box-shadow:var(--shadow2)}.card-icon{width:48px;height:48px;border-radius:15px;display:grid;place-items:center;margin-bottom:15px;background:rgba(47,184,214,.12);color:var(--aqua);font-size:1.2rem}.card:nth-child(2) .card-icon{background:rgba(255,122,46,.12);color:var(--orange)}.card:nth-child(3) .card-icon{background:rgba(63,176,122,.12);color:var(--leaf)}.card h3{font-size:1rem;margin-bottom:7px}.card p{font-size:.88rem;color:var(--muted)}
@@ -25,9 +26,11 @@ header{position:sticky;top:0;z-index:100;height:var(--header);display:flex;align
 .faq{max-width:760px;margin:auto}.faq-item{background:var(--surface);border:1px solid var(--border);border-radius:15px;margin-bottom:10px;overflow:hidden}.faq-q{width:100%;display:flex;justify-content:space-between;align-items:center;text-align:left;border:0;background:transparent;color:var(--text);padding:16px 18px;font-weight:800;cursor:pointer}.faq-a{display:none;padding:0 18px 16px;color:var(--muted);font-size:.88rem}.faq-item.open .faq-a{display:block}.faq-item.open .faq-q i{transform:rotate(45deg)}
 footer{background:var(--navy);color:#fff;padding:42px 0 24px}.footer-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:26px}.footer-brand{font-family:var(--display);font-size:1.3rem;margin-bottom:8px}.footer-grid p,.footer-grid a{color:rgba(255,255,255,.68);font-size:.82rem}.footer-grid a{display:block;padding:4px 0}.footer-grid h4{font-size:.86rem;margin-bottom:8px}.copy{text-align:center;border-top:1px solid rgba(255,255,255,.09);padding-top:18px;margin-top:24px;color:rgba(255,255,255,.50);font-size:.75rem}
 .live-notif{position:fixed;z-index:300;top:calc(var(--header) + 10px);right:18px;width:min(340px,calc(100% - 28px));background:var(--surface);border:1px solid var(--border);border-radius:15px;box-shadow:var(--shadow);padding:12px 14px;display:flex;align-items:center;gap:11px;opacity:0;transform:translateX(18px);pointer-events:none;transition:.3s}.live-notif.show{opacity:1;transform:none}.ln-icon{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;background:var(--cta);color:#fff}.ln-text{font-size:.8rem}.ln-text strong{display:block}.ln-text span{color:var(--muted);font-size:.72rem}
+.fixed-dashboard-btn {position: fixed;bottom: 24px;left: 50%;transform: translateX(-50%);z-index: 400;width: calc(100% - 44px);max-width: 400px;display: none;box-shadow: 0 16px 40px rgba(14, 34, 51, 0.4);border-radius: 999px;justify-content: center;font-size: 1.05rem;}
+.fixed-dashboard-btn.show {display: flex;animation: rise .45s ease;}
 @media(max-width:900px){.hero-grid,.join-grid{grid-template-columns:1fr}.join-copy{position:static}.benefits{grid-template-columns:repeat(2,1fr)}.how{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:620px){.container{padding:0 16px}.hero{padding:54px 0 46px}.hero-grid{gap:28px}.benefits{grid-template-columns:1fr}.how{grid-template-columns:1fr 1fr}.form-card{padding:21px}.section{padding:56px 0}.footer-grid{grid-template-columns:1fr}.live-notif{left:50%;right:auto;transform:translate(-50%,-10px)}.live-notif.show{transform:translate(-50%,0)}.link-actions{grid-template-columns:1fr}}
-@media(max-width:390px){.how{grid-template-columns:1fr}.brand span{font-size:.9rem}.head-actions .back-text{display:none}}
+@media(max-width:390px){.how{grid-template-columns:1fr}.brand span{font-size:.9rem}}
 
 .aff-kpi{display:flex;gap:14px;flex-wrap:wrap;margin-top:22px}.aff-kpi div{min-width:118px;padding:14px 16px;border-radius:18px;background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.16)}.aff-kpi b{display:block;font-size:1.45rem;color:var(--sun);font-family:var(--display)}.aff-kpi span{font-size:.75rem;color:rgba(255,255,255,.72)}
 .terms-strip{background:var(--surface);border:1px solid var(--border);border-radius:22px;padding:20px;display:flex;align-items:center;justify-content:space-between;gap:18px;box-shadow:var(--shadow2)}.terms-strip p{color:var(--muted);font-size:.88rem}.terms-strip .btn{white-space:nowrap}
@@ -37,27 +40,209 @@ footer{background:var(--navy);color:#fff;padding:42px 0 24px}.footer-grid{displa
 </style>
 </head>
 <body>
-<header><div class="container head"><a class="brand" href="index.html"><span class="sun"><i class="fa-solid fa-sun"></i></span><span>GARMI GUARD</span></a><div class="head-actions"><a class="icon-btn" href="index.html" aria-label="Back to home"><i class="fa-solid fa-arrow-left"></i></a><button class="icon-btn" id="themeBtn" aria-label="Toggle theme"><i class="fa-solid fa-circle-half-stroke"></i></button></div></div></header>
+<header>
+  <div class="container head">
+    <a class="brand" href="index.html">
+      <span class="sun"><i class="fa-solid fa-sun"></i></span>
+      <span>GARMI GUARD</span>
+    </a>
+    <div class="head-actions">
+      <a class="btn-home-nav" href="index.html" aria-label="Home">
+        <i class="fa-solid fa-house"></i> Home
+      </a>
+      <button class="icon-btn" id="themeBtn" aria-label="Toggle theme">
+        <i class="fa-solid fa-circle-half-stroke"></i>
+      </button>
+    </div>
+  </div>
+</header>
 
-<section class="hero"><div class="container hero-grid"><div><span class="eyebrow"><i class="fa-solid fa-handshake-angle"></i> GARMI GUARD Affiliate Program</span><h1>Create your link.<br><span>Share with purpose.</span></h1><p>Register once, create your unique GARMI GUARD referral link, and share it with people who genuinely need a structured summer survival system.</p><div class="hero-cta"><a class="btn btn-primary" href="#create-link"><i class="fa-solid fa-link"></i> Create Your Link</a><a class="btn btn-soft" href="#how"><i class="fa-solid fa-route"></i> How It Works</a></div><div class="aff-kpi"><div><b>30%</b><span>commission per sale</span></div><div><b>₹0</b><span>joining fee</span></div><div><b>₹100</b><span>minimum payout</span></div><div><b>UPI</b><span>payout details saved</span></div></div></div><div class="hero-card"><h3>A simple referral flow</h3><div class="mini-step"><span class="mini-num">1</span><div><strong>Register once</strong><span>Name, phone and payout UPI ID.</span></div></div><div class="mini-step"><span class="mini-num">2</span><div><strong>Create your link</strong><span>Your phone number is encoded safely into a simple A–J referral code in the URL.</span></div></div><div class="mini-step"><span class="mini-num">3</span><div><strong>Share responsibly</strong><span>Use WhatsApp, Instagram, YouTube or your own audience channels.</span></div></div><div class="mini-step"><span class="mini-num">4</span><div><strong>Eligible sales are reviewed</strong><span>Referral attribution is stored with the payment submission source.</span></div></div></div></div></section>
+<section class="hero">
+  <div class="container hero-grid">
+    <div>
+      <span class="eyebrow"><i class="fa-solid fa-handshake-angle"></i> GARMI GUARD Affiliate Program</span>
+      <h1>Create your link.<br><span>Share with purpose.</span></h1>
+      <p>Register once, create your unique GARMI GUARD referral link, and share it with people who genuinely need a structured summer survival system.</p>
+      <div class="hero-cta">
+        <a class="btn btn-primary" href="#create-link"><i class="fa-solid fa-link"></i> Generate Referral Link</a>
+        <a class="btn btn-soft" href="#how"><i class="fa-solid fa-route"></i> Explore Workflow</a>
+      </div>
+      <div class="aff-kpi">
+        <div><b>30%</b><span>commission per sale</span></div>
+        <div><b>₹0</b><span>joining fee</span></div>
+        <div><b>₹100</b><span>minimum payout</span></div>
+        <div><b>UPI</b><span>payout details saved</span></div>
+      </div>
+    </div>
+    <div class="hero-card">
+      <h3>A simple referral flow</h3>
+      <div class="mini-step"><span class="mini-num">1</span><div><strong>Register once</strong><span>Name, phone and payout UPI ID.</span></div></div>
+      <div class="mini-step"><span class="mini-num">2</span><div><strong>Create your link</strong><span>Your phone number is encoded safely into a simple A–J referral code in the URL.</span></div></div>
+      <div class="mini-step"><span class="mini-num">3</span><div><strong>Share responsibly</strong><span>Use WhatsApp, Instagram, YouTube or your own audience channels.</span></div></div>
+      <div class="mini-step"><span class="mini-num">4</span><div><strong>Eligible sales are reviewed</strong><span>Referral attribution is stored with the payment submission source.</span></div></div>
+    </div>
+  </div>
+</section>
 
-<section class="section"><div class="container"><div class="section-head"><span>Why join</span><h2>Why choose GARMI GUARD affiliate</h2><p>Direct 30% commission per sale, ₹100 minimum payout, clean referral links, simple UPI payout details and a product angle that is easy to explain in Indian summers.</p></div><div class="benefits"><article class="card"><div class="card-icon"><i class="fa-solid fa-link"></i></div><h3>Encoded Referral Link</h3><p>Your 10-digit phone number becomes a clean A–J code in the link. Sheet script decodes it for attribution.</p></article><article class="card"><div class="card-icon"><i class="fa-solid fa-wallet"></i></div><h3>30% Commission</h3><p>Every eligible sale through your referral source is tracked for direct 30% commission handling. Minimum payout is ₹100.</p></article><article class="card"><div class="card-icon"><i class="fa-solid fa-chart-line"></i></div><h3>Simple Tracking</h3><p>Referral code is retained in the checkout/payment submission source so you can match referred sales.</p></article></div></div></section>
+<section class="section">
+  <div class="container">
+    <div class="section-head">
+      <span>Why join</span>
+      <h2>Why choose GARMI GUARD affiliate</h2>
+      <p>Direct 30% commission per sale, ₹100 minimum payout, clean referral links, simple UPI payout details and a product angle that is easy to explain in Indian summers.</p>
+    </div>
+    <div class="benefits">
+      <article class="card"><div class="card-icon"><i class="fa-solid fa-link"></i></div><h3>Encoded Referral Link</h3><p>Your 10-digit phone number becomes a clean A–J code in the link. Sheet script decodes it for attribution.</p></article>
+      <article class="card"><div class="card-icon"><i class="fa-solid fa-wallet"></i></div><h3>30% Commission</h3><p>Every eligible sale through your referral source is tracked for direct 30% commission handling. Minimum payout is ₹100.</p></article>
+      <article class="card"><div class="card-icon"><i class="fa-solid fa-chart-line"></i></div><h3>Simple Tracking</h3><p>Referral code is retained in the checkout/payment submission source so you can match referred sales.</p></article>
+    </div>
+  </div>
+</section>
 
-<section class="section join" id="create-link"><div class="container join-grid"><div class="join-copy"><span class="eyebrow" style="color:var(--orange);border-color:rgba(255,122,46,.22);background:rgba(255,122,46,.08)"><i class="fa-solid fa-wand-magic-sparkles"></i> Create Your Link</span><h2>Your referral link starts here.</h2><p>Enter all three details once. After submission, your link is generated and saved on this device for quick access.</p><div class="check"><i class="fa-solid fa-circle-check"></i><span>10-digit phone validation</span></div><div class="check"><i class="fa-solid fa-circle-check"></i><span>UPI ID validation</span></div><div class="check"><i class="fa-solid fa-circle-check"></i><span>Separate affiliate spreadsheet</span></div><div class="check"><i class="fa-solid fa-circle-check"></i><span>Encoded referral code carried into checkout source data</span></div></div><div class="form-card">
-<div id="joinFormWrap"><h3>Join & create your link</h3><p>Fill the details once to generate your unique GARMI GUARD referral link.</p><div class="field"><label for="affName">Full Name</label><div class="input"><i class="fa-regular fa-user"></i><input id="affName" type="text" autocomplete="name" placeholder="Enter your full name"></div><div class="error" id="affNameErr">Please enter your name.</div></div><div class="field"><label for="affPhone">Phone Number</label><div class="input"><i class="fa-solid fa-phone"></i><input id="affPhone" type="tel" inputmode="numeric" maxlength="10" pattern="[0-9]{10}" autocomplete="tel" placeholder="10-digit phone number"></div><div class="error" id="affPhoneErr">Enter exactly 10 digits.</div></div><div class="field"><label for="affUpi">Payout UPI ID</label><div class="input"><i class="fa-solid fa-indian-rupee-sign"></i><input id="affUpi" type="text" inputmode="email" autocomplete="off" placeholder="example@upi"></div><div class="error" id="affUpiErr">Enter a valid UPI ID.</div></div><button class="btn btn-primary" style="width:100%;border-radius:15px" id="affSubmit"><i class="fa-solid fa-link"></i> Create My Affiliate Link</button><div class="status" id="affStatus"></div><p class="fine"><i class="fa-solid fa-shield-halved"></i> Keep your payout details accurate. Program eligibility and payout handling depend on verified referral records and current program terms.</p></div>
-<div class="link-panel" id="linkPanel"><h3>Your affiliate link is ready</h3><p>Save this link and use it whenever you share GARMI GUARD.</p><div class="profile-chip"><div class="profile-icon"><i class="fa-solid fa-user-check"></i></div><div><strong id="profileName">Affiliate</strong><span id="profileCode">Code: —</span></div></div><div class="link-box"><input id="affiliateLink" readonly><button class="copy-btn" id="copyLink" aria-label="Copy link"><i class="fa-regular fa-copy"></i></button></div><div class="link-actions"><button class="btn btn-primary" id="shareLink"><i class="fa-solid fa-paper-plane"></i> Share Link</button><button class="btn secondary" id="copyLink2"><i class="fa-solid fa-link"></i> Copy Link</button></div></div>
-</div></div></section>
+<section class="section join" id="create-link">
+  <div class="container join-grid">
+    <div class="join-copy">
+      <span class="eyebrow" style="color:var(--orange);border-color:rgba(255,122,46,.22);background:rgba(255,122,46,.08)"><i class="fa-solid fa-wand-magic-sparkles"></i> Create Your Link</span>
+      <h2>Your referral link starts here.</h2>
+      <p>Enter all three details once. After submission, your link is generated and saved on this device for quick access.</p>
+      <div class="check"><i class="fa-solid fa-circle-check"></i><span>10-digit phone validation</span></div>
+      <div class="check"><i class="fa-solid fa-circle-check"></i><span>UPI ID validation</span></div>
+      <div class="check"><i class="fa-solid fa-circle-check"></i><span>Separate affiliate spreadsheet</span></div>
+      <div class="check"><i class="fa-solid fa-circle-check"></i><span>Encoded referral code carried into checkout source data</span></div>
+    </div>
+    <div class="form-card">
+      <div id="joinFormWrap">
+        <h3>Join & create your link</h3>
+        <p>Fill the details once to generate your unique GARMI GUARD referral link.</p>
+        <div class="field">
+          <label for="affName">Full Name</label>
+          <div class="input"><i class="fa-regular fa-user"></i><input id="affName" type="text" autocomplete="name" placeholder="Enter your full name"></div>
+          <div class="error" id="affNameErr">Please enter your name.</div>
+        </div>
+        <div class="field">
+          <label for="affPhone">Phone Number</label>
+          <div class="input"><i class="fa-solid fa-phone"></i><input id="affPhone" type="tel" inputmode="numeric" maxlength="10" pattern="[0-9]{10}" autocomplete="tel" placeholder="10-digit phone number"></div>
+          <div class="error" id="affPhoneErr">Enter exactly 10 digits.</div>
+        </div>
+        <div class="field">
+          <label for="affUpi">Payout UPI ID</label>
+          <div class="input"><i class="fa-solid fa-indian-rupee-sign"></i><input id="affUpi" type="text" inputmode="email" autocomplete="off" placeholder="example@upi"></div>
+          <div class="error" id="affUpiErr">Enter a valid UPI ID.</div>
+        </div>
+        <button class="btn btn-primary" style="width:100%;border-radius:15px" id="affSubmit">
+          <i class="fa-solid fa-link"></i> Generate Affiliate Link
+        </button>
+        <div class="status" id="affStatus"></div>
+        <p class="fine"><i class="fa-solid fa-shield-halved"></i> Keep your payout details accurate. Program eligibility and payout handling depend on verified referral records and current program terms.</p>
+      </div>
 
-<section class="section" id="how"><div class="container"><div class="section-head"><span>How it works</span><h2>Four clear steps</h2><p>Simple enough to start immediately, structured enough to keep referral attribution clear.</p></div><div class="how"><article class="step"><div class="step-num">01</div><h3>Register</h3><p>Submit name, phone and UPI payout ID once.</p></article><article class="step"><div class="step-num">02</div><h3>Create Link</h3><p>Your unique referral code is attached to the website URL.</p></article><article class="step"><div class="step-num">03</div><h3>Share</h3><p>Share the link with relevant audiences without spam or misleading claims.</p></article><article class="step"><div class="step-num">04</div><h3>Track Source</h3><p>The referral code is retained as an affiliate source in checkout submission data.</p></article></div></div></section>
+      <div class="link-panel" id="linkPanel">
+        <h3>Your affiliate link is ready</h3>
+        <p>Save this link and use it whenever you share GARMI GUARD.</p>
+        <div class="profile-chip">
+          <div class="profile-icon"><i class="fa-solid fa-user-check"></i></div>
+          <div><strong id="profileName">Affiliate</strong><span id="profileCode">Code: —</span></div>
+        </div>
+        <div class="link-box">
+          <input id="affiliateLink" readonly>
+          <button class="copy-btn" id="copyLink" aria-label="Copy link"><i class="fa-regular fa-copy"></i></button>
+        </div>
+        <div class="link-actions">
+          <button class="btn btn-primary" id="shareLink"><i class="fa-solid fa-paper-plane"></i> Share Link</button>
+          <button class="btn secondary" id="copyLink2"><i class="fa-solid fa-link"></i> Copy Link</button>
+        </div>
+        <a id="goToDashboardBtn" href="#" class="btn" style="width:100%; margin-top:12px; background:var(--leaf); color:#fff; justify-content:center;">
+          <i class="fa-solid fa-gauge-high"></i> View Affiliate Dashboard
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
 
-<section class="section"><div class="container"><div class="terms-strip"><div><h3>Affiliate Program Terms</h3><p>Commission is 30% per eligible sale. Minimum payout is ₹100. Validation, payout timing, prohibited promotion and attribution rules are written clearly on the terms page.</p></div><a class="btn btn-primary" href="affiliate-terms.html"><i class="fa-solid fa-file-contract"></i> Read Affiliate Terms</a></div></div></section>
-<section class="section" style="background:var(--surface2)"><div class="container"><div class="section-head"><span>Questions</span><h2>Affiliate FAQ</h2></div><div class="faq"><div class="faq-item open"><button class="faq-q">Is registration free?<i class="fa-solid fa-plus"></i></button><div class="faq-a">There is no registration fee on this page. Program participation remains subject to GARMI GUARD affiliate terms and review.</div></div><div class="faq-item"><button class="faq-q">Where can I share my link?<i class="fa-solid fa-plus"></i></button><div class="faq-a">You can share it through your own legitimate channels such as WhatsApp, Instagram, YouTube, a blog or a community where the product is relevant. Avoid spam and misleading claims.</div></div><div class="faq-item"><button class="faq-q">How is my referral identified?<i class="fa-solid fa-plus"></i></button><div class="faq-a">Your 10-digit phone number is converted into an A–J code and carried in the URL as ref. Example: 0=A, 1=B, 2=C. The Sheet script decodes it back to the phone number for attribution.</div></div><div class="faq-item"><button class="faq-q">Why is my UPI ID collected?<i class="fa-solid fa-plus"></i></button><div class="faq-a">It is saved with your affiliate registration record as your preferred payout identifier. Keep it accurate and under your control.</div></div><div class="faq-item"><button class="faq-q">What is the minimum payout?<i class="fa-solid fa-plus"></i></button><div class="faq-a">Minimum payout is ₹100 after eligible referred sales are manually verified.</div></div></div></div></section>
+<section class="section" id="how">
+  <div class="container">
+    <div class="section-head">
+      <span>How it works</span>
+      <h2>Four clear steps</h2>
+      <p>Simple enough to start immediately, structured enough to keep referral attribution clear.</p>
+    </div>
+    <div class="how">
+      <article class="step"><div class="step-num">01</div><h3>Register Details</h3><p>Submit name, phone and UPI payout ID once.</p></article>
+      <article class="step"><div class="step-num">02</div><h3>Get Your Link</h3><p>Your unique referral code is attached to the website URL.</p></article>
+      <article class="step"><div class="step-num">03</div><h3>Promote & Share</h3><p>Share the link with relevant audiences without spam or misleading claims.</p></article>
+      <article class="step"><div class="step-num">04</div><h3>Track Sales</h3><p>The referral code is retained as an affiliate source in checkout submission data.</p></article>
+    </div>
+  </div>
+</section>
 
-<footer><div class="container"><div class="footer-grid"><div><div class="footer-brand">GARMI GUARD</div><p>Your Interactive Summer Survival System.</p></div><div><h4>Explore</h4><a href="index.html">Home</a><a href="about.html">About Us</a><a href="contact.html">Contact Us</a><a href="affiliate-terms.html">Affiliate Terms</a></div><div><h4>Legal</h4><a href="terms.html">Terms & Conditions</a><a href="privacy.html">Privacy Policy</a><a href="disclaimer.html">Disclaimer</a></div></div><div class="footer-instagram"><h4><i class="fa-brands fa-instagram"></i> Instagram Feed</h4><iframe class="footer-insta-frame" src="https://www.instagram.com/garmiguard.in/embed" loading="lazy" title="GARMI GUARD Instagram Feed"></iframe></div><div class="copy">© <span id="year"></span> GARMI GUARD. All rights reserved.</div></div></footer>
+<section class="section">
+  <div class="container">
+    <div class="terms-strip">
+      <div>
+        <h3>Affiliate Program Terms</h3>
+        <p>Commission is 30% per eligible sale. Minimum payout is ₹100. Validation, payout timing, prohibited promotion and attribution rules are written clearly on the terms page.</p>
+      </div>
+      <a class="btn btn-primary" href="affiliate-terms.html"><i class="fa-solid fa-file-contract"></i> Read Program Terms</a>
+    </div>
+  </div>
+</section>
 
-<div class="live-notif" id="liveNotif" aria-live="polite"><div class="ln-icon"><i class="fa-solid fa-link"></i></div><div class="ln-text"><strong id="lnTitle">Affiliate Tip</strong><span id="lnText">Create your unique link and keep it saved.</span></div></div>
+<section class="section" style="background:var(--surface2)">
+  <div class="container">
+    <div class="section-head">
+      <span>Questions</span>
+      <h2>Affiliate FAQ</h2>
+    </div>
+    <div class="faq">
+      <div class="faq-item open"><button class="faq-q">Is registration free?<i class="fa-solid fa-plus"></i></button><div class="faq-a">There is no registration fee on this page. Program participation remains subject to GARMI GUARD affiliate terms and review.</div></div>
+      <div class="faq-item"><button class="faq-q">Where can I share my link?<i class="fa-solid fa-plus"></i></button><div class="faq-a">You can share it through your own legitimate channels such as WhatsApp, Instagram, YouTube, a blog or a community where the product is relevant. Avoid spam and misleading claims.</div></div>
+      <div class="faq-item"><button class="faq-q">How is my referral identified?<i class="fa-solid fa-plus"></i></button><div class="faq-a">Your 10-digit phone number is converted into an A–J code and carried in the URL as ref. Example: 0=A, 1=B, 2=C. The Sheet script decodes it back to the phone number for attribution.</div></div>
+      <div class="faq-item"><button class="faq-q">Why is my UPI ID collected?<i class="fa-solid fa-plus"></i></button><div class="faq-a">It is saved with your affiliate registration record as your preferred payout identifier. Keep it accurate and under your control.</div></div>
+      <div class="faq-item"><button class="faq-q">What is the minimum payout?<i class="fa-solid fa-plus"></i></button><div class="faq-a">Minimum payout is ₹100 after eligible referred sales are manually verified.</div></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">GARMI GUARD</div>
+        <p>Your Interactive Summer Survival System.</p>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        <a href="index.html">Home</a>
+        <a href="about.html">About Us</a>
+        <a href="contact.html">Contact Us</a>
+        <a href="affiliate-terms.html">Affiliate Terms</a>
+      </div>
+      <div>
+        <h4>Legal</h4>
+        <a href="terms.html">Terms & Conditions</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="disclaimer.html">Disclaimer</a>
+      </div>
+    </div>
+    <div class="footer-instagram">
+      <h4><i class="fa-brands fa-instagram"></i> Instagram Feed</h4>
+      <iframe class="footer-insta-frame" src="https://www.instagram.com/garmiguard.in/embed" loading="lazy" title="GARMI GUARD Instagram Feed"></iframe>
+    </div>
+    <div class="copy">© <span id="year"></span> GARMI GUARD. All rights reserved.</div>
+  </div>
+</footer>
+
+<div class="live-notif" id="liveNotif" aria-live="polite">
+  <div class="ln-icon"><i class="fa-solid fa-link"></i></div>
+  <div class="ln-text"><strong id="lnTitle">Affiliate Tip</strong><span id="lnText">Create your unique link and keep it saved.</span></div>
+</div>
+
+<a id="fixedDashboardBtn" href="#" class="btn btn-primary fixed-dashboard-btn" style="background:var(--navy); color:#fff;">
+  <i class="fa-solid fa-gauge-high"></i> View Affiliate Dashboard
+</a>
+
 <script>
-const AFFILIATE_CONFIG=Object.freeze({scriptUrl:'https://script.google.com/macros/s/AKfycbx5ZlBwxSsFkKUzWEBGCXHpQ2BdH3ywHVNdGKjTXUeNrMejeJCuwjB2bNWTp2bGw8en/exec',siteBaseUrl:'https://garmiguard.pages.dev/'});
+const AFFILIATE_CONFIG=Object.freeze({scriptUrl:'https://script.google.com/macros/s/AKfycbyWkX3_jODazTprocacr9YpRGoHVoBL61ficz21IFcySKllFEUMW5QTSzoLtbfuQ2Ryvw/exec'});
 const $=s=>document.querySelector(s);
 function validPhone(v){return /^\d{10}$/.test(String(v||'').replace(/\D/g,''))}
 function validUpi(v){return /^[A-Za-z0-9._-]{2,}@[A-Za-z0-9.-]{2,}$/.test(String(v||'').trim())}
@@ -65,14 +250,98 @@ function cleanName(v){return String(v||'').trim().replace(/\s+/g,' ').slice(0,80
 function encodePhoneRef(phone){const map='ABCDEFGHIJ';const digits=String(phone||'').replace(/\D/g,'').slice(-10);return /^\d{10}$/.test(digits)?digits.split('').map(d=>map[Number(d)]).join(''):''}
 function decodePhoneRef(code){code=String(code||'').trim().toUpperCase();return /^[A-J]{10}$/.test(code)?code.split('').map(ch=>String(ch.charCodeAt(0)-65)).join(''):''}
 function makeCode(name,phone){return encodePhoneRef(phone)}
-function makeLink(code){return AFFILIATE_CONFIG.siteBaseUrl.replace(/\/$/,'/')+'?ref='+encodeURIComponent(code)}
-function showProfile(profile){$('#joinFormWrap').style.display='none';$('#linkPanel').classList.add('show');$('#profileName').textContent=profile.name;$('#profileCode').textContent='Ref code: '+profile.code+' · Phone: '+(decodePhoneRef(profile.code)||profile.phone||'');$('#affiliateLink').value=profile.link}
-async function submitAffiliate(){const name=cleanName($('#affName').value),phone=$('#affPhone').value.replace(/\D/g,''),upi=$('#affUpi').value.trim();$('#affNameErr').classList.toggle('show',name.length<2);$('#affPhoneErr').classList.toggle('show',!validPhone(phone));$('#affUpiErr').classList.toggle('show',!validUpi(upi));if(name.length<2||!validPhone(phone)||!validUpi(upi))return;const code=makeCode(name,phone),link=makeLink(code);const data={timestamp:new Date().toISOString(),name,phone,decodedPhone:decodePhoneRef(code),upiId:upi,affiliateCode:code,referralLink:link,source:'GARMI GUARD Affiliate Page',pageUrl:location.href,userAgent:navigator.userAgent,status:'Registered'};const btn=$('#affSubmit'),old=btn.innerHTML;btn.disabled=true;btn.innerHTML='<i class="fa-solid fa-spinner fa-spin"></i> Creating your link…';$('#affStatus').textContent='';try{if(AFFILIATE_CONFIG.scriptUrl&&/^https:\/\/script\.google\.com\//.test(AFFILIATE_CONFIG.scriptUrl)){await fetch(AFFILIATE_CONFIG.scriptUrl,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(data)})}localStorage.setItem('gg_affiliate_profile',JSON.stringify({name,phone,upi,code,link}));showProfile({name,phone,upi,code,link})}catch(e){$('#affStatus').textContent='Could not save right now. Please try again.';btn.disabled=false;btn.innerHTML=old}}
-function copyLink(){const v=$('#affiliateLink').value;navigator.clipboard?.writeText(v).then(()=>{showNotice('Link copied','Your affiliate link is ready to share.','fa-copy')})}
-function shareLink(){const url=$('#affiliateLink').value;if(navigator.share){navigator.share({title:'GARMI GUARD',text:'Explore GARMI GUARD — an interactive Summer Survival System.',url}).catch(()=>{})}else copyLink()}
-$('#affPhone').addEventListener('input',e=>e.target.value=e.target.value.replace(/\D/g,'').slice(0,10));$('#affSubmit').addEventListener('click',submitAffiliate);$('#copyLink').addEventListener('click',copyLink);$('#copyLink2').addEventListener('click',copyLink);$('#shareLink').addEventListener('click',shareLink);document.querySelectorAll('.faq-q').forEach(b=>b.addEventListener('click',()=>b.parentElement.classList.toggle('open')));
-$('#themeBtn').addEventListener('click',()=>{const next=document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark';document.documentElement.setAttribute('data-theme',next);localStorage.setItem('gg_theme',next)});document.documentElement.setAttribute('data-theme',localStorage.getItem('gg_theme')||'light');$('#year').textContent=new Date().getFullYear();
-try{const profile=JSON.parse(localStorage.getItem('gg_affiliate_profile')||'null');if(profile&&profile.name&&profile.code&&profile.link)showProfile(profile)}catch(e){}
-const notices=[['Create Your Link','Register once and keep your referral link saved.','fa-link'],['Share Responsibly','Share with audiences who may genuinely benefit from GARMI GUARD.','fa-paper-plane'],['Referral Source','Your ref code is carried into checkout source records.','fa-chart-line'],['Keep UPI Accurate','Use a payout UPI ID that you control.','fa-wallet'],['GARMI GUARD','Random hacks nahi, ek complete summer system.','fa-sun']];let nt=0,ni=-1;function showNotice(t,x,ic){const n=$('#liveNotif');$('#lnTitle').textContent=t;$('#lnText').textContent=x;n.querySelector('i').className='fa-solid '+ic;n.classList.add('show');setTimeout(()=>{n.classList.remove('show');scheduleNotice()},3200)}function scheduleNotice(){clearTimeout(nt);nt=setTimeout(()=>{let i;do{i=Math.floor(Math.random()*notices.length)}while(i===ni);ni=i;showNotice(...notices[i])},5000+Math.random()*20000)}scheduleNotice();
+function makeLink(code){return window.location.origin + '/?ref=' + encodeURIComponent(code)}
+function showProfile(profile){
+  $('#joinFormWrap').style.display='none';
+  $('#linkPanel').classList.add('show');
+  $('#profileName').textContent=profile.name;
+  const phoneDecoded = decodePhoneRef(profile.code) || profile.phone || '';
+  $('#profileCode').textContent='Ref code: '+profile.code+' · Phone: '+phoneDecoded;
+  $('#affiliateLink').value=profile.link;
+  
+  const dashUrl = 'Affiliate Dashboard.html?n=' + encodeURIComponent(profile.name) + '&p=' + encodeURIComponent(phoneDecoded);
+  $('#goToDashboardBtn').href = dashUrl;
+  $('#fixedDashboardBtn').href = dashUrl;
+  $('#fixedDashboardBtn').classList.add('show');
+}
+async function submitAffiliate(){
+  const name=cleanName($('#affName').value),phone=$('#affPhone').value.replace(/\D/g,''),upi=$('#affUpi').value.trim();
+  $('#affNameErr').classList.toggle('show',name.length<2);
+  $('#affPhoneErr').classList.toggle('show',!validPhone(phone));
+  $('#affUpiErr').classList.toggle('show',!validUpi(upi));
+  if(name.length<2||!validPhone(phone)||!validUpi(upi))return;
+  
+  const code=makeCode(name,phone),link=makeLink(code);
+  const data={timestamp:new Date().toISOString(),name,phone,decodedPhone:decodePhoneRef(code),upiId:upi,affiliateCode:code,referralLink:link,source:'GARMI GUARD Affiliate Page',pageUrl:location.href,userAgent:navigator.userAgent,status:'Registered'};
+  
+  const btn=$('#affSubmit'),old=btn.innerHTML;
+  btn.disabled=true;
+  btn.innerHTML='<i class="fa-solid fa-spinner fa-spin"></i> Generating link…';
+  $('#affStatus').textContent='';
+  
+  try{
+    if(AFFILIATE_CONFIG.scriptUrl&&/^https:\/\/script\.google\.com\//.test(AFFILIATE_CONFIG.scriptUrl)){
+      await fetch(AFFILIATE_CONFIG.scriptUrl,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(data)});
+    }
+    localStorage.setItem('gg_affiliate_profile',JSON.stringify({name,phone,upi,code,link}));
+    showProfile({name,phone,upi,code,link});
+  }catch(e){
+    $('#affStatus').textContent='Could not save right now. Please try again.';
+    btn.disabled=false;
+    btn.innerHTML=old;
+  }
+}
+
+function copyLink(){
+  const v=$('#affiliateLink').value;
+  navigator.clipboard?.writeText(v).then(()=>{showNotice('Link Copied','Your affiliate link is ready to share.','fa-copy')});
+}
+function shareLink(){
+  const url=$('#affiliateLink').value;
+  if(navigator.share){navigator.share({title:'GARMI GUARD',text:'Explore GARMI GUARD — an interactive Summer Survival System.',url}).catch(()=>{})}
+  else copyLink();
+}
+
+$('#affPhone').addEventListener('input',e=>e.target.value=e.target.value.replace(/\D/g,'').slice(0,10));
+$('#affSubmit').addEventListener('click',submitAffiliate);
+$('#copyLink').addEventListener('click',copyLink);
+$('#copyLink2').addEventListener('click',copyLink);
+$('#shareLink').addEventListener('click',shareLink);
+document.querySelectorAll('.faq-q').forEach(b=>b.addEventListener('click',()=>b.parentElement.classList.toggle('open')));
+
+$('#themeBtn').addEventListener('click',()=>{
+  const next=document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark';
+  document.documentElement.setAttribute('data-theme',next);
+  localStorage.setItem('gg_theme',next);
+});
+document.documentElement.setAttribute('data-theme',localStorage.getItem('gg_theme')||'light');
+$('#year').textContent=new Date().getFullYear();
+
+try{
+  const profile=JSON.parse(localStorage.getItem('gg_affiliate_profile')||'null');
+  if(profile&&profile.name&&profile.code&&profile.link)showProfile(profile);
+}catch(e){}
+
+const notices=[['Create Your Link','Register once and keep your referral link saved.','fa-link'],['Share Responsibly','Share with audiences who may genuinely benefit from GARMI GUARD.','fa-paper-plane'],['Referral Source','Your ref code is carried into checkout source records.','fa-chart-line'],['Keep UPI Accurate','Use a payout UPI ID that you control.','fa-wallet'],['GARMI GUARD','Random hacks nahi, ek complete summer system.','fa-sun']];
+let nt=0,ni=-1;
+function showNotice(t,x,ic){
+  const n=$('#liveNotif');
+  $('#lnTitle').textContent=t;
+  $('#lnText').textContent=x;
+  n.querySelector('i').className='fa-solid '+ic;
+  n.classList.add('show');
+  setTimeout(()=>{n.classList.remove('show');scheduleNotice()},3200);
+}
+function scheduleNotice(){
+  clearTimeout(nt);
+  nt=setTimeout(()=>{
+    let i;
+    do{i=Math.floor(Math.random()*notices.length)}while(i===ni);
+    ni=i;
+    showNotice(...notices[i]);
+  },5000+Math.random()*20000);
+}
+scheduleNotice();
 </script>
-</body></html>
+</body>
+</html>

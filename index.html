@@ -87,7 +87,18 @@ html[data-theme="dark"] {
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+/* ---- Content protection: disable text selection & image drag site-wide ---- */
+html, body {
+  -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;
+  -webkit-touch-callout: none;
+}
+/* Form fields stay fully selectable/editable so users can type, correct and paste normally */
+input, textarea, select, [contenteditable="true"] {
+  -webkit-user-select: text; -moz-user-select: text; -ms-user-select: text; user-select: text;
+}
+img, video { -webkit-user-drag: none; user-drag: none; }
 section[id] { scroll-margin-top: calc(var(--header-h) + 18px); }
+#demoCta { scroll-margin-top: calc(var(--header-h) + 18px); }
 body {
   font-family: var(--font-body);
   background: var(--bg);
@@ -99,15 +110,17 @@ body {
 }
 img { max-width: 100%; display: block; }
 a { color: inherit; text-decoration: none; }
-button { font-family: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+button { font-family: inherit; cursor: pointer; border: none; background: none; color: inherit; -webkit-tap-highlight-color: transparent; }
 input { font-family: inherit; }
 ul { list-style: none; }
+/* Touch-friendly minimum tap target across primary buttons/links on mobile */
+.btn, a.btn { min-height: 44px; }
 
 h1,h2,h3,.display { font-family: var(--font-display); font-weight: 600; line-height: 1.1; letter-spacing: -0.01em; }
 .num { font-family: var(--font-num); font-variant-numeric: tabular-nums; letter-spacing: -.02em; }
 
 .container { width: 100%; max-width: var(--maxw); margin: 0 auto; padding: 0 22px; }
-section { padding: 84px 0; position: relative; }
+section { padding: clamp(56px, 9vw, 84px) 0; position: relative; }
 .eyebrow {
   display: inline-flex; align-items: center; gap: 8px;
   font-family: var(--font-alt); font-weight: 600; font-size: .72rem;
@@ -242,11 +255,11 @@ html[data-theme="dark"] .theme-toggle .thumb { transform: translateX(30px); back
 .price-strike { font-family: var(--font-num); color: rgba(255,255,255,.55); text-decoration: line-through; font-size: 1.05rem; }
 .price-now { font-family: var(--font-num); font-weight: 800; font-size: 2.4rem; color: var(--sun); }
 .price-badge { background: rgba(63,176,122,.92); color: #fff; padding: 5px 12px; border-radius: 100px; font-size: .76rem; font-weight: 700; }
-.hero-timer-pill { display: none; align-items: center; gap: 8px; background: rgba(255,82,64,.92); color: #fff; padding: 8px 15px; border-radius: 100px; font-size: .84rem; font-weight: 600; margin-bottom: 22px; }
-.hero-timer-pill.show { display: inline-flex; }
+.hero-timer-group { display: none; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 22px; }
+.hero-timer-group.show { display: flex; }
+.hero-timer-box { display:inline-flex; align-items:center; justify-content:center; background: rgba(255,82,64,.94); color:#fff; padding:10px 20px; border-radius:100px; box-shadow:0 14px 30px rgba(255,82,64,.24); border:1px solid rgba(255,255,255,.16); }
+.hero-timer-warn { display:inline-flex; align-items:center; gap:7px; background:rgba(255,194,75,.16); color:#FFC24B; border:1px solid rgba(255,194,75,.32); padding:8px 16px; border-radius:100px; font-size:.78rem; font-weight:700; }
 .hero-cta-row { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 28px; }
-.hero-trust { display: flex; gap: 18px; flex-wrap: wrap; }
-.hero-trust span { display: inline-flex; align-items: center; gap: 7px; font-size: .86rem; color: rgba(255,255,255,.9); font-weight: 500; }
 
 .hero-visual { position: relative; display: grid; place-items: center; }
 .product-mock {
@@ -279,6 +292,7 @@ html[data-theme="dark"] .theme-toggle .thumb { transform: translateX(30px); back
 .ba-after-panel .ba-list { align-items: flex-end; text-align: right; }
 .ba-list { display: flex; flex-direction: column; gap: 11px; }
 .ba-list li { display: flex; align-items: center; gap: 10px; font-size: 1rem; font-weight: 500; }
+.ba-before-panel .ba-list li { flex-direction: row-reverse; justify-content: flex-end; }
 .ba-after-panel .ba-list li { flex-direction: row-reverse; }
 .ba-list li i { font-size: .82rem; opacity: .9; }
 .ba-handle { position: absolute; top: 0; bottom: 0; left: 50%; width: 4px; background: #fff; transform: translateX(-50%); z-index: 5; cursor: ew-resize; box-shadow: 0 0 0 1px rgba(0,0,0,.05); }
@@ -293,6 +307,8 @@ html[data-theme="dark"] .theme-toggle .thumb { transform: translateX(30px); back
 .card-3d:hover { transform: translateY(-6px); box-shadow: var(--shadow-md); }
 .vcard { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 26px 22px; box-shadow: var(--shadow-sm); }
 .vcard .vc-emoji { font-size: 1.9rem; margin-bottom: 12px; }
+@keyframes ggEmojiWobble { 0%,100% { transform: rotate(-6deg) scale(1); } 50% { transform: rotate(6deg) scale(1.08); } }
+.gg-emoji-spin { display:inline-block; animation: ggEmojiWobble 3s ease-in-out infinite; transform-origin:50% 60%; }
 .vcard h3 { font-family: var(--font-alt); font-weight: 700; font-size: 1.02rem; margin-bottom: 8px; }
 .vcard p { color: var(--text-soft); font-size: .9rem; }
 .vcard .vc-emoji { font-size:2.55rem; transform:rotate(0deg) scale(.96); transition:transform .55s cubic-bezier(.2,.9,.25,1.25); display:inline-block; }
@@ -353,6 +369,8 @@ html[data-theme="dark"] .theme-toggle .thumb { transform: translateX(30px); back
 .scrolly-spacer { height: 175vh; }
 #modules { background:var(--bg); }
 #modules .scrolly-wrap { padding-left:0; padding-right:0; max-width:none; }
+#gallery .gallery-track-wrap { padding-left:0; padding-right:0; max-width:none; }
+#gallery .gallery-track { padding-left:16px; padding-right:16px; }
 #modules .scrolly-stage { top:calc(var(--header-h) + 8px); height:410px; }
 #modules .mod-mobile { padding-left:0; padding-right:0; max-width:none; }
 #modules .mod-mobile-track { padding:0 0 18px; }
@@ -538,6 +556,7 @@ footer { background: var(--surface-2); padding: 56px 0 30px; border-top: 1px sol
 /* STICKY FLOATING CTA CAPSULE */
 .sticky-cta {
   position: fixed; bottom: 20px; left: 50%; z-index: 700;
+  bottom: calc(20px + env(safe-area-inset-bottom, 0px));
   transform: translate(-50%, 160%); transition: transform .45s cubic-bezier(.2,.8,.2,1);
 }
 .sticky-cta.show { transform: translate(-50%, 0); }
@@ -766,19 +785,29 @@ footer { background: var(--surface-2); padding: 56px 0 30px; border-top: 1px sol
 
 /* STICKY CTA */
 .sticky-capsule { max-width:min(94vw, 640px); }
-.sticky-offer-copy { display:none; font-size:.72rem; font-weight:800; color:var(--leaf); white-space:nowrap; }
-.sticky-offer-copy.show { display:inline-flex; }
+/* Offer active: plain inline green text, same line as the button, no background chip */
+.save-tab.save-tag-inline {
+  display: inline-flex; align-items: center;
+  background: none; color: var(--leaf); font-family: var(--font-num); font-weight: 800; font-size: .82rem;
+  padding: 0; border-radius: 0; box-shadow: none; white-space: nowrap;
+}
+/* Offer ended: floating tab overlapping the top of the Buy Now button, with background + z-index */
+.sticky-cta .save-tab.save-tag-float {
+  position: absolute; top: -13px; right: 14px; z-index: 6; display: inline-flex; align-items: center;
+  background: linear-gradient(135deg,var(--leaf),#2f9d68); color: #fff; font-family: var(--font-num); font-weight: 800; font-size: .72rem;
+  padding: 3px 12px; border-radius: 100px; box-shadow: 0 4px 12px rgba(63,176,122,.4); white-space: nowrap;
+}
 .sticky-timer { font-size:1.02rem; white-space:nowrap; }
 .sticky-cta .btn-cta { white-space:nowrap; min-width:max-content; }
 .sticky-capsule.public-mode { background:transparent; border:0; box-shadow:none; padding:0; backdrop-filter:none; }
 .sticky-capsule.public-mode .btn-cta { min-width:min(92vw, 420px); padding:15px 24px; font-size:1rem; }
 @media (max-width:430px) {
   .sticky-capsule { gap:7px; padding:7px 7px 7px 12px; }
-  .sticky-offer-copy { font-size:.65rem; }
+  .save-tab { font-size:.65rem; }
   .sticky-timer { font-size:.88rem; }
   .sticky-cta .btn-cta { padding:11px 13px; font-size:.82rem; }
 }
-@media (max-width:345px) { .sticky-offer-copy { display:none !important; } }
+@media (max-width:345px) { .save-tab { display:none !important; } }
 
 /* SOFT DRAWER NAVIGATION */
 .drawer-backdrop { position:fixed; inset:0; z-index:1190; background:rgba(6,16,26,.36); backdrop-filter:blur(3px); opacity:0; pointer-events:none; transition:opacity .3s ease; }
@@ -827,7 +856,7 @@ footer { background: var(--surface-2); padding: 56px 0 30px; border-top: 1px sol
 @media (max-width: 980px) {
   .hero-inner { grid-template-columns: 1fr; text-align: center; }
   .hero-copy { order: 1; } .hero-visual { order: 2; margin-top: 18px; margin-bottom: 0; }
-  .hero-price, .hero-cta-row, .hero-trust { justify-content: center; }
+  .hero-price, .hero-cta-row { justify-content: center; }
   .grid-4 { grid-template-columns: repeat(2,1fr); }
   .who-grid, .tr-grid, .tk-grid, .chip-grid { grid-template-columns: repeat(2,1fr); }
   .footer-grid { grid-template-columns: 1fr 1fr; }
@@ -1040,18 +1069,18 @@ html[data-theme="dark"] .shift-after { background:linear-gradient(150deg,#123129
 .sticky-capsule.public-mode .btn-cta { min-width:auto !important; padding:12px 22px !important; font-size:.95rem !important; }
 .sticky-cta .price-tab { top:-12px; left:18px; }
 .sticky-cta .price-tab .old-mini { opacity:.76; text-decoration:line-through; margin-right:5px; font-weight:700; }
-.sticky-offer-copy { font-size:.72rem; color:var(--leaf); font-weight:800; }
+
 .sticky-timer { font-size:.96rem; }
 @media(max-width:430px){
   .sticky-capsule,.sticky-capsule.public-mode { gap:6px; padding:7px 7px 7px 12px !important; }
-  .sticky-offer-copy { font-size:.65rem; }
+  .save-tab { font-size:.65rem; }
   .sticky-timer { font-size:.84rem; }
   .sticky-cta .btn-cta { padding:11px 12px !important; font-size:.80rem !important; }
 }
-@media(max-width:355px){ .sticky-offer-copy{display:none !important;} }
+@media(max-width:355px){ .save-tab{display:none !important;} }
 
 /* Hero timer: stronger countdown presence. */
-.hero-timer-pill { font-size:1rem; padding:10px 16px; }
+.hero-timer-group { font-size:1rem; padding:10px 16px; }
 #heroTimer { font-size:1.38rem; font-weight:900; letter-spacing:.02em; }
 
 /* Product cover behaves like an interactive preview card. */
@@ -1130,16 +1159,12 @@ html[data-theme="dark"] .shift-after { background:linear-gradient(150deg,#123129
    V3 CONVERSION + RESPONSIVE POLISH
    ============================================================ */
 /* Hero countdown: timer first, clean explanatory caption below. */
-.hero-timer-pill {
-  flex-direction:column !important; align-items:flex-start !important; justify-content:center;
-  gap:1px !important; width:fit-content; padding:12px 18px !important;
-  background:rgba(255,82,64,.94); border:1px solid rgba(255,255,255,.16);
-  box-shadow:0 14px 30px rgba(255,82,64,.24);
-}
-#heroTimer { font-size:clamp(2rem,4vw,2.65rem) !important; line-height:1 !important; font-weight:900 !important; }
-.hero-timer-caption { font-size:.72rem; line-height:1.3; font-weight:700; color:rgba(255,255,255,.92); margin-top:5px; }
-.hero-trust span i { color:var(--sun); width:16px; text-align:center; }
-@media(max-width:980px){ .hero-timer-pill{ margin-left:auto; margin-right:auto; align-items:center !important; text-align:center; } }
+#heroTimer { font-size:clamp(1.7rem,3.4vw,2.15rem) !important; line-height:1 !important; font-weight:900 !important; }
+@media(max-width:980px){ .hero-timer-group{ margin-left:auto; margin-right:auto; justify-content:center; text-align:center; } }
+/* Hero visual: trust badges + explore CTA now sit below the cover image */
+.hero-explore-btn { display:flex; margin-top:16px; background:linear-gradient(135deg,var(--orange),#FFC24B) !important; color:#16344B !important; border:0 !important; font-weight:800; box-shadow:0 14px 30px rgba(255,122,46,.28); }
+.hero-explore-btn:hover { filter:brightness(1.05); }
+.hero-cta-row { position:relative; }
 
 /* Key outcome and problem cards: original-style reveal with stronger in-view lift. */
 .vcard.scroll-pop, .scard.scroll-pop {
@@ -1338,6 +1363,21 @@ html[data-theme="dark"] .shift-after { background:linear-gradient(150deg,#123129
 .gg-pay-error{color:#e14f44;font-size:.76rem;margin-top:5px;display:none}
 .gg-pay-error.show{display:block}
 .gg-pay-rzp-note{display:flex;align-items:flex-start;gap:10px;margin:14px 0;padding:13px 14px;border-radius:16px;background:rgba(63,176,122,.08);border:1px solid rgba(63,176,122,.22);color:var(--text-soft,#4A5D6E);font-size:.82rem;line-height:1.45}
+.gg-proc-overlay{position:fixed;inset:0;z-index:5300;background:rgba(6,16,26,.72);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:center;padding:18px;opacity:0;pointer-events:none;transition:opacity .25s ease}
+.gg-proc-overlay.show{opacity:1;pointer-events:auto}
+.gg-proc-card{position:relative;width:min(380px,100%);background:var(--surface);border-radius:22px;box-shadow:var(--shadow-lg);padding:34px 26px 28px;text-align:center;transform:translateY(14px) scale(.97);transition:transform .25s ease}
+.gg-proc-overlay.show .gg-proc-card{transform:translateY(0) scale(1)}
+.gg-proc-close{position:absolute;top:14px;right:14px;width:34px;height:34px;border-radius:50%;background:var(--surface-2);display:grid;place-items:center;color:var(--text);border:none;cursor:pointer}
+.gg-proc-icon{width:60px;height:60px;margin:0 auto 16px;border-radius:50%;background:rgba(255,122,46,.12);color:var(--orange);display:grid;place-items:center;font-size:1.5rem;animation:gg-proc-pulse 1.6s ease-in-out infinite}
+.gg-proc-icon.success{background:rgba(63,176,122,.14);color:var(--leaf,#3FB07A);animation:none}
+.gg-proc-icon.error{background:rgba(255,92,70,.14);color:var(--coral,#FF5C46);animation:none}
+@keyframes gg-proc-pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.08);opacity:.75}}
+.gg-proc-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(63,176,122,.12);color:var(--leaf,#3FB07A);font-size:.72rem;font-weight:700;letter-spacing:.03em;text-transform:uppercase;padding:6px 13px;border-radius:100px;margin:0 auto 14px;border:1px solid rgba(63,176,122,.25)}
+.gg-proc-msg{color:var(--text);font-size:.98rem;font-weight:600;line-height:1.5;margin:0}
+.gg-proc-msg .gg-proc-title{display:block;font-size:1.08rem;font-weight:700;color:var(--text);margin-bottom:6px}
+.gg-proc-msg .gg-proc-sub{display:block;font-size:.86rem;font-weight:500;color:var(--text-soft)}
+.gg-proc-actions{display:flex;flex-direction:column;gap:10px;margin-top:18px}
+.gg-proc-actions .btn{width:100%;justify-content:center}
 .gg-pay-rzp-note i{color:var(--leaf,#3FB07A);margin-top:2px}
 .gg-pay-rzp-note strong{color:var(--text,#13273A)}
 .gg-pay-mainbtn{width:100%;border:0;border-radius:14px;padding:14px 18px;font-weight:800;font-size:.96rem;color:#fff;
@@ -1407,17 +1447,24 @@ html[data-theme="dark"] .shift-after { background:linear-gradient(150deg,#123129
 <link data-gg-seo="true" href="https://garmiguard.pages.dev/" rel="canonical"/>
 <meta content="product" data-gg-seo="true" property="og:type"/>
 <meta content="GARMI GUARD" data-gg-seo="true" property="og:site_name"/>
-<meta content="GARMI GUARD — Your Interactive Summer Survival System" data-gg-seo="true" property="og:title"/>
-<meta content="A practical interactive digital system for hydration, room cooling, sleep, heat-risk awareness, emergency preparedness and structured summer routines." data-gg-seo="true" property="og:description"/>
-<meta content="https://garmiguard.pages.dev/" data-gg-seo="true" property="og:url"/>
+<meta content="GARMI GUARD — Beat the Heat This Summer | Interactive Survival System" data-gg-seo="true" property="og:title"/>
+<meta content="India's #1 rated summer system: hydration planning, room cooling, hot-night sleep fixes &amp; heat-risk checks. Instant access after payment. Trusted by 300+ families." data-gg-seo="true" property="og:description"/>
+<!-- Recommended OG Image Size: 1200x630px --><meta content="https://garmiguard.pages.dev/" data-gg-seo="true" property="og:url"/>
+<!-- Replace Image 1 link — Recommended OG Social Preview Image Size: 1200x630px (Aspect Ratio 1.91:1) -->
 <meta content="https://i.ibb.co/whR4WgbY/file-00000000eca082089c84fda754c4ad80.png" data-gg-seo="true" property="og:image"/>
 <meta content="image/png" data-gg-seo="true" property="og:image:type"/>
+<meta content="1200" data-gg-seo="true" property="og:image:width"/>
+<meta content="630" data-gg-seo="true" property="og:image:height"/>
+<meta content="GARMI GUARD — Interactive Summer Survival System" data-gg-seo="true" property="og:image:alt"/>
+<meta content="en_IN" data-gg-seo="true" property="og:locale"/>
 <meta content="summary_large_image" data-gg-seo="true" name="twitter:card"/>
-<meta content="GARMI GUARD — Interactive Summer Survival System" data-gg-seo="true" name="twitter:title"/>
-<meta content="A practical digital summer system built around hydration, room cooling, sleep, heat-risk awareness and emergency readiness." data-gg-seo="true" name="twitter:description"/>
+<meta content="GARMI GUARD — Beat the Heat This Summer" data-gg-seo="true" name="twitter:title"/>
+<meta content="Hydration, room cooling, hot-night sleep &amp; heat-risk checks — India's interactive summer system. Instant digital access." data-gg-seo="true" name="twitter:description"/>
+<!-- Replace Image 1 link — Recommended Square Product Cover Image Size: 800x800px or 1000x1000px (used as fallback thumbnail on some Twitter/X clients) -->
 <meta content="https://i.ibb.co/whR4WgbY/file-00000000eca082089c84fda754c4ad80.png" data-gg-seo="true" name="twitter:image"/>
+<meta content="GARMI GUARD — Interactive Summer Survival System" data-gg-seo="true" name="twitter:image:alt"/>
 <meta content="#0E2233" data-gg-seo="true" name="theme-color"/>
-<script data-gg-schema="true" type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"GARMI GUARD","url":"https://garmiguard.pages.dev/","description":"Creator and publisher of the GARMI GUARD interactive digital Summer Survival System."}</script><script data-gg-schema="true" type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"GARMI GUARD","url":"https://garmiguard.pages.dev/","inLanguage":"en-IN"}</script><script data-gg-schema="true" type="application/ld+json">{"@context":"https://schema.org","@type":"Product","name":"GARMI GUARD — Interactive Summer Survival System","description":"A digital interactive summer preparedness system with hydration planning, room cooling guidance, hot-night sleep routines, heat-risk self-checks, emergency preparedness, situation-specific plans, trackers and checklists.","brand":{"@type":"Brand","name":"GARMI GUARD"},"category":"Digital Product","inLanguage":["hi","en"],"url":"https://garmiguard.pages.dev/","offers":{"@type":"Offer","url":"https://garmiguard.pages.dev/#pricing","priceCurrency":"INR","price":"279","availability":"https://schema.org/InStock"},"aggregateRating":{"@type":"AggregateRating","ratingValue":"4.8","reviewCount":"312","bestRating":"5","worstRating":"1"}}</script>
+<script data-gg-schema="true" type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"GARMI GUARD","url":"https://garmiguard.pages.dev/","description":"Creator and publisher of the GARMI GUARD interactive digital Summer Survival System."}</script><script data-gg-schema="true" type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"GARMI GUARD","url":"https://garmiguard.pages.dev/","inLanguage":"en-IN"}</script><script data-gg-schema="true" type="application/ld+json">{"@context":"https://schema.org","@type":"Product","name":"GARMI GUARD — Interactive Summer Survival System","description":"A digital interactive summer preparedness system with hydration planning, room cooling guidance, hot-night sleep routines, heat-risk self-checks, emergency preparedness, situation-specific plans, trackers and checklists.","image":"https://i.ibb.co/whR4WgbY/file-00000000eca082089c84fda754c4ad80.png","brand":{"@type":"Brand","name":"GARMI GUARD"},"category":"Digital Product","inLanguage":["hi","en"],"url":"https://garmiguard.pages.dev/","offers":{"@type":"Offer","url":"https://garmiguard.pages.dev/#pricing","priceCurrency":"INR","price":"279","availability":"https://schema.org/InStock"},"aggregateRating":{"@type":"AggregateRating","ratingValue":"4.8","reviewCount":"312","bestRating":"5","worstRating":"1"}}</script>
 <style id="gg-final-checkout-overrides">
 .gg-header-icon{width:40px;height:40px;border:0;background:transparent;border-radius:12px;display:grid;place-items:center;color:var(--text);font-size:1.02rem;transition:.22s}
 header:not(.scrolled) .gg-header-icon{color:#fff}.gg-header-icon:hover{color:var(--orange);transform:translateY(-2px)}
@@ -1426,8 +1473,6 @@ header:not(.scrolled) .gg-header-icon{color:#fff}.gg-header-icon:hover{color:var
 .gg-pay-head{background:color-mix(in srgb,var(--surface) 92%,transparent);border-bottom:1px solid var(--border)}
 .gg-pay-mark{background:radial-gradient(circle at 35% 30%,var(--sun),var(--orange));box-shadow:0 6px 20px rgba(255,122,46,.28);color:#fff}
 .gg-pay-headside{display:flex;align-items:center;gap:10px}.gg-pay-headuser{text-align:right;max-width:180px;line-height:1.15}.gg-pay-headuser strong,.gg-pay-headuser span{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.gg-pay-headuser strong{font-size:.78rem}.gg-pay-headuser span{font-size:.68rem;color:var(--text-mute);margin-top:3px}
-.gg-pay-wa-btn{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:#25D366;color:#fff;font-size:1.02rem;flex:0 0 auto;box-shadow:0 4px 12px rgba(37,211,102,.35);transition:transform .2s ease}
-.gg-pay-wa-btn:hover{transform:translateY(-2px) scale(1.05)}
 .gg-pay-scroll{background:linear-gradient(180deg,var(--surface),var(--bg-soft))}
 .gg-pay-offerbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:14px 15px;margin-bottom:15px;border:1px solid rgba(255,122,46,.24);background:linear-gradient(135deg,rgba(255,194,75,.13),rgba(47,184,214,.08));border-radius:16px}.gg-pay-offerbar.compact{margin:0;flex:1;min-width:210px}.gg-pay-old{text-decoration:line-through;color:var(--text-mute);font-family:var(--font-num);font-size:.9rem}.gg-pay-offerbar strong{font-family:var(--font-num);font-size:1.65rem;color:var(--orange)}.gg-pay-save{margin-left:auto;background:rgba(63,176,122,.12);color:var(--leaf);padding:5px 9px;border-radius:999px;font-size:.72rem;font-weight:800}
 .gg-pay-toprow{display:flex;align-items:stretch;gap:10px;margin-bottom:14px}.gg-pay-session{display:flex;align-items:center;gap:8px;padding:10px 12px;border:1px solid var(--border);border-radius:16px;background:var(--surface);min-width:128px}.gg-pay-session i{color:var(--coral)}.gg-pay-session span{display:block;color:var(--text-mute);font-size:.62rem}.gg-pay-session strong{display:block;font-family:var(--font-num);font-size:1rem;color:var(--coral)}
@@ -1468,7 +1513,7 @@ header:not(.scrolled) .gg-header-icon{color:#fff}.gg-header-icon:hover{color:var
 @media(max-width:800px){.review-grid-restored{grid-template-columns:1fr}.ig-review-grid.vertical{display:flex;flex-direction:column;max-height:680px;overflow-y:auto;scroll-snap-type:y mandatory;padding-right:2px}.ig-review-card{scroll-snap-align:start;min-height:560px}.ig-review-card .instagram-media{min-height:520px!important}.gg-pay-apps-updated{grid-template-columns:1fr 1fr!important}.gg-pay-app{min-width:0;padding:10px 9px}.gg-pay-bottom{margin-left:-15px;margin-right:-15px;margin-bottom:-28px;padding:10px 15px}.gg-pay-bottom .gg-pay-mainbtn{min-width:110px;padding:12px 16px}.gg-pay-headuser strong{max-width:110px}.gg-pay-check-actions{grid-template-columns:1fr}}
 @media(max-width:360px){.gg-pay-apps-updated{grid-template-columns:1fr 1fr!important}.gg-pay-app{font-size:.78rem}.gg-pay-app small{font-size:.58rem}.gg-pay-bottom-price b{font-size:1.05rem}.gg-pay-bottom .gg-pay-mainbtn{font-size:.86rem;min-width:92px;padding:11px 12px}}
 </style>
-<style>.hero-trust{justify-content:center!important}.hero-copy{text-align:left}@media(min-width:981px){.hero-trust{max-width:620px}.hero-cta-row,.hero-price{justify-content:flex-start}}@media(max-width:980px){.hero-copy{text-align:center}.hero-trust{justify-content:center!important}}</style>
+<style>.hero-copy{text-align:left}@media(min-width:981px){.hero-cta-row,.hero-price{justify-content:flex-start}}@media(max-width:980px){.hero-copy{text-align:center}}</style>
 
 <style id="gg-user-final-gallery-video-payment-fixes">
 .gallery-track{gap:18px;align-items:stretch}.gslide.gallery-image-card{flex:0 0 auto;width:258px;aspect-ratio:3/4;border-radius:22px;overflow:hidden;padding:0;background:var(--surface)!important;border:1px solid var(--border);box-shadow:var(--shadow-3d);display:block;color:inherit}.gslide.gallery-image-card::after,.gslide.gallery-image-card .gs-icon,.gslide.gallery-image-card .gs-label,.gslide.gallery-image-card .gs-sub{display:none!important;content:none!important}.gslide.gallery-image-card img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .45s cubic-bezier(.16,1,.3,1)}.gslide.gallery-image-card:hover img{transform:scale(1.025)}
@@ -1510,12 +1555,20 @@ header:not(.scrolled) .gg-header-icon{color:#fff}.gg-header-icon:hover{color:var
 .gg-vr-card .gg-vr-meta{position:absolute;left:0;right:0;bottom:0;padding:26px 14px 12px;color:#fff;background:linear-gradient(0deg,rgba(0,0,0,.82),transparent)}
 .gg-vr-card .gg-vr-name{font-weight:800;font-size:.92rem;display:flex;align-items:center;gap:6px}
 .gg-vr-card .gg-vr-name .tr-verified{color:#3FE08A;font-size:.82rem}
-.gg-vr-card .gg-vr-loc{font-size:.72rem;opacity:.8}
 .gg-vr-card .gg-vr-mute{position:absolute;top:10px;right:10px;width:32px;height:32px;border-radius:50%;background:rgba(0,0,0,.55);color:#fff;display:grid;place-items:center;font-size:.8rem;border:1px solid rgba(255,255,255,.2);z-index:2}
 @media(max-width:640px){.gg-vr-card{flex-basis:min(78vw,235px);width:min(78vw,235px)}}
 .gg-vr-card.gg-vr-ig{background:#0c2334}
 .gg-vr-card.gg-vr-ig iframe{width:100%!important;height:100%!important;position:absolute;inset:0;border:0}
 .gg-vr-card.gg-vr-ig .gg-vr-meta{pointer-events:none}
+.gg-vr-card.gg-vr-yt{background:#0c2334}
+.gg-vr-yt-frame{position:absolute;inset:0;width:100%;height:100%}
+.gg-vr-yt-frame iframe{width:100%;height:100%;position:absolute;inset:0;border:0;display:block}
+.gg-vr-yt-placeholder{position:absolute;inset:0;display:grid;place-items:center;color:#fff;font-size:1.8rem;background:linear-gradient(160deg,#12324a,#0c2334)}
+.gg-vr-yt-mount{position:absolute;inset:0;width:100%;height:100%}
+.gg-vr-tap-btn{position:absolute;left:50%;bottom:70px;transform:translateX(-50%);z-index:4;display:inline-flex;align-items:center;gap:8px;background:rgba(6,16,26,.82);color:#fff;font-weight:800;font-size:.82rem;padding:9px 16px;border-radius:100px;border:1px solid rgba(255,255,255,.25);box-shadow:0 8px 20px rgba(0,0,0,.35);backdrop-filter:blur(4px);cursor:pointer;transition:opacity .25s ease,transform .25s ease}
+.gg-vr-tap-btn:hover{background:rgba(6,16,26,.95)}
+.gg-vr-tap-btn.hide{opacity:0;pointer-events:none;transform:translateX(-50%) translateY(8px)}
+.gg-vr-card.gg-vr-yt .gg-vr-meta{pointer-events:none;z-index:2}
 
 /* ---------- Auto-scrolling infinite text reviews marquee ---------- */
 .tr-viewport{overflow:hidden;position:relative;padding:6px 0 22px;-webkit-mask-image:linear-gradient(90deg,transparent,#000 4%,#000 96%,transparent);mask-image:linear-gradient(90deg,transparent,#000 4%,#000 96%,transparent)}
@@ -1620,8 +1673,20 @@ html[data-theme="dark"] #leadOverlay.entry-offer .modal{
 }
 #leadOverlay.entry-offer .field-shell{
   border-radius:14px; transition:border-color .2s ease, box-shadow .2s ease, transform .2s ease;
+  background:linear-gradient(180deg, rgba(255,255,255,.85), rgba(255,255,255,.6));
+  backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px);
+  border:1.5px solid rgba(14,34,51,.10);
+  box-shadow:0 1px 0 rgba(255,255,255,.6) inset, 0 8px 20px rgba(14,34,51,.04);
 }
-#leadOverlay.entry-offer .field-shell:focus-within{border-color:var(--orange);box-shadow:0 0 0 4px rgba(255,122,46,.12);transform:translateY(-1px)}
+html[data-theme="dark"] #leadOverlay.entry-offer .field-shell{
+  background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+  border-color:rgba(255,255,255,.14);
+}
+#leadOverlay.entry-offer .field-shell:focus-within{border-color:var(--orange);box-shadow:0 0 0 4px rgba(255,122,46,.14), 0 8px 20px rgba(255,122,46,.10);transform:translateY(-1px)}
+#leadOverlay.entry-offer .field-shell > i{color:var(--orange);font-size:.94rem}
+#leadOverlay.entry-offer .field label{font-family:var(--font-body);font-weight:700;font-size:.76rem;letter-spacing:.01em;color:var(--text-soft)}
+#leadOverlay.entry-offer .field-shell input{font-weight:600;letter-spacing:-.01em}
+#leadOverlay.entry-offer .field-shell input::placeholder{color:var(--text-mute);font-weight:500}
 #leadOverlay.entry-offer #leadSubmit{
   background:linear-gradient(135deg,#ff7a2e,#ff5240); box-shadow:0 16px 34px rgba(255,90,50,.32);
   transition:transform .25s cubic-bezier(.34,1.56,.64,1), box-shadow .25s ease;
@@ -1636,15 +1701,31 @@ html[data-theme="dark"] #leadOverlay.entry-offer .modal{
 
 </head>
 <body>
+<script>
+/* ---- Lightweight content protection: block right-click, devtools shortcuts & image drag ----
+   Note: this deters casual copying only; it cannot fully prevent a determined user from
+   viewing page source or opening devtools (no client-side script can). It does not affect
+   Razorpay Checkout, form inputs, or any of the payment/lead-logging logic below. */
+(function(){
+  document.addEventListener('contextmenu', function(e){ e.preventDefault(); }, false);
+  document.addEventListener('dragstart', function(e){
+    if (e.target && e.target.tagName === 'IMG') e.preventDefault();
+  }, false);
+  document.addEventListener('keydown', function(e){
+    const k = e.key;
+    const blockCombo =
+      k === 'F12' ||
+      ((e.ctrlKey || e.metaKey) && e.shiftKey && ['I','i','J','j','C','c'].includes(k)) ||
+      ((e.ctrlKey || e.metaKey) && ['U','u'].includes(k)) ||
+      (e.metaKey && e.altKey && ['I','i'].includes(k)); // Cmd+Option+I on macOS
+    if (blockCombo) { e.preventDefault(); e.stopPropagation(); }
+  }, false);
+})();
+</script>
 <!-- HEADER -->
 <header id="header">
 <div class="container header-inner">
 <div class="brand"><button aria-label="Open summer map" class="menu-orb" id="menuOrb"><i class="fa-solid fa-sun"></i></button><span class="brand-name">GARMI GUARD</span></div>
-
-
-<a class="gg-pay-wa-btn" id="ggPayWaBtn" href="#" target="_blank" rel="noopener" aria-label="Chat on WhatsApp" title="Chat on WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
-
-
 
 
 <div class="header-actions">
@@ -1696,22 +1777,23 @@ html[data-theme="dark"] #leadOverlay.entry-offer .modal{
 <div class="hero-price" id="heroPrice">
 <span class="price-strike" id="heroPriceOld">₹999</span>
 <span class="price-now num" id="heroPriceNow">₹279</span>
-<span class="price-badge gg-save-badge" id="heroPriceBadge" style="display:none;"></span>
+<span class="price-badge gg-save-badge" id="heroPriceBadge"></span>
 </div>
-<div class="hero-timer-pill" id="heroTimerPill"><span class="num" id="heroTimer">30:00</span><span class="hero-timer-caption">Price increases ₹199 → ₹279 when timer ends</span></div>
+<div class="hero-timer-group" id="heroTimerPill">
+<div class="hero-timer-box"><span class="num" id="heroTimer">30:00</span></div>
+<div class="hero-timer-warn"><i class="fa-solid fa-triangle-exclamation"></i> Price increases when timer ends</div>
+</div>
 <div class="hero-cta-row">
 <button class="btn btn-cta btn-lg" data-checkout="" id="heroCta">Get GARMI GUARD <span class="arrow">→</span></button>
-<a class="btn btn-ghost btn-lg" href="#modules" style="color:#fff;border-color:rgba(255,255,255,.4)">See What's Inside ↓</a>
-</div>
-<div class="hero-trust">
-<span><i class="fa-solid fa-chart-line"></i> Interactive Trackers</span><span><i class="fa-solid fa-mobile-screen-button"></i> Mobile Friendly</span><span><i class="fa-solid fa-bolt"></i> Digital Access</span><span><i class="fa-solid fa-indian-rupee-sign"></i> ₹0 Plan Included</span><span title="Other languages available via your browser's translation feature"><i class="fa-solid fa-language"></i> Hindi &amp; English</span>
 </div>
 </div>
 <div class="hero-visual reveal d2">
 <div aria-label="Preview GARMI GUARD product" class="product-mock" id="heroProductCard" role="button" tabindex="0">
+<!-- Replace Image 1 link — Recommended Square Product Cover Image Size: 800x800px or 1000x1000px -->
 <img class="pm-cover-img" src="https://i.ibb.co/whR4WgbY/file-00000000eca082089c84fda754c4ad80.png" alt="GARMI GUARD — Interactive Summer Survival System" loading="eager" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"/>
 <div class="pm-cover-fallback"><i class="fa-solid fa-sun"></i></div>
 </div>
+<a class="btn btn-cta btn-lg hero-explore-btn" href="#demoCta">See What's Inside ↓</a>
 <div class="float-card fc1"><i class="fa-solid fa-droplet" style="color:var(--aqua)"></i> Hydration Tracker</div>
 <div class="float-card fc2"><i class="fa-solid fa-temperature-half" style="color:var(--coral)"></i> Heat Risk Check</div>
 <div class="float-card fc3"><i class="fa-solid fa-moon" style="color:var(--leaf)"></i> Hot Night Sleep Plan</div>
@@ -1774,7 +1856,9 @@ html[data-theme="dark"] #leadOverlay.entry-offer .modal{
 </main>
 </div>
 </div>
-<div class="demo-cta reveal"><p>Liked the preview? This is only a small slice of the full system.</p><button class="btn btn-cta" data-checkout=""><span>Unlock Full GARMI GUARD</span> <span class="arrow">→</span></button></div>
+<div class="demo-cta reveal" id="demoCta"><p>Liked the preview? This is only a small slice of the full system.</p><button class="btn btn-cta" data-checkout=""><span>Unlock Full GARMI GUARD</span> <span class="arrow">→</span></button></div>
+</div>
+<div class="container gallery-track-wrap reveal">
 <div class="gallery-track" id="galleryTrack"></div>
 <div class="gnav">
 <button aria-label="Previous" id="galPrev"><i class="fa-solid fa-arrow-left"></i></button>
@@ -1883,10 +1967,10 @@ html[data-theme="dark"] #leadOverlay.entry-offer .modal{
     <div class="section-head reveal">
       <span class="eyebrow">Video Proof</span>
       <h2>Customer Video Stories</h2>
-      <p>Real customer videos, muted by default. Tap the sound icon to unmute — playback starts only when a card is visible on screen.</p>
+      <p>Real customer videos with sound — playback starts automatically as each card scrolls into view.</p>
     </div>
     <div class="gg-vr-track reveal" id="ggVideoReviewTrack">
-      <!-- Cards are rendered by JS from VIDEO_REVIEW_DATA below. Add real .mp4 src + poster per review to go live. -->
+      <!-- Cards are rendered by JS from VIDEO_REVIEW_DATA below. Add the real YouTube video ID per review to go live. -->
     </div>
   </div>
 </section>
@@ -1963,7 +2047,7 @@ html[data-theme="dark"] #leadOverlay.entry-offer .modal{
 <div class="container">
 <div class="section-head reveal">
 <span class="eyebrow">Pricing</span>
-<h2>One Time. All Summer.</h2>
+<h2>One-Time Payment. Lifetime Summer Access.</h2>
 </div>
 <div aria-label="Get GARMI GUARD access" class="pricing-card reveal" data-checkout="" role="link" tabindex="0">
 <span class="pc-badge" id="pcBadge">Public Price</span>
@@ -2014,7 +2098,7 @@ html[data-theme="dark"] #leadOverlay.entry-offer .modal{
 <p class="footer-desc">A digital interactive Summer Survival System focused on practical planning for hydration, room cooling, sleep, heat-risk awareness and emergency preparedness.</p>
 </div>
 <div class="footer-col"><h4>Company &amp; Support</h4>
-<a href="about.html">About Us</a><a href="contact.html">Contact Us</a><a href="Affiliate.html">Affiliate Program</a><a href="#faq">FAQ</a><a href="#pricing">Pricing</a><a href="#" id="footerWaBtn" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i> WhatsApp Us</a>
+<a href="about.html">About Us</a><a href="contact.html">Contact Us</a><a href="Affiliate.html">Affiliate Program</a><a href="#faq">FAQ</a><a href="#pricing">Pricing</a>
 </div>
 <div class="footer-col"><h4>Legal</h4>
 <a href="terms.html">Terms &amp; Conditions</a><a href="affiliate-terms.html">Affiliate Program Terms</a><a href="privacy.html">Privacy Policy</a><a href="refund.html">Refund &amp; Cancellation Policy</a><a href="shipping.html">Shipping &amp; Digital Delivery</a><a href="disclaimer.html">Disclaimer</a>
@@ -2030,7 +2114,7 @@ html[data-theme="dark"] #leadOverlay.entry-offer .modal{
 <div class="sticky-cta" id="stickyCta">
 <div class="sticky-capsule" id="stickyCapsule">
 <span class="price-tab hide" id="stickyPriceTab"><span class="old-mini">₹999</span> ₹199</span>
-<span class="sticky-offer-copy" id="stickyOfferCopy">Save ₹800</span>
+<span class="save-tab" id="stickyOfferCopy">Save ₹800</span>
 <span class="sticky-timer" id="stickyTimer"><i class="fa-solid fa-clock"></i> <span class="num" id="stickyTimerCount">30:00</span></span>
 <button class="btn btn-cta" id="stickyCtaBtn">Get Access ₹279 <span class="arrow">→</span></button>
 </div>
@@ -2063,12 +2147,12 @@ html[data-theme="dark"] #leadOverlay.entry-offer .modal{
 </div>
 <div class="field">
 <label for="leadPhone">WhatsApp Number</label>
-<div class="field-shell phone-freeform"><i class="fa-brands fa-whatsapp"></i><input autocomplete="tel" id="leadPhone" inputmode="numeric" maxlength="10" pattern="[0-9]{10}" placeholder="10-digit WhatsApp number" type="tel"/></div>
+<div class="field-shell phone-freeform"><i class="fa-solid fa-phone"></i><input autocomplete="tel" id="leadPhone" inputmode="numeric" maxlength="10" pattern="[0-9]{10}" placeholder="10-digit WhatsApp number" type="tel"/></div>
 <div class="err-msg" id="phoneErr">Enter a valid 10-digit WhatsApp number.</div>
 </div>
 <button class="btn btn-cta btn-lg btn-block" id="leadSubmit" type="submit">Unlock ₹199 Price <span class="arrow">→</span></button>
 <div class="lead-submit-msg" id="leadSubmitMsg"></div>
-<div class="lead-privacy">🔒 We use your details only for product access and support. <a href="privacy.html">Privacy Policy</a></div>
+<div class="lead-privacy">🔒 Used only for order access &amp; WhatsApp support — never shared or sold. <a href="privacy.html">Privacy Policy</a></div>
 </form>
 </div>
 <div class="lead-success" id="leadSuccessBlock">
@@ -2160,89 +2244,15 @@ html[data-theme="dark"] #leadOverlay.entry-offer .modal{
 
 
 <!-- GARMI GUARD UPI CHECKOUT -->
-<div class="gg-pay-overlay" id="ggPayOverlay" aria-hidden="true">
-  <div class="gg-pay-shell" role="dialog" aria-modal="true" aria-labelledby="ggPayTitle">
-    <div class="gg-pay-head">
-      <div class="gg-pay-brand">
-        <div class="gg-pay-mark"><i class="fa-solid fa-sun"></i></div>
-        <div><strong>GARMI GUARD</strong><span>UPI Checkout</span></div>
-      </div>
-      <div class="gg-pay-headside">
-               <button class="gg-pay-headuser" id="ggPayHeaderUser" hidden type="button" title="Edit name and phone">
-          <span class="user-lines"><strong id="ggPayUserName">—</strong><span id="ggPayUserPhone">—</span></span>
-          <span class="gg-pay-edit-mini"><i class="fa-solid fa-pen"></i></span>
-        </button>
-        <button class="gg-pay-close" id="ggPayClose" aria-label="Close checkout"><i class="fa-solid fa-xmark"></i></button>
-      </div>
-    </div>
-    <div class="gg-pay-scroll">
-      <section class="gg-pay-step active" id="ggPayLoadingStep">
-        <div class="gg-pay-opening"><div class="gg-pay-opening-sun"><i class="fa-solid fa-sun"></i></div><h2>Preparing your checkout</h2><div class="gg-pay-dots"><span></span><span></span><span></span></div></div>
-      </section>
-
-      <section class="gg-pay-step" id="ggPayDetailsStep">
-        <h2 class="gg-pay-title" id="ggPayTitle">Enter your details</h2>
-        <p class="gg-pay-sub">Just one quick step before payment.</p>
-        <div class="gg-pay-offerbar">
-          <span class="gg-pay-old">₹999</span><strong id="ggDetailsAmount">₹279</strong><span class="gg-pay-save" id="ggDetailsSave">Save ₹720</span>
-        </div>
-        <div class="gg-pay-field">
-          <label for="ggPayName">Name</label>
-          <div class="gg-pay-inputwrap"><i class="fa-regular fa-user"></i><input id="ggPayName" type="text" autocomplete="name" placeholder="Enter your name"></div>
-          <div class="gg-pay-error" id="ggPayNameErr">Please enter your name.</div>
-        </div>
-        <div class="gg-pay-field">
-          <label for="ggPayPhone">Phone Number</label>
-          <div class="gg-pay-inputwrap"><i class="fa-solid fa-phone"></i><input id="ggPayPhone" type="tel" inputmode="numeric" maxlength="10" pattern="[0-9]{10}" autocomplete="tel" placeholder="10-digit phone number"></div>
-          <div class="gg-pay-error" id="ggPayPhoneErr">Enter a valid 10-digit phone number.</div>
-        </div>
-        <button class="gg-pay-mainbtn" id="ggPayContinue"><span>Continue to UPI</span><i class="fa-solid fa-arrow-right"></i></button>
-        <div class="gg-pay-secure"><i class="fa-solid fa-lock"></i> Your details are used for payment matching and access delivery.</div>
-      </section>
-
-      <section class="gg-pay-step" id="ggPayPaymentStep">
-        <div class="gg-pay-toprow">
-          <div class="gg-pay-offerbar compact">
-            <span class="gg-pay-old">₹999</span><strong id="ggPayAmount">₹279</strong><span class="gg-pay-save" id="ggPaySave">Save ₹720</span>
-          </div>
-          <div class="gg-pay-session"><i class="fa-regular fa-clock"></i><div><span>Complete within</span><strong id="ggPayTimer">15:00</strong></div></div>
-        </div>
-
-        <div class="gg-pay-orderid"><span><i class="fa-solid fa-receipt"></i> Order ID: <b id="ggPayOrderId">—</b></span></div>
-
-        <div class="gg-pay-rzp-note">
-          <i class="fa-solid fa-shield-halved"></i>
-          <span>Secure checkout powered by <strong>Razorpay</strong>. Pay via UPI, Cards, Netbanking or Wallets — access is granted instantly after payment.</span>
-        </div>
-
-        <div class="gg-pay-bottom">
-          <div class="gg-pay-bottom-price"><small><span class="gg-pay-old">₹999</span></small><b id="ggPayBottomAmount">₹279</b><span class="save" id="ggPayBottomSave">Save ₹720</span></div>
-          <button class="gg-pay-mainbtn gg-pay-confirm" id="ggPayConfirm"><span>Pay Securely</span><i class="fa-solid fa-lock"></i></button>
-        </div>
-        <div class="gg-pay-error" id="ggPayRzpErr" style="margin-top:10px;">Payment could not be verified. Please try again or contact support.</div>
-      </section>
-
-      <section class="gg-pay-step" id="ggPayPendingStep">
-        <div class="gg-pay-pending">
-          <div class="icon success"><i class="fa-solid fa-circle-check"></i></div>
-          <h3><i class="fa-solid fa-check"></i>&nbsp; Payment Successful</h3>
-          <p>Your payment has been verified. Redirecting you to your GARMI GUARD access page…</p>
-          <div class="gg-pay-success-actions">
-            <a class="gg-pay-success-btn" id="ggPayAccessLink" href="#" rel="noopener"><i class="fa-solid fa-arrow-up-right-from-square"></i><span>Access Now</span></a>
-            <button class="gg-pay-success-btn" id="ggPayContactUs" type="button"><i class="fa-solid fa-headset"></i><span>Contact</span></button>
-            <a class="gg-pay-success-btn" id="ggPayWaSuccess" href="#" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i><span>WhatsApp</span></a>
-          </div>
-          <div class="gg-pay-success-note" id="ggPaySuccessNote" hidden></div>
-        </div>
-      </section>
-    </div>
-  </div>
-  <div class="gg-pay-cancel-confirm" id="ggPayCancelConfirm" aria-hidden="true">
-    <div class="gg-cancel-card" role="dialog" aria-modal="true">
-      <div class="warn"><i class="fa-solid fa-triangle-exclamation"></i></div>
-      <h3>Leave payment now?</h3>
-      <p>Your order has not been completed yet. You can come back and finish checkout any time.</p>
-      <div class="gg-cancel-actions"><button class="gg-cancel-yes" id="ggPayCancelYes" type="button">Yes, leave</button><button class="gg-cancel-no" id="ggPayCancelNo" type="button">No, continue</button></div>
+<div class="gg-proc-overlay" id="ggProcOverlay" aria-hidden="true">
+  <div class="gg-proc-card" role="status" aria-live="polite">
+    <button class="gg-proc-close" id="ggProcClose" aria-label="Close" type="button" hidden><i class="fa-solid fa-xmark"></i></button>
+    <div class="gg-proc-icon" id="ggProcIcon"><i class="fa-solid fa-shield-halved"></i></div>
+    <div class="gg-proc-badge"><i class="fa-solid fa-lock"></i> Razorpay Verified Payment Gateway</div>
+    <p class="gg-proc-msg" id="ggProcMsg">Preparing secure payment…</p>
+    <div class="gg-proc-actions" id="ggProcActions" hidden>
+      <button class="btn btn-cta" id="ggProcRetry" type="button">Try Again</button>
+      <a class="btn btn-ghost" id="ggProcContact" href="#" target="_blank" rel="noopener">Contact Support</a>
     </div>
   </div>
 </div>
@@ -2261,7 +2271,7 @@ const GG_CHECKOUT_QUERY = (() => {
 })();
 
 const CHECKOUT_CONFIG = Object.freeze({
-  paymentScriptUrl: "https://script.google.com/macros/s/AKfycbx-UD5VrokbvxfUg5ztaRhHDy4AXbBNq8y4k51fUpVZWS9WiQyT5mIBI_j-zW5DvoKy/exec", // Deployed Code.gs web-app URL (handles LEAD + PAYMENT_SUCCESS events)
+  paymentScriptUrl: "https://script.google.com/macros/s/AKfycbx-UD5VrokbvxfUg5ztaRhHDy4AXbBNq8y4k51fUpVZWS9WiQyT5mIBI_j-zW5DvoKy/exec", // Deployed Code.gs web-app URL (LEAD -> "Leads" tab, PAYMENT_SUCCESS -> "Payments" tab)
   workerBaseUrl: "https://garmiguardpayments.ankurkatel2.workers.dev", // Deployed Cloudflare Worker base URL (see worker.js) — no trailing slash
   razorpayKeyId: "rzp_live_TI9aRoRIPKIwOu", // Razorpay Key ID — this is PUBLIC/publishable, safe on the frontend. Never put the Key Secret here.
   payeeName: "Garmi Guard",
@@ -2312,18 +2322,6 @@ function getDeviceId(){
     return id;
   }catch(e){ return 'dev_unknown'; }
 }
-/* Saved payment session: lets a returning visitor who already paid skip straight to the success screen. */
-function savePaymentSession(session){
-  try{ localStorage.setItem('gg_payment_session', JSON.stringify(session)); }catch(e){}
-}
-function getPaymentSession(){
-  try{
-    const raw = JSON.parse(localStorage.getItem('gg_payment_session') || 'null');
-    if (raw && raw.name && raw.phone && raw.orderId) return raw;
-  }catch(e){}
-  return null;
-}
-
 /* ============================================================
    SEQUENTIAL REFERRAL CODES (A-0, B-1, C-2, D-3 ...)
    Real global uniqueness requires the Apps Script backend below
@@ -2377,13 +2375,12 @@ function ggGetStoredPhoneForShare(){
 
 const GGCheckout = (() => {
   const q = (s, r=document) => r.querySelector(s);
-  let state = { mode:'normal', name:'', phone:'', amount:CHECKOUT_CONFIG.normalPrice, source:'Direct' };
-  let editingDetails = false;
-  let checkoutTimerId = 0, openToken = 0, editOriginal = null;
+  let state = { mode:'normal', name:'', phone:'', amount:CHECKOUT_CONFIG.normalPrice, source:'Direct', orderId:'' };
 
   function validPhone(v){ return /^\d{10}$/.test(String(v || '').replace(/\D/g,'')); }
   function cleanName(v){ return String(v || '').trim().replace(/\s+/g,' ').slice(0,80); }
   function getSource(){
+    try{ if (typeof attributionData !== 'undefined' && attributionData && attributionData.source) return attributionData.source; }catch(e){}
     const p = new URLSearchParams(location.search);
     const incoming = (p.get('ref') || '').trim().toUpperCase();
     if (incoming && ggIsValidRefCode(incoming)) localStorage.setItem('gg_aff_ref', incoming);
@@ -2404,86 +2401,42 @@ const GGCheckout = (() => {
     }catch(e){}
     return null;
   }
-  function saveLocalLead(){
-    try{ localStorage.setItem('gg_checkout_customer', JSON.stringify({name:state.name,phone:state.phone})); }catch(e){}
+
+  /* ===================== Minimal processing / status overlay ===================== */
+  function showProcessing(msg, opts={}){
+    const ov=q('#ggProcOverlay'); if(!ov) return;
+    const icon=q('#ggProcIcon'), msgEl=q('#ggProcMsg'), actions=q('#ggProcActions'), closeBtn=q('#ggProcClose');
+    icon.className='gg-proc-icon'+(opts.success?' success':opts.error?' error':'');
+    icon.innerHTML = opts.success ? '<i class="fa-solid fa-circle-check"></i>' : opts.error ? '<i class="fa-solid fa-triangle-exclamation"></i>' : '<i class="fa-solid fa-shield-halved"></i>';
+    msgEl.innerHTML = msg || '';
+    actions.hidden = !opts.error;
+    closeBtn.hidden = !opts.error && !opts.success;
+    ov.classList.add('show'); ov.setAttribute('aria-hidden','false'); document.body.style.overflow='hidden';
   }
-  function setStep(id){
-    ['ggPayLoadingStep','ggPayDetailsStep','ggPayPaymentStep','ggPayPendingStep'].forEach(x => q('#'+x)?.classList.toggle('active', x===id));
-    const hu=q('#ggPayHeaderUser'); if(hu) hu.hidden = id!=='ggPayPaymentStep';
-    const title=q('#ggPayTitle'), sub=q('#ggPayDetailsStep .gg-pay-sub'), btn=q('#ggPayContinue');
-    if(id==='ggPayDetailsStep' && editingDetails){ if(title) title.textContent='Edit your details'; if(sub) sub.textContent='Update name or phone number for access delivery.'; if(btn) btn.innerHTML='<span>Save Changes</span><i class="fa-solid fa-check"></i>'; }
-    else if(id==='ggPayDetailsStep'){ if(title) title.textContent='Enter your details'; if(sub) sub.textContent='Just one quick step before payment.'; if(btn) btn.innerHTML='<span>Continue to Payment</span><i class="fa-solid fa-arrow-right"></i>'; }
-    if(id==='ggPayPaymentStep'){ const err=q('#ggPayRzpErr'); if(err) err.classList.remove('show'); }
+  function hideProcessing(){
+    const ov=q('#ggProcOverlay'); if(!ov) return;
+    ov.classList.remove('show'); ov.setAttribute('aria-hidden','true'); document.body.style.overflow='';
   }
-  function savings(){ return CHECKOUT_CONFIG.mrp - state.amount; }
-  function renderState(){
-    const amount='₹'+state.amount, save='Save ₹'+savings();
-    q('#ggDetailsAmount').textContent=amount; q('#ggDetailsSave').textContent=save;
-    q('#ggPayAmount').textContent=amount; q('#ggPaySave').textContent=save; q('#ggPayBottomAmount').textContent=amount; q('#ggPayBottomSave').textContent=save;
-    q('#ggPayUserName').textContent=state.name||'—'; q('#ggPayUserPhone').textContent=state.phone||'—';
-    const oid=q('#ggPayOrderId'); if(oid) oid.textContent=state.orderId||'—';
+  function showError(msg){ showProcessing(msg, {error:true}); }
+
+  /* Saved payment session: lets a returning visitor who already paid skip straight to the access link. */
+  function savePaymentSession(session){
+    try{ localStorage.setItem('gg_payment_session', JSON.stringify(session)); }catch(e){}
   }
-  function startCheckoutTimer(){
-    clearInterval(checkoutTimerId);
-    const checkoutExpiry=Date.now()+CHECKOUT_CONFIG.checkoutMinutes*60*1000;
-    const tick=()=>{const left=Math.max(0,checkoutExpiry-Date.now());const m=Math.floor(left/60000),sec=Math.floor((left%60000)/1000);const el=q('#ggPayTimer');if(el)el.textContent=String(m).padStart(2,'0')+':'+String(sec).padStart(2,'0');};
-    tick(); checkoutTimerId=setInterval(tick,1000);
+  function getPaymentSession(){
+    try{
+      const raw = JSON.parse(localStorage.getItem('gg_payment_session') || 'null');
+      if (raw && raw.name && raw.phone && raw.orderId) return raw;
+    }catch(e){}
+    return null;
   }
-  function open(opts={}){
-    editingDetails=false;
-    const token=++openToken, stored=getStoredLead();
-    const mode=opts.mode==='offer'?'offer':'normal';
-    state={mode,amount:mode==='offer'?CHECKOUT_CONFIG.offerPrice:CHECKOUT_CONFIG.normalPrice,name:cleanName(opts.name||(stored&&stored.name)||''),phone:String(opts.phone||(stored&&stored.phone)||'').replace(/\D/g,'').slice(-10),source:getSource(),orderId:getOrCreateOrderId()};
-    renderState();
-    q('#ggPayOverlay').classList.add('show'); q('#ggPayOverlay').setAttribute('aria-hidden','false'); document.body.style.overflow='hidden';
-    setStep('ggPayLoadingStep');
-    const savedSession = getPaymentSession();
-    setTimeout(()=>{
-      if(token!==openToken) return;
-      if(savedSession && savedSession.orderId===state.orderId){
-        state.name=savedSession.name; state.phone=savedSession.phone; state.mode=savedSession.mode||state.mode;
-        state.amount=savedSession.amount||state.amount; renderState();
-        if(savedSession.paid && savedSession.accessUrl){
-          // Already paid & verified in a previous visit — show the success/access screen directly.
-          setStep('ggPayPendingStep'); showAccessResult(savedSession.accessUrl); updateSuccessWaLink();
-          return;
-        }
-        // Payment details already exist locally — skip straight to the payment step.
-        setStep('ggPayPaymentStep'); startCheckoutTimer();
-        return;
-      }
-      const direct=!!opts.direct&&state.name&&validPhone(state.phone);
-      if(direct||(state.name&&validPhone(state.phone)&&opts.allowStoredDirect)){
-        saveLocalLead(); post(payload('lead')); setStep('ggPayPaymentStep'); startCheckoutTimer();
-        savePaymentSession({name:state.name,phone:state.phone,mode:state.mode,amount:state.amount,orderId:state.orderId,paid:false});
-      }else{
-        q('#ggPayName').value=state.name; q('#ggPayPhone').value=state.phone; setStep('ggPayDetailsStep');
-      }
-    },1000);
-  }
-  function close(){ q('#ggPayOverlay').classList.remove('show');q('#ggPayOverlay').setAttribute('aria-hidden','true');document.body.style.overflow='';clearInterval(checkoutTimerId);++openToken; }
+
   async function post(data){
     if(!CHECKOUT_CONFIG.paymentScriptUrl){console.warn('Payment script URL is not configured.',data);return {ok:false,localOnly:true};}
     try{await fetch(CHECKOUT_CONFIG.paymentScriptUrl,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(data)});return {ok:true};}catch(err){console.error(err);return {ok:false};}
   }
   function waLink(msg){
     return `https://wa.me/${CHECKOUT_CONFIG.supportWhatsapp}?text=${encodeURIComponent(msg)}`;
-  }
-  function updateSuccessWaLink(){
-    const el = q('#ggPayWaSuccess'); if(!el) return;
-    const msg = `Hi GARMI GUARD team, my payment is confirmed.\n\n`+
-      `Name: ${state.name||'-'}\n`+
-      `Phone: ${state.phone||'-'}\n`+
-      `Order ID: ${state.orderId||'-'}\n`+
-      `Payment ID: ${state.paymentId||'-'}\n`+
-      `Amount Paid: ₹${state.amount||'-'}\n\n`+
-      `Please share my access details if I haven't received them. Thank you!`;
-    el.setAttribute('href', waLink(msg));
-  }
-  function showAccessResult(accessUrl){
-    state.accessUrl = accessUrl;
-    const link = q('#ggPayAccessLink');
-    if(link && accessUrl) link.setAttribute('href', accessUrl);
   }
   function payload(stage,extra={}){
     const affMatch = String(state.source||'').match(/^Affiliate:(.+)$/);
@@ -2495,7 +2448,7 @@ const GGCheckout = (() => {
       source:state.source,affiliateRef,affiliatePhone,
       orderId:state.orderId,deviceId:getDeviceId(),pageUrl:location.href,userAgent:navigator.userAgent,
       time:new Date().toISOString(),
-      status:stage==='popup'?'Offer Popup':stage==='edit'?'Edited':stage==='success'?'Success':'For Buy',
+      status: stage==='success' ? 'SUCCESS - Access Granted' : 'For Buy',
       razorpayOrderId: extra.razorpayOrderId||'', paymentId: extra.paymentId||''
     };
   }
@@ -2511,11 +2464,6 @@ const GGCheckout = (() => {
       s.onload=()=>resolve(); s.onerror=()=>reject(new Error('Failed to load Razorpay SDK'));
       document.head.appendChild(s);
     });
-  }
-  function showRzpError(msg){
-    const err=q('#ggPayRzpErr'); if(!err) return;
-    if(msg) err.textContent=msg;
-    err.classList.add('show');
   }
   async function createOrder(){
     const res = await fetch(CHECKOUT_CONFIG.workerBaseUrl + '/create-order', {
@@ -2543,14 +2491,12 @@ const GGCheckout = (() => {
     if(!res.ok || !data.success) throw new Error(data.error || 'Payment verification failed');
     return data; // { success:true, accessUrl }
   }
-  async function startRazorpayPayment(){
-    const btn=q('#ggPayConfirm'); if(!btn) return;
-    const err=q('#ggPayRzpErr'); if(err) err.classList.remove('show');
-    const oldHtml=btn.innerHTML; btn.disabled=true;
-    btn.innerHTML='<span class="gg-pay-loader"></span><span>Starting secure payment…</span>';
+  async function launchRazorpay(){
+    showProcessing('<span class="gg-proc-title">Securing Payment Gateway...</span><span class="gg-proc-sub">Connecting to Razorpay Verified Payment Gateway. Please wait a moment...</span>');
     try{
       await loadRazorpayScript();
       const order = await createOrder();
+      hideProcessing();
       const rzp = new Razorpay({
         key: order.key || CHECKOUT_CONFIG.razorpayKeyId,
         amount: order.amount,
@@ -2562,66 +2508,80 @@ const GGCheckout = (() => {
         notes: { orderId: state.orderId, priceType: state.mode },
         theme: { color: '#FF7A2E' },
         handler: async function(response){
-          btn.innerHTML='<span class="gg-pay-loader"></span><span>Verifying payment…</span>';
+          showProcessing('Verifying your payment…');
           try{
             const result = await verifyPayment(response);
-            state.paymentId = response.razorpay_payment_id;
             savePaymentSession({name:state.name,phone:state.phone,mode:state.mode,amount:state.amount,orderId:state.orderId,paid:true,accessUrl:result.accessUrl});
             await post(payload('success',{razorpayOrderId:response.razorpay_order_id,paymentId:response.razorpay_payment_id}));
-            clearInterval(checkoutTimerId);
-            setStep('ggPayPendingStep'); showAccessResult(result.accessUrl); updateSuccessWaLink();
-            if(result.accessUrl){ setTimeout(()=>{ window.location.href = result.accessUrl; }, 1800); }
+            showProcessing('Payment verified! Redirecting you now…', {success:true});
+            setTimeout(()=>{ window.location.href = result.accessUrl; }, 1400);
           }catch(verErr){
             console.error(verErr);
-            showRzpError('We received your payment but could not verify it automatically. Please contact support with your Order ID — we will grant access manually.');
-          }finally{
-            btn.disabled=false; btn.innerHTML=oldHtml;
+            showError('We received your payment but could not verify it automatically. Please contact support with your Order ID: ' + state.orderId);
           }
         },
-        modal:{ ondismiss:function(){ btn.disabled=false; btn.innerHTML=oldHtml; } }
+        modal:{ ondismiss:function(){ hideProcessing(); } }
       });
       rzp.on('payment.failed', function(resp){
-        showRzpError('Payment failed: ' + (resp?.error?.description || 'please try again.'));
-        btn.disabled=false; btn.innerHTML=oldHtml;
+        showError('Payment failed: ' + (resp?.error?.description || 'please try again.'));
       });
       rzp.open();
     }catch(e){
       console.error(e);
-      showRzpError('Could not start payment right now. Please check your connection and try again.');
-      btn.disabled=false; btn.innerHTML=oldHtml;
+      showError('Could not start payment right now. Please check your connection and try again.');
     }
   }
 
-  function init(){
-    q('#ggPayClose').addEventListener('click',()=>q('#ggPayCancelConfirm').classList.add('show')); q('#ggPayCancelNo').addEventListener('click',()=>q('#ggPayCancelConfirm').classList.remove('show')); q('#ggPayCancelYes').addEventListener('click',()=>{q('#ggPayCancelConfirm').classList.remove('show');close();}); q('#ggPayOverlay').addEventListener('click',e=>{if(e.target===q('#ggPayOverlay'))q('#ggPayCancelConfirm').classList.add('show');}); document.addEventListener('keydown',e=>{if(e.key==='Escape'&&q('#ggPayOverlay').classList.contains('show'))q('#ggPayCancelConfirm').classList.add('show');}); q('#ggPayHeaderUser').addEventListener('click',()=>{editingDetails=true;editOriginal={name:state.name,phone:state.phone};q('#ggPayName').value=state.name;q('#ggPayPhone').value=state.phone;setStep('ggPayDetailsStep');});
-    q('#ggPayPhone').addEventListener('input',e=>{e.target.value=e.target.value.replace(/\D/g,'').slice(0,10);});
-    q('#ggPayContinue').addEventListener('click',async()=>{
-      const name=cleanName(q('#ggPayName').value), phone=q('#ggPayPhone').value.replace(/\D/g,'');
-      q('#ggPayNameErr').classList.toggle('show',!name); q('#ggPayPhoneErr').classList.toggle('show',!validPhone(phone));
-      if(!name||!validPhone(phone)) return;
-      const changed = !editingDetails || !editOriginal || editOriginal.name!==name || editOriginal.phone!==phone;
-      state.name=name; state.phone=phone; saveLocalLead(); renderState();
-      const btn=q('#ggPayContinue'), oldHtml=btn.innerHTML; btn.disabled=true;
-      btn.innerHTML='<span class="gg-pay-loader"></span><span>'+(editingDetails?'Updating…':'Saving details…')+'</span>';
-      if(changed) await post(payload(editingDetails?'edit':'lead'));
-      btn.disabled=false; btn.innerHTML=oldHtml; editingDetails=false; editOriginal=null;
-      setStep('ggPayPaymentStep'); startCheckoutTimer();
-    });
-    // Pay Securely -> triggers the Razorpay Checkout modal.
-    q('#ggPayConfirm').addEventListener('click',()=>{ startRazorpayPayment(); });
+  /* ===================== Public entry points ===================== */
+  function open(opts={}){
+    const stored=getStoredLead();
+    const mode=opts.mode==='offer'?'offer':'normal';
+    const name=cleanName(opts.name||(stored&&stored.name)||'');
+    const phone=String(opts.phone||(stored&&stored.phone)||'').replace(/\D/g,'').slice(-10);
 
-    // Small header WhatsApp icon — general help, same fixed number/message everywhere on the site.
+    // No valid name/phone yet — send the visitor to the lead popup first instead of Razorpay.
+    if(!name || !validPhone(phone)){
+      if(typeof openLeadPopup === 'function') openLeadPopup();
+      return;
+    }
+
+    state = {
+      mode, name, phone,
+      amount: mode==='offer'?CHECKOUT_CONFIG.offerPrice:CHECKOUT_CONFIG.normalPrice,
+      source: getSource(),
+      orderId: getOrCreateOrderId()
+    };
+
+    // Already paid & verified for this order in a previous visit — skip straight to access.
+    const saved = getPaymentSession();
+    if(saved && saved.orderId===state.orderId && saved.paid && saved.accessUrl){
+      window.location.href = saved.accessUrl;
+      return;
+    }
+
+    launchRazorpay();
+  }
+  function openFromSite(){
+    let mode='normal', lead=getStoredLead();
+    try{ if(typeof getOfferState==='function') mode=getOfferState().offerActive?'offer':'normal'; }catch(e){}
+    open({mode, name:lead?.name||'', phone:lead?.phone||''});
+  }
+  function close(){ hideProcessing(); }
+  function init(){
+    q('#ggProcClose')?.addEventListener('click', hideProcessing);
+    q('#ggProcRetry')?.addEventListener('click', ()=>{ hideProcessing(); launchRazorpay(); });
+
     const ggHeaderWaMsg = "Hi GARMI GUARD team, I need help with my order.";
     q('#ggPayWaBtn')?.setAttribute('href', waLink(ggHeaderWaMsg));
     q('#footerWaBtn')?.setAttribute('href', waLink(ggHeaderWaMsg));
+    q('#ggProcContact')?.setAttribute('href', waLink("Hi GARMI GUARD team, I need help completing my payment. Order ID: " + (state.orderId || getOrCreateOrderId())));
 
-    q('#ggPayContactUs')?.addEventListener('click',()=>{
-      window.open('contact.html', '_blank', 'noopener');
-    });
-
-    if(GG_CHECKOUT_QUERY.requested){setTimeout(()=>{const directOffer=GG_CHECKOUT_QUERY.mode==='offer'&&cleanName(GG_CHECKOUT_QUERY.name)&&validPhone(GG_CHECKOUT_QUERY.phone);open({mode:GG_CHECKOUT_QUERY.mode,name:GG_CHECKOUT_QUERY.name,phone:GG_CHECKOUT_QUERY.phone,direct:directOffer,allowStoredDirect:GG_CHECKOUT_QUERY.mode==='normal'});},250);}
+    if(GG_CHECKOUT_QUERY.requested){
+      setTimeout(()=>{
+        open({mode:GG_CHECKOUT_QUERY.mode,name:GG_CHECKOUT_QUERY.name,phone:GG_CHECKOUT_QUERY.phone});
+      },250);
+    }
   }
-  function openFromSite(){let mode='normal',lead=getStoredLead();try{if(typeof getOfferState==='function')mode=getOfferState().offerActive?'offer':'normal';}catch(e){}open({mode,name:lead?.name||'',phone:lead?.phone||'',direct:!!lead,allowStoredDirect:true});}
   return {init,open,openFromSite,close};
 })();
 </script>
@@ -2639,17 +2599,30 @@ const PRICE = { mrp: 999, public: 279, unlock: 199, savingFromMrp: 800, extraVsP
 /* ============================================================
    VIDEO REVIEWS — toggle + data
    Set VIDEO_REVIEWS = false to hide the whole section completely.
-   Replace each "permalink" with the real Instagram Reel URL for that review.
+   Replace each url with the review's real, full YouTube video URL
+   (any format works — youtube.com/shorts/..., youtube.com/watch?v=..., or youtu.be/...).
+   Videos are shown in a 9:16 vertical frame — use YouTube Shorts / vertical uploads.
    ============================================================ */
-const VIDEO_REVIEWS = true;
+const VIDEO_REVIEWS = false;
 const VIDEO_REVIEW_DATA = [
-  { name:'Rohit S.', loc:'Lucknow', permalink:'https://www.instagram.com/reel/PLACEHOLDER1/' },
-  { name:'Anjali V.', loc:'Jaipur', permalink:'https://www.instagram.com/reel/PLACEHOLDER2/' },
-  { name:'Priya N.', loc:'Kochi', permalink:'https://www.instagram.com/reel/PLACEHOLDER3/' },
-  { name:'Karan M.', loc:'Indore', permalink:'https://www.instagram.com/reel/PLACEHOLDER4/' },
-  { name:'Sneha R.', loc:'Hyderabad', permalink:'https://www.instagram.com/reel/PLACEHOLDER5/' },
-  { name:'Aditya S.', loc:'Patna', permalink:'https://www.instagram.com/reel/PLACEHOLDER6/' }
+  // Video 1
+  { name:'Rohit S.', url:'https://youtube.com/shorts/PxmYyTS1Urc?si=vN8Xy3i2Ji4Put1C' },
+  // Video 2
+  { name:'Anjali V.', url:'https://youtube.com/shorts/nsMf8JPxNYw?si=qXS6Ylz7tef0GWuJ' },
+  // Replace Video 3 link
+  { name:'Priya N.', url:'REPLACE_VIDEO_URL_3' },
+  // Replace Video 4 link
+  { name:'Karan M.', url:'REPLACE_VIDEO_URL_4' },
+  // Replace Video 5 link
+  { name:'Sneha R.', url:'REPLACE_VIDEO_URL_5' },
+  // Replace Video 6 link
+  { name:'Aditya S.', url:'REPLACE_VIDEO_URL_6' }
 ];
+function ggExtractYoutubeId(url) {
+  if (!url) return '';
+  const m = url.match(/(?:youtube\.com\/(?:shorts\/|watch\?v=|embed\/)|youtu\.be\/)([A-Za-z0-9_-]{6,})/);
+  return m ? m[1] : '';
+}
 function renderVideoReviews() {
   const section = document.getElementById('videoReviews');
   const track = document.getElementById('ggVideoReviewTrack');
@@ -2658,36 +2631,68 @@ function renderVideoReviews() {
   section.style.display = '';
   if (!track) return;
   track.innerHTML = VIDEO_REVIEW_DATA.map((r, i) => `
-    <article class="gg-vr-card gg-vr-ig" data-vr-index="${i}">
-      <blockquote class="instagram-media" data-instgrm-permalink="${r.permalink}" data-instgrm-version="14" style="margin:0;width:100%;height:100%;background:#0c2334;border:0"></blockquote>
-      <div class="gg-vr-meta"><div class="gg-vr-name">${r.name} <i class="fa-solid fa-circle-check tr-verified" aria-label="Verified"></i></div><div class="gg-vr-loc">${r.loc}</div></div>
+    <article class="gg-vr-card gg-vr-yt" data-vr-index="${i}">
+      <div class="gg-vr-yt-frame" data-yt-id="${ggExtractYoutubeId(r.url)}"><div class="gg-vr-yt-placeholder"><i class="fa-solid fa-play"></i></div></div>
+      <div class="gg-vr-meta"><div class="gg-vr-name">${r.name} <i class="fa-solid fa-circle-check tr-verified" aria-label="Verified"></i></div></div>
     </article>`).join('');
-  ggLoadInstagramEmbedScript();
   initVideoReviewViewportControl(track);
 }
-function ggLoadInstagramEmbedScript() {
-  if (document.getElementById('gg-ig-embed-script')) { window.instgrm?.Embeds?.process(); return; }
-  const s = document.createElement('script');
-  s.id = 'gg-ig-embed-script'; s.async = true; s.src = 'https://www.instagram.com/embed.js';
-  s.onload = () => window.instgrm?.Embeds?.process();
-  document.body.appendChild(s);
+function ggLoadYouTubeApi() {
+  return new Promise((resolve) => {
+    if (window.YT && window.YT.Player) { resolve(); return; }
+    if (!document.getElementById('gg-yt-iframe-api')) {
+      const tag = document.createElement('script');
+      tag.id = 'gg-yt-iframe-api';
+      tag.src = 'https://www.youtube.com/iframe_api';
+      document.head.appendChild(tag);
+    }
+    const prev = window.onYouTubeIframeAPIReady;
+    window.onYouTubeIframeAPIReady = function () { if (typeof prev === 'function') prev(); resolve(); };
+  });
 }
 function initVideoReviewViewportControl(track) {
   const cards = Array.from(track.querySelectorAll('.gg-vr-card'));
   if (!cards.length) return;
-  /* Instagram Reels run inside a cross-origin iframe once embedded, so playback
-     itself can't be paused/resumed from our page. To keep the "only plays in
-     viewport" spirit as closely as possible, we lazy-process each embed only
-     once it first scrolls near the viewport, so reels aren't all loaded/autoplaying
-     at once — closest equivalent behaviour Instagram's embed API allows. */
+  /* Each card's YouTube player is only created once it scrolls near the viewport (so all 6
+     videos aren't loaded/competing for bandwidth at once). We use the real YouTube Player API
+     (not a plain iframe src) so we can detect actual play state: most browsers only allow
+     unmuted autoplay once the visitor has already interacted with the page, so a "Tap for
+     sound" button stays visible on top of every card and never disappears until the video is
+     genuinely confirmed playing — a real tap always guarantees sound plays. */
   const obs = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
-        window.instgrm?.Embeds?.process();
-        obs.unobserve(entry.target);
+        const cardEl = entry.target;
+        const frame = cardEl.querySelector('.gg-vr-yt-frame');
+        if (frame && !frame.dataset.ggInit) {
+          frame.dataset.ggInit = '1';
+          const id = frame.getAttribute('data-yt-id');
+          if (!id) { obs.unobserve(cardEl); return; }
+          frame.innerHTML = '<div class="gg-vr-yt-mount"></div><button class="gg-vr-tap-btn" type="button" aria-label="Play with sound"><i class="fa-solid fa-volume-high"></i> Tap for sound</button>';
+          const mount = frame.querySelector('.gg-vr-yt-mount');
+          const tapBtn = frame.querySelector('.gg-vr-tap-btn');
+          ggLoadYouTubeApi().then(() => {
+            let player;
+            const tryUnmutedPlay = () => { try { player.unMute(); player.setVolume(100); player.playVideo(); } catch (e) {} };
+            player = new YT.Player(mount, {
+              videoId: id,
+              playerVars: { autoplay: 1, mute: 0, playsinline: 1, rel: 0, modestbranding: 1, loop: 1, playlist: id, controls: 1 },
+              events: {
+                onReady: () => { tryUnmutedPlay(); },
+                onStateChange: (e) => {
+                  if (e.data === YT.PlayerState.PLAYING && !player.isMuted()) {
+                    tapBtn.classList.add('hide');
+                  }
+                }
+              }
+            });
+            tapBtn.addEventListener('click', () => { tryUnmutedPlay(); tapBtn.classList.add('hide'); });
+          });
+        }
+        obs.unobserve(cardEl);
       }
     });
-  }, { threshold: 0.15, rootMargin: '200px 0px' });
+  }, { threshold: 0.3, rootMargin: '80px 0px' });
   cards.forEach(c => obs.observe(c));
 }
 const OFFER_WINDOW_MS = 30 * 60 * 1000;
@@ -2709,19 +2714,82 @@ const MODULES = [
 ];
 
 const REVIEWS_DATA = [
-  { name:"Rohit Sharma", rating:5, img:"https://images.unsplash.com/photo-1568602471122-7832951cc4c5?w=160&h=160&fit=crop&crop=faces", text:"Bahut hi practical hai. Room cooling ke steps follow kiye aur do din mein hi farak mehsoos hua raat ko so ne mein. Paisa vasool laga." },
-  { name:"Anjali Verma", rating:5, img:"https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=160&h=160&fit=crop&crop=faces", text:"Top floor flat mein garmi jhelna mushkil tha. Hydration tracker aur cooling blueprint dono use kiye — simple aur asardar. Recommend karti hoon." },
-  { name:"Priya Nair", rating:4.5, img:"https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=160&h=160&fit=crop&crop=faces", text:"Was skeptical about a \"digital system\" but the 7-day challenge actually kept me consistent. My kids' hot-night sleep improved noticeably." },
-  { name:"Karan Mehta", rating:5, img:"https://images.unsplash.com/photo-1500648767791-96588c1e8545?w=160&h=160&fit=crop&crop=faces", text:"PG mein rehta hoon, AC lagane ki permission nahi thi. Iska budget plan aur routine kaafi useful raha, bina kharche ke garmi manage ho gayi." },
-  { name:"Sneha Reddy", rating:5, img:"https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=160&h=160&fit=crop&crop=faces", text:"Heat-risk self-check made me realise my elderly parents were at higher risk than I thought. The emergency guide gave us an actual plan, not just tips." },
-  { name:"Aditya Singh", rating:4.5, img:"https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=160&h=160&fit=crop&crop=faces", text:"Bahut saari scattered tips padh padh ke confuse ho gaya tha. Yeh sab ek jagah organised mila, morning-to-night routine follow karna easy raha." },
-  { name:"Meera Joshi", rating:5, img:"https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?w=160&h=160&fit=crop&crop=faces", text:"Village mein power cuts common hain, iska no-power cooling section sabse zyada kaam aaya. Simple language, samajhna easy tha." },
-  { name:"Vikram Rathore", rating:5, img:"https://images.unsplash.com/photo-1500917293891-ef795e70e1f6?w=160&h=160&fit=crop&crop=faces", text:"Bought this after two bad summers of falling sick from the heat. The self-check plus daily tracker actually held me accountable this year." },
-  { name:"Neha Kapoor", rating:5, img:"https://images.unsplash.com/photo-1489424731084-a5d8b219a5bb?w=160&h=160&fit=crop&crop=faces", text:"Daily Mission Center ne routine ko game jaisa bana diya — bachche bhi excited rehte hain water breaks ke liye. Genuinely useful system hai." },
-  { name:"Arjun Malhotra", rating:4.5, img:"https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=160&h=160&fit=crop&crop=faces", text:"Office se ghar aane ke baad room itna garam hota tha ki neend hi nahi aati thi. Cooling blueprint follow karke ab bearable ho gaya hai." },
-  { name:"Simran Kaur", rating:5, img:"https://images.unsplash.com/photo-1544717305-2782549b5136?w=160&h=160&fit=crop&crop=faces", text:"Outdoor job hai mera, poore din dhoop mein rehna padta hai. Emergency guide aur hydration checkpoints ne is summer ko bahut easier bana diya." },
-  { name:"Rahul Verma", rating:5, img:"https://images.unsplash.com/photo-1531891437562-4301cf35b7e4?w=160&h=160&fit=crop&crop=faces", text:"7-Day Challenge complete karne ke baad realise hua ki small consistent actions bade tips se zyada kaam karte hain. Worth every rupee." }
+  {
+    name: "Rohit Sharma",
+    rating: 5,
+    img: "https://i.ibb.co/cX1XtVc0/1.png",
+    text: "Bahut hi practical blueprint hai! Room cooling ke simple steps follow kiye aur do hi din mein raat ki sleep quality 10x behtar ho gayi. Ek-ek rupiya vasool hai."
+  },
+  {
+    name: "Anjali Verma",
+    rating: 5,
+    img: "https://i.ibb.co/C3nH4V4L/2.png",
+    text: "Top floor apartment mein garmi jhelna nightmare tha. Iska hydration tracker aur room cooling checklist super effective nikla. Highly recommended for families!"
+  },
+  {
+    name: "Priya Nair",
+    rating: 5,
+    img: "https://i.ibb.co/1J7GHcQk/3.png",
+    text: "Pehle laga ki generic internet tips hongi, lekin 7-Day Challenge ne discipline bana diya. Mere bachchon ki raat ki neend ab bina pareshani ke ho jati hai."
+  },
+  {
+    name: "Karan Mehta",
+    rating: 5,
+    img: "https://i.ibb.co/dJgRfF0m/4.png",
+    text: "PG mein rehta hoon, AC lagane ka option nahi tha. Iska zero-budget cooling routine aur DIY ventilation tricks mast kaam kar gaye. Paison ki bachat ho gayi!"
+  },
+  {
+    name: "Dr. Sneha Kulkarni",
+    rating: 5,
+    img: "",
+    text: "Heat-risk assessment tool se samajh aaya ki mere elderly parents kitne risk me the. Iska emergency heatstroke action plan har ghar me hona chahiye."
+  },
+  {
+    name: "Aditya Singh",
+    rating: 5,
+    img: "https://i.ibb.co/fzX2Lxp2/6.png",
+    text: "Internet par bhot sari scattered information hai. Yeh system sab kuch ek structured morning-to-night routine me deta hai, jise follow karna easy hai."
+  },
+  {
+    name: "Meera Joshi",
+    rating: 4.8,
+    img: "https://i.ibb.co/nNnwPQnT/7.png",
+    text: "Hamaray town mein daily power cuts hotey hain. Iska 'No-Power Cooling Hacks' section mere liye sabse bada lifesaver raha. Bhasha bhi bhot simple aur clear hai."
+  },
+  {
+    name: "Vikramaditya Rathore",
+    rating: 4.8,
+    img: "https://i.ibb.co/ZRm0WW6s/8.png",
+    text: "Pichle do saal garmi ki wajah se dehydration aur sickness hui thi. Is baar daily tracking system ne mujhe accountable rakha aur main bilkul fit raha!"
+  },
+  {
+    name: "Neha Kapoor",
+    rating: 4.4,
+    img: "https://i.ibb.co/5x58L7Mk/9.png",
+    text: "Daily Mission Center ne poore routine ko ek game jaisa bana diya hai. Ab mere bachche bhi khud se hydration targets complete karte hain!"
+  },
+  {
+    name: "Arjun Malhotra",
+    rating: 4.4,
+    img: "",
+    text: "Shaam ko office se aane par kamra bhatti jaisa tapti tha. Blueprint ki evening airflow strategy apply ki aur 20 minute me room temperature manageable ho gaya."
+  },
+  {
+    name: "Simran Preet Kaur",
+    rating: 4,
+    img: "",
+    text: "Field work aur outdoor meetings ki wajah se dhoop me rehna majboori hai. Iske hydration checkpoints aur cooling hacks ne meri energy levels maintain rakhi."
+  },
+  {
+    name: "Rahul Verma",
+    rating: 3.6,
+    img: "",
+    text: "7-Day Challenge ko complete karne ke baad realize hua ki small daily habits kitna bada farak lati hain. Overall achha guide hai."
+  }
 ];
+
+
+
 // Deterministic initials avatar — used both as a JS-render fallback and as an <img onerror> swap
 // target, so a missing/broken profile photo never shows a broken-image icon.
 function reviewInitialsHtml(name){
@@ -2768,14 +2836,23 @@ function renderReviews(){
 }
 
 const GALLERY = [
+  // Replace Image 2 link — Recommended Product Screenshot Size: 1080x1350px (4:5) or 1080x1920px (9:16)
   { src:"https://i.ibb.co/mCMKx3rB/file-00000000407072089471c4215a263017.png", alt:"GARMI GUARD product preview 1" },
+  // Replace Image 3 link — Recommended Product Screenshot Size: 1080x1350px (4:5) or 1080x1920px (9:16)
   { src:"https://i.ibb.co/bjg3M6rv/file-00000000ca2c7208a23cfb0299d9f0ee.png", alt:"GARMI GUARD product preview 2" },
+  // Replace Image 4 link — Recommended Product Screenshot Size: 1080x1350px (4:5) or 1080x1920px (9:16)
   { src:"https://i.ibb.co/33X4z2r/file-0000000088a87208b518169f3202096e.png", alt:"GARMI GUARD product preview 3" },
+  // Replace Image 5 link — Recommended Product Screenshot Size: 1080x1350px (4:5) or 1080x1920px (9:16)
   { src:"https://i.ibb.co/zTdyxDJZ/file-000000002eb47208a9b080b7c68447bc.png", alt:"GARMI GUARD product preview 4" },
+  // Replace Image 6 link — Recommended Product Screenshot Size: 1080x1350px (4:5) or 1080x1920px (9:16)
   { src:"https://i.ibb.co/sJp8J3DP/file-000000000a98720882c496f93813fdc4.png", alt:"GARMI GUARD product preview 5" },
+  // Replace Image 7 link — Recommended Product Screenshot Size: 1080x1350px (4:5) or 1080x1920px (9:16)
   { src:"https://i.ibb.co/Nd55cNFQ/file-0000000029f47208892fcaa050dd6cbc.png", alt:"GARMI GUARD product preview 6" },
+  // Replace Image 8 link — Recommended Product Screenshot Size: 1080x1350px (4:5) or 1080x1920px (9:16)
   { src:"https://i.ibb.co/xtDvbcLK/file-0000000022c0720899751ffa908b9510.png", alt:"GARMI GUARD product preview 7" },
+  // Replace Image 9 link — Recommended Product Screenshot Size: 1080x1350px (4:5) or 1080x1920px (9:16)
   { src:"https://i.ibb.co/QFpLm9zb/file-000000007c1072088e073136aef7f34b.png", alt:"GARMI GUARD product preview 8" },
+  // Replace Image 10 link — Recommended Product Screenshot Size: 1080x1350px (4:5) or 1080x1920px (9:16)
   { src:"https://i.ibb.co/W4Zc5JkQ/file-000000007c84720896c266a2a367a30f.png", alt:"GARMI GUARD product preview 9" }
 ];
 
@@ -2956,7 +3033,7 @@ function renderPriceState() {
 
   $('#heroPriceOld').textContent = '₹999';
   $('#heroPriceNow').textContent = '₹' + s.price;
-  $('#heroPriceBadge').style.display = s.offerActive ? 'inline-flex' : 'none';
+  $('#heroPriceBadge').style.display = 'inline-flex';
   $('#heroPriceBadge').innerHTML = offerBadgeHtml;
   $('#heroTimerPill').classList.toggle('show', s.offerActive);
   $('#heroCta').innerHTML = s.offerActive ? 'Buy Now ₹199 <span class="arrow">→</span>' : 'Get GARMI GUARD ₹279 <span class="arrow">→</span>';
@@ -2964,7 +3041,7 @@ function renderPriceState() {
   $('#pcOldPrice').textContent = 'MRP ₹999';
   $('#pcPrice').textContent = s.price;
   $('#pcBadge').textContent = s.offerActive ? '30-Minute Offer Price' : 'Public Price';
-  $('#pcSave').classList.toggle('show', s.offerActive);
+  $('#pcSave').classList.add('show');
   $('#pcSave').innerHTML = offerBadgeHtml;
   $('#pcTimer').classList.toggle('show', s.offerActive);
   $('#pricingCta').innerHTML = s.offerActive ? 'Buy Now ₹199 <span class="arrow">→</span>' : 'Get Access ₹279 <span class="arrow">→</span>';
@@ -2978,13 +3055,16 @@ function renderPriceState() {
 
   const sc = $('#stickyCtaBtn'), cap = $('#stickyCapsule'), timer = $('#stickyTimer'), save = $('#stickyOfferCopy'), priceTab = $('#stickyPriceTab');
   cap.classList.toggle('public-mode', !s.offerActive);
+  save.textContent = compactOfferCopy;
+  save.classList.toggle('save-tag-inline', s.offerActive);
+  save.classList.toggle('save-tag-float', !s.offerActive);
   if (s.offerActive) {
     sc.innerHTML = 'Buy Now ₹199 <span class="arrow">→</span>';
-    timer.classList.add('show'); save.classList.add('show'); save.textContent = compactOfferCopy;
+    timer.classList.add('show');
     if (priceTab) priceTab.classList.remove('hide');
   } else {
     sc.innerHTML = 'Get Access ₹279 <span class="arrow">→</span>';
-    timer.classList.remove('show'); save.classList.remove('show');
+    timer.classList.remove('show');
     if (priceTab) priceTab.classList.add('hide');
   }
 
@@ -3070,7 +3150,7 @@ function renderLeadPopupMode(s=getOfferState()) {
   if (active) {
     badge.textContent = 'Limited-Time Welcome Offer';
     $('#leadHeadline').textContent = 'You came at the perfect time ☀️';
-    copy.textContent = 'Enter your details to unlock your welcome price.';
+    copy.textContent = 'Enter your name & WhatsApp number to lock in ₹199 before the timer runs out.';
     if (priceRow) priceRow.style.display = 'flex';
     if (saveBadge) saveBadge.style.display = 'flex';
     if (timer) timer.style.display = 'block';
@@ -3078,7 +3158,7 @@ function renderLeadPopupMode(s=getOfferState()) {
   } else {
     badge.textContent = 'Get Offer';
     $('#leadHeadline').textContent = 'Get the next available offer ☀️';
-    copy.textContent = 'Enter your name and WhatsApp number. We will save your details for future offer access.';
+    copy.textContent = "Enter your name and WhatsApp number — we'll save your spot for the next welcome-price drop.";
     if (priceRow) priceRow.style.display = 'none';
     if (saveBadge) saveBadge.style.display = 'none';
     if (timer) timer.style.display = 'none';
@@ -3148,7 +3228,7 @@ function buildLeadPayload(name, phone, eligible) {
     source: attributionData.source,
     affiliateRef: (attributionData.source||'').startsWith('Affiliate:') ? attributionData.source.split(':')[1] : '',
     affiliatePhone: (attributionData.source||'').startsWith('Affiliate:') && /^[A-J]{10}$/.test(attributionData.source.split(':')[1]) ? ggDecodePhoneRef(attributionData.source.split(':')[1]) : '',
-    orderId: generateOrderId(),
+    orderId: getOrCreateOrderId(),
     utmSource: attributionData.utmSource||'', utmMedium: attributionData.utmMedium||'', utmCampaign: attributionData.utmCampaign||'',
     pageUrl: location.href, referrerUrl: attributionData.referrerUrl||'',
     userAgent: navigator.userAgent,
@@ -3545,6 +3625,54 @@ function initHeaderScroll() {
 
 function renderAll(){ renderPriceState(); renderTimers(); }
 
+/* GALLERY AUTO-SCROLL — slowly & smoothly scrolls the preview-image track while it's on
+   screen, and pauses the moment it leaves the viewport (or while the visitor is dragging it). */
+function initGalleryAutoScroll() {
+  const wrap = document.querySelector('#gallery .gallery-track-wrap');
+  const track = document.getElementById('galleryTrack');
+  if (!wrap || !track) return;
+  let inView = false, userPaused = false, resumeTimer = null, raf = null;
+  const SPEED = 0.45; // px per frame — slow, smooth crawl
+  function frame() {
+    if (inView && !userPaused) {
+      track.scrollLeft += SPEED;
+      if (track.scrollLeft + track.clientWidth >= track.scrollWidth - 1) {
+        track.scrollLeft = 0;
+      }
+    }
+    raf = requestAnimationFrame(frame);
+  }
+  raf = requestAnimationFrame(frame);
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => { inView = entry.isIntersecting; });
+  }, { threshold: 0.25 });
+  obs.observe(wrap);
+  function pauseForAWhile() {
+    userPaused = true;
+    clearTimeout(resumeTimer);
+    resumeTimer = setTimeout(() => { userPaused = false; }, 3000);
+  }
+  track.addEventListener('pointerdown', pauseForAWhile);
+  track.addEventListener('wheel', pauseForAWhile, { passive: true });
+  track.addEventListener('touchstart', pauseForAWhile, { passive: true });
+  $('#galPrev')?.addEventListener('click', pauseForAWhile);
+  $('#galNext')?.addEventListener('click', pauseForAWhile);
+}
+
+/* GENTLE EMOJI WOBBLE (purely cosmetic; wraps each emoji glyph in its own span so it never
+   conflicts with the transform-based hover/scroll-pop effects already applied to the parent). */
+function initEmojiWobble() {
+  $$('.vc-emoji, .se').forEach(el => {
+    if (el.querySelector('.gg-emoji-spin')) return;
+    const glyph = el.textContent;
+    el.textContent = '';
+    const span = document.createElement('span');
+    span.className = 'gg-emoji-spin';
+    span.textContent = glyph;
+    el.appendChild(span);
+  });
+}
+
 /* VIEWPORT ACTIVE CARD MOTION */
 function initScrollPop() {
   const els = $$('.scroll-pop');
@@ -3578,7 +3706,7 @@ function init() {
   migrateLegacyStorage(); initTheme(); initLeadWindow(); GGCheckout.init();
   renderModules(); renderGallery(); renderFAQ(); initProductDemo(); renderVideoReviews(); renderReviews();
   setupLeadForm(); setupSurvey(); wireModals(); wireCheckout(); initHeaderScroll(); initReveal();
-  initScrolly(); initBASlider(); initScrollPop(); initDrawerNav(); initHashNavigation(); initHeroProductPreview();
+  initScrolly(); initBASlider(); initScrollPop(); initDrawerNav(); initHashNavigation(); initHeroProductPreview(); initEmojiWobble(); initGalleryAutoScroll();
 
   // Sticky CTA
   $('#stickyCtaBtn').addEventListener('click', stickyClick);
@@ -3623,13 +3751,34 @@ else init();
   $('#ggShareBtn')?.addEventListener('click',openSharePopup); $('#drawerShareBtn')?.addEventListener('click',openSharePopup); $('#ggShareClose')?.addEventListener('click',closeSharePopup); $('#ggShareOverlay')?.addEventListener('click',e=>{if(e.target.id==='ggShareOverlay')closeSharePopup()}); $('#ggCopyShareLink')?.addEventListener('click',copyShare); $('#ggNativeShareBtn')?.addEventListener('click',nativeShare);
   const first=['Aarav','Riya','Kabir','Anaya','Rahul','Priya','Dev','Meera','Ishan','Kavya','Rohit','Nisha','Arjun','Pooja','Sahil','Tanya','Vikram','Sneha','Aditya','Neha','Amit','Simran','Karan','Muskan','Harsh'];
   const last=['S.','K.','M.','D.','R.','V.','P.','A.','G.','B.'];
-  const actions=[
-    ['explored the Room Cooling Blueprint','fa-fan'],['opened the Hydration System','fa-droplet'],['checked the ₹0 Budget Plan','fa-indian-rupee-sign'],['started the 7-Day Challenge','fa-calendar-check'],['saved the Hot-Night Sleep Plan','fa-moon'],['viewed Emergency Guide steps','fa-kit-medical'],['created a summer routine','fa-clock'],['checked GARMI GUARD pricing','fa-tag'],['opened the affiliate link creator','fa-handshake-angle'],['shared a GARMI GUARD link','fa-paper-plane']
+  // Purchase-led notifications dominate the loop for conversion; a smaller set of exploration actions keeps variety.
+  const purchaseActions=[
+    ['just purchased GARMI GUARD','fa-circle-check'],['successfully purchased GARMI GUARD','fa-circle-check'],['unlocked GARMI GUARD System','fa-unlock'],['started GARMI GUARD Cooling System','fa-fan'],['just got instant access to GARMI GUARD','fa-bolt'],['completed their GARMI GUARD order','fa-bag-shopping'],['just saved ₹800 on GARMI GUARD','fa-tag']
+  ];
+  const exploreActions=[
+    ['explored the Room Cooling Blueprint','fa-fan'],['opened the Hydration System','fa-droplet'],['checked the ₹0 Budget Plan','fa-indian-rupee-sign'],['started the 7-Day Challenge','fa-calendar-check'],['saved the Hot-Night Sleep Plan','fa-moon'],['viewed Emergency Guide steps','fa-kit-medical'],['created a summer routine','fa-clock'],['checked GARMI GUARD pricing','fa-tag']
   ];
   const timeAgo=['just now','1 min ago','2 min ago','3 min ago','5 min ago'];
   let nt=0;
-  function showNotice(title,action,icon){const n=$('#liveNotif');if(!n)return;$('#lnTitle').textContent=title;$('#lnAction').textContent=action;$('#lnTime').textContent=timeAgo[Math.floor(Math.random()*timeAgo.length)];const ic=n.querySelector('.ln-icon i'); if(ic) ic.className='fa-solid '+icon; n.classList.add('show'); setTimeout(()=>{n.classList.remove('show')},3200)}
-  function schedule(){clearTimeout(nt);nt=setTimeout(()=>{const name=first[Math.floor(Math.random()*first.length)]+' '+last[Math.floor(Math.random()*last.length)]; const a=actions[Math.floor(Math.random()*actions.length)]; showNotice(name,a[0],a[1]); schedule();},5000+Math.random()*20000)}
+  // Soft, low-volume two-note chime synthesized in the browser (no external audio file needed) for a satisfying "ding" on each notification.
+  let audioCtx;
+  function playNotifSound(){
+    try{
+      audioCtx = audioCtx || new (window.AudioContext || window.webkitAudioContext)();
+      const t0 = audioCtx.currentTime;
+      [[880,t0,0.14],[1175,t0+0.1,0.16]].forEach(([freq,start,dur])=>{
+        const osc=audioCtx.createOscillator(), gain=audioCtx.createGain();
+        osc.type='sine'; osc.frequency.value=freq;
+        gain.gain.setValueAtTime(0.0001, start);
+        gain.gain.exponentialRampToValueAtTime(0.06, start+0.02);
+        gain.gain.exponentialRampToValueAtTime(0.0001, start+dur);
+        osc.connect(gain); gain.connect(audioCtx.destination);
+        osc.start(start); osc.stop(start+dur+0.02);
+      });
+    }catch(e){}
+  }
+  function showNotice(title,action,icon){const n=$('#liveNotif');if(!n)return;$('#lnTitle').textContent=title;$('#lnAction').textContent=action;$('#lnTime').textContent=timeAgo[Math.floor(Math.random()*timeAgo.length)];const ic=n.querySelector('.ln-icon i'); if(ic) ic.className='fa-solid '+icon; n.classList.add('show'); playNotifSound(); setTimeout(()=>{n.classList.remove('show')},3200)}
+  function schedule(){clearTimeout(nt);nt=setTimeout(()=>{const name=first[Math.floor(Math.random()*first.length)]+' '+last[Math.floor(Math.random()*last.length)]; const pool=Math.random()<0.75?purchaseActions:exploreActions; const a=pool[Math.floor(Math.random()*pool.length)]; showNotice(name,a[0],a[1]); schedule();},5000+Math.random()*20000)}
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',schedule);else schedule();
 })();
 </script>
