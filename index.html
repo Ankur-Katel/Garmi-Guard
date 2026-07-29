@@ -2528,7 +2528,7 @@ const GGCheckout = (() => {
       rzp.open();
     }catch(e){
       console.error(e);
-      showError('Could not start payment right now. Please check your connection and try again.');
+      showError('Asli Error: ' + e.message);
     }
   }
 
