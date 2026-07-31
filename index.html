@@ -189,6 +189,9 @@ header.scrolled .brand { color: var(--text); }
 .menu-orb:hover { transform:rotate(12deg) scale(1.05); box-shadow:0 0 0 7px rgba(255,194,75,.12), 0 7px 20px rgba(255,122,46,.45); }
 .menu-orb i { color:#fff; font-size:.9rem; filter:drop-shadow(0 1px 2px rgba(0,0,0,.18)); }
 @keyframes pulseGlow { 0%,100%{ box-shadow: 0 0 0 5px rgba(255,194,75,0.14), 0 4px 14px rgba(255,122,46,0.35);} 50%{ box-shadow: 0 0 0 8px rgba(255,194,75,0.06), 0 6px 20px rgba(255,122,46,0.5);} }
+.btn-attn { animation: btnAttnPulse 2.6s ease-in-out infinite; }
+.btn-attn:hover, .btn-attn:active { animation: none; }
+@keyframes btnAttnPulse { 0%,100%{ box-shadow: var(--glow), 0 0 0 0 rgba(255,90,50,.45);} 50%{ box-shadow: var(--glow), 0 0 0 9px rgba(255,90,50,0);} }
 .header-actions { display: flex; align-items: center; gap: 10px; }
 
 /* Share icon-only */
@@ -533,6 +536,8 @@ html[data-theme="dark"] .quiz-progress-track { background: rgba(255,255,255,.08)
 .pc-save.show { display: flex; }
 .pc-timer { display:none; align-items:center; justify-content:center; gap:8px; background: rgba(255,82,64,.1); color: var(--coral); font-weight: 700; padding: 8px 16px; border-radius: 100px; margin: 12px auto 0; width: fit-content; position: relative; }
 .pc-timer.show { display: inline-flex; }
+.pc-timer-note { display:none; text-align:center; font-size:.68rem; font-weight:600; color: var(--text-mute); margin:6px auto 0; letter-spacing:.01em; font-style:italic; }
+.pc-timer-note.show { display:block; }
 .pc-features { text-align: left; margin: 26px 0; position: relative; }
 .pc-features li { display: flex; align-items: center; gap: 12px; padding: 8px 0; font-size: .94rem; font-weight: 500; }
 .pc-features li i { color: var(--leaf); }
@@ -677,7 +682,9 @@ footer { background: var(--surface-2); padding: 56px 0 30px; border-top: 1px sol
 /* LIVE NOTIF */
 .live-notif { position: fixed; z-index: 650; background: var(--surface); border: 1px solid var(--border); border-radius: 14px; box-shadow: var(--shadow-lg); padding: 12px 16px; display: flex; align-items: center; gap: 12px; max-width: 300px; opacity: 0; pointer-events: none; transition: opacity .4s, transform .4s; }
 .live-notif.show { opacity: 1; }
-.live-notif .ln-icon { width: 40px; height: 40px; border-radius: 50%; background: var(--grad-cta); display: grid; place-items: center; color: #fff; font-size: 1rem; flex-shrink: 0; }
+.live-notif .ln-icon { width: 40px; height: 40px; border-radius: 50%; background: var(--grad-cta); display: grid; place-items: center; color: #fff; font-size: 1rem; flex-shrink: 0; overflow:hidden; }
+.live-notif .ln-icon.has-photo { background: var(--surface-2); box-shadow:0 0 0 2px var(--leaf); }
+.live-notif .ln-icon.has-photo img { width:100%; height:100%; object-fit:cover; display:block; border-radius:50%; }
 .live-notif .ln-text { font-size: .84rem; }
 .live-notif .ln-text strong { font-weight: 700; }
 .live-notif .ln-time { font-size: .74rem; color: var(--text-mute); }
@@ -1487,7 +1494,7 @@ html[data-theme="dark"] .shift-after { background:linear-gradient(150deg,#123129
 <meta content="https://i.ibb.co/whR4WgbY/file-00000000eca082089c84fda754c4ad80.png" data-gg-seo="true" name="twitter:image"/>
 <meta content="GARMI GUARD — Interactive Summer Survival System" data-gg-seo="true" name="twitter:image:alt"/>
 <meta content="#0E2233" data-gg-seo="true" name="theme-color"/>
-<script data-gg-schema="true" type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"GARMI GUARD","url":"https://garmiguard.pages.dev/","description":"Creator and publisher of the GARMI GUARD interactive digital Summer Survival System."}</script><script data-gg-schema="true" type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"GARMI GUARD","url":"https://garmiguard.pages.dev/","inLanguage":"en-IN"}</script><script data-gg-schema="true" type="application/ld+json">{"@context":"https://schema.org","@type":"Product","name":"GARMI GUARD — Interactive Summer Survival System","description":"A digital interactive summer preparedness system with hydration planning, room cooling guidance, hot-night sleep routines, heat-risk self-checks, emergency preparedness, situation-specific plans, trackers and checklists.","image":"https://i.ibb.co/whR4WgbY/file-00000000eca082089c84fda754c4ad80.png","brand":{"@type":"Brand","name":"GARMI GUARD"},"category":"Digital Product","inLanguage":["hi","en"],"url":"https://garmiguard.pages.dev/","offers":{"@type":"Offer","url":"https://garmiguard.pages.dev/#pricing","priceCurrency":"INR","price":"279","availability":"https://schema.org/InStock"},"aggregateRating":{"@type":"AggregateRating","ratingValue":"4.8","reviewCount":"312","bestRating":"5","worstRating":"1"}}</script>
+<script data-gg-schema="true" type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"GARMI GUARD","url":"https://garmiguard.pages.dev/","description":"Creator and publisher of the GARMI GUARD interactive digital Summer Survival System."}</script><script data-gg-schema="true" type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"GARMI GUARD","url":"https://garmiguard.pages.dev/","inLanguage":"en-IN"}</script><script data-gg-schema="true" type="application/ld+json">{"@context":"https://schema.org","@type":"Product","name":"GARMI GUARD — Interactive Summer Survival System","description":"A digital interactive summer preparedness system with hydration planning, room cooling guidance, hot-night sleep routines, heat-risk self-checks, emergency preparedness, situation-specific plans, trackers and checklists.","image":"https://i.ibb.co/whR4WgbY/file-00000000eca082089c84fda754c4ad80.png","brand":{"@type":"Brand","name":"GARMI GUARD"},"category":"Digital Product","inLanguage":["hi","en"],"url":"https://garmiguard.pages.dev/","offers":{"@type":"Offer","url":"https://garmiguard.pages.dev/#pricing","priceCurrency":"INR","price":"149","availability":"https://schema.org/InStock"},"aggregateRating":{"@type":"AggregateRating","ratingValue":"4.8","reviewCount":"312","bestRating":"5","worstRating":"1"}}</script>
 <style id="gg-final-checkout-overrides">
 .gg-header-icon{width:40px;height:40px;border:0;background:transparent;border-radius:12px;display:grid;place-items:center;color:var(--text);font-size:1.02rem;transition:.22s}
 header:not(.scrolled) .gg-header-icon{color:#fff}.gg-header-icon:hover{color:var(--orange);transform:translateY(-2px)}
@@ -1784,7 +1791,7 @@ html[data-theme="dark"] #leadOverlay.entry-offer .field-shell{
 <button aria-label="Share GARMI GUARD" class="drawer-tool" id="drawerShareBtn"><i class="fa-solid fa-paper-plane"></i><span>Share</span></button>
 <button aria-label="Toggle theme" class="drawer-tool" data-theme-control="" id="drawerThemeToggle"><i class="fa-solid fa-circle-half-stroke"></i><span id="drawerThemeLabel">Theme</span></button>
 </div>
-<div class="drawer-access"><button class="btn btn-cta btn-lg" data-checkout="" id="drawerAccess">Get Access ₹279 <span class="arrow">→</span></button></div>
+<div class="drawer-access"><button class="btn btn-cta btn-lg btn-attn" data-checkout="" id="drawerAccess">Get Access — ₹149 <span class="arrow">→</span></button></div>
 </div>
 </aside>
 <!-- HERO -->
@@ -1799,14 +1806,14 @@ html[data-theme="dark"] #leadOverlay.entry-offer .field-shell{
 <p class="hero-sub">Room cooling, hydration, sleep, heat-risk checks and emergency readiness — one practical interactive system built for real Indian summers.</p>
 <div class="hero-price" id="heroPrice">
 <span class="price-strike" id="heroPriceOld">₹999</span>
-<span class="price-now num" id="heroPriceNow">₹279</span>
+<span class="price-now num" id="heroPriceNow">₹149</span>
 <span class="price-badge gg-save-badge" id="heroPriceBadge"></span>
 </div>
 <div class="hero-timer-group" id="heroTimerPill">
-<div class="hero-timer-pill"><i class="fa-solid fa-clock"></i> Offer Ends Soon — <span class="num" id="heroTimer">30:00</span></div>
+<div class="hero-timer-pill"><i class="fa-solid fa-clock"></i> Offer Ends Soon — <span class="num" id="heroTimer">10:00</span></div>
 </div>
 <div class="hero-cta-row">
-<button class="btn btn-cta btn-lg" data-checkout="" id="heroCta">Get GARMI GUARD <span class="arrow">→</span></button>
+<button class="btn btn-cta btn-lg" data-checkout="" id="heroCta">Get Instant Access — ₹149 <span class="arrow">→</span></button>
 </div>
 </div>
 <div class="hero-visual reveal d2">
@@ -2053,7 +2060,7 @@ html[data-theme="dark"] #leadOverlay.entry-offer .field-shell{
 <span class="cost-label">COMPLETE SYSTEM</span>
 <div class="cost-icon"><i class="fa-solid fa-shield-halved"></i></div>
 <h3>GARMI GUARD</h3>
-<div class="cost-final" id="costFinalPrice">₹279</div>
+<div class="cost-final" id="costFinalPrice">₹149</div>
 <p>12 modules, trackers, cooling checks, sleep planning and emergency readiness.</p>
 </div>
 </div>
@@ -2074,9 +2081,10 @@ html[data-theme="dark"] #leadOverlay.entry-offer .field-shell{
 <div aria-label="Get GARMI GUARD access" class="pricing-card reveal" data-checkout="" role="link" tabindex="0">
 <span class="pc-badge" id="pcBadge">Public Price</span>
 <div class="pc-mrp" id="pcOldPrice">MRP <span class="pc-mrp-strike">₹999</span></div>
-<div class="pc-price num"><span class="rs">₹</span><span id="pcPrice">279</span></div>
+<div class="pc-price num"><span class="rs">₹</span><span id="pcPrice">149</span></div>
 <div class="pc-save gg-save-badge" id="pcSave"></div>
-<div class="pc-timer" id="pcTimer"><i class="fa-solid fa-clock"></i> Ends in <span class="num" id="pcTimerCount">30:00</span></div>
+<div class="pc-timer" id="pcTimer"><i class="fa-solid fa-clock"></i> Ends in <span class="num" id="pcTimerCount">10:00</span></div>
+<div class="pc-timer-note" id="pcTimerNote">⚠️ Price increasing soon — goes back to ₹149 when the timer ends</div>
 <ul class="pc-features">
 <li><i class="fa-solid fa-circle-check"></i> Complete Interactive Summer System</li>
 <li><i class="fa-solid fa-circle-check"></i> Heat Risk Self-Check</li>
@@ -2088,7 +2096,7 @@ html[data-theme="dark"] #leadOverlay.entry-offer .field-shell{
 <li><i class="fa-solid fa-circle-check"></i> Emergency Preparedness Guide</li>
 <li><i class="fa-solid fa-circle-check"></i> Full Summer Toolkit</li>
 </ul>
-<button class="btn btn-cta btn-lg btn-block" data-checkout="" id="pricingCta">Get GARMI GUARD <span class="arrow">→</span></button>
+<button class="btn btn-cta btn-lg btn-block" data-checkout="" id="pricingCta">Get Instant Access — ₹149 <span class="arrow">→</span></button>
 <div class="pc-trust"><span>💻 Digital Product</span><span>🚚 No Physical Shipping</span><span>📱 Mobile Friendly</span><span>♾️ Personal Use Access</span></div>
 </div>
 </div>
@@ -2107,7 +2115,7 @@ html[data-theme="dark"] #leadOverlay.entry-offer .field-shell{
 <h2>Ready to Chill Smarter?</h2>
 <p>Hydration, cooling, sleep, routine &amp; prep — all in one structured system.</p>
 <p class="final-personal" id="finalPersonal"></p>
-<div style="margin-top:26px;"><button class="btn btn-cta btn-lg" data-checkout="" id="finalCta">Get GARMI GUARD <span class="arrow">→</span></button></div>
+<div style="margin-top:26px;"><button class="btn btn-cta btn-lg" data-checkout="" id="finalCta">Get Instant Access — ₹149 <span class="arrow">→</span></button></div>
 </div>
 </div>
 </section>
@@ -2126,7 +2134,7 @@ html[data-theme="dark"] #leadOverlay.entry-offer .field-shell{
 <a href="terms.html">Terms &amp; Conditions</a><a href="affiliate-terms.html">Affiliate Program Terms</a><a href="privacy.html">Privacy Policy</a><a href="refund.html">Refund &amp; Cancellation Policy</a><a href="shipping.html">Shipping &amp; Digital Delivery</a><a href="disclaimer.html">Disclaimer</a>
 </div>
 </div>
-<div class="footer-instagram"><h4><i class="fa-brands fa-instagram"></i> Instagram Updates</h4><iframe class="footer-insta-frame" src="https://www.instagram.com/garmiguard.in/embed" loading="lazy" title="GARMI GUARD Instagram Feed"></iframe></div>
+<div class="footer-instagram"><h4><i class="fa-brands fa-instagram"></i> Instagram Updates</h4><iframe class="footer-insta-frame" src="https://www.instagram.com/garmiguard.shop/embed" loading="lazy" title="GARMI GUARD Instagram Feed"></iframe></div>
 <div class="footer-lang"><i class="fa-solid fa-language"></i> Available in <strong>Hindi &amp; English</strong>. Other languages are also available using your browser's translation feature.</div>
 <div class="footer-disclaimer"><strong>Medical Disclaimer:</strong> GARMI GUARD provides general educational and preparedness information. It is not medical advice, diagnosis or treatment. Heat illness can be serious; seek urgent medical help for severe, worsening or emergency symptoms.</div>
 <div class="footer-copy">© <span id="yearNow"></span> GARMI GUARD. All rights reserved.</div>
@@ -2135,10 +2143,10 @@ html[data-theme="dark"] #leadOverlay.entry-offer .field-shell{
 <!-- STICKY FLOATING CTA -->
 <div class="sticky-cta" id="stickyCta">
 <div class="sticky-capsule" id="stickyCapsule">
-<span class="price-tab hide" id="stickyPriceTab"><span class="old-mini">₹999</span> ₹199</span>
-<span class="save-tab" id="stickyOfferCopy">Save ₹800</span>
-<span class="sticky-timer" id="stickyTimer"><i class="fa-solid fa-clock"></i> <span class="num" id="stickyTimerCount">30:00</span></span>
-<button class="btn btn-cta" id="stickyCtaBtn">Get Access ₹279 <span class="arrow">→</span></button>
+<span class="price-tab hide" id="stickyPriceTab"><span class="old-mini">₹999</span> ₹99</span>
+<span class="save-tab" id="stickyOfferCopy">Save ₹900</span>
+<span class="sticky-timer" id="stickyTimer"><i class="fa-solid fa-clock"></i> <span class="num" id="stickyTimerCount">10:00</span></span>
+<button class="btn btn-cta btn-attn" id="stickyCtaBtn">Get Access — ₹149 <span class="arrow">→</span></button>
 </div>
 </div>
 <!-- LEAD POPUP -->
@@ -2154,9 +2162,9 @@ html[data-theme="dark"] #leadOverlay.entry-offer .field-shell{
 <p class="lead-copy">Enter your details to unlock your welcome price.</p>
 <div class="lead-price-row" id="leadPriceRow">
 <span class="lp-public num" id="leadPublicPrice">₹999</span>
-<span class="lp-unlock num">₹199</span>
+<span class="lp-unlock num">₹99</span>
 </div>
-<div class="lead-save-badge" id="leadSaveBadge"><span class="gg-save-badge" id="leadSaveBadgeInner"><span class="gg-save-pct" id="leadSavePct">80% OFF</span><span class="gg-save-amt" id="leadSaveAmt">You save ₹800</span></span></div>
+<div class="lead-save-badge" id="leadSaveBadge"><span class="gg-save-badge" id="leadSaveBadgeInner"><span class="gg-save-pct" id="leadSavePct">90% OFF</span><span class="gg-save-amt" id="leadSaveAmt">You save ₹900</span></span></div>
 <div class="lead-timer">
 <div class="lt-count num" id="leadTimerCount">29:59</div>
 <div class="lt-label">Offer Window Ends In</div>
@@ -2172,7 +2180,7 @@ html[data-theme="dark"] #leadOverlay.entry-offer .field-shell{
 <div class="field-shell phone-freeform"><i class="fa-solid fa-phone"></i><input autocomplete="tel" id="leadPhone" inputmode="numeric" maxlength="10" pattern="[0-9]{10}" placeholder="10-digit WhatsApp number" type="tel"/></div>
 <div class="err-msg" id="phoneErr">Enter a valid 10-digit WhatsApp number.</div>
 </div>
-<button class="btn btn-cta btn-lg btn-block" id="leadSubmit" type="submit">Unlock ₹199 Price <span class="arrow">→</span></button>
+<button class="btn btn-cta btn-lg btn-block" id="leadSubmit" type="submit">Unlock ₹99 Price <span class="arrow">→</span></button>
 <div class="lead-submit-msg" id="leadSubmitMsg"></div>
 <div class="lead-privacy">🔒 Used only for order access &amp; WhatsApp support — never shared or sold. <a href="privacy.html">Privacy Policy</a></div>
 </form>
@@ -2180,8 +2188,8 @@ html[data-theme="dark"] #leadOverlay.entry-offer .field-shell{
 <div class="lead-success" id="leadSuccessBlock">
 <div class="ls-emoji">🎉</div>
 <h2 id="successHeadline">You're In!</h2>
-<p id="successCopy">Your ₹199 private price is active for the next 30 minutes.</p>
-<div class="ls-timer num" id="successTimer">30:00</div>
+<p id="successCopy">Your ₹99 private price is active for the next 10 minutes.</p>
+<div class="ls-timer num" id="successTimer">10:00</div>
 <div class="survey-block" id="surveyBlock">
 <div class="survey-q">
 <h4>Your biggest summer problem?</h4>
@@ -2204,7 +2212,7 @@ html[data-theme="dark"] #leadOverlay.entry-offer .field-shell{
 </div>
 </div>
 </div>
-<button class="btn btn-cta btn-lg btn-block" data-checkout="" id="successCta" style="margin-top:14px;">Buy Now ₹199 <span class="arrow">→</span></button>
+<button class="btn btn-cta btn-lg btn-block" data-checkout="" id="successCta" style="margin-top:14px;">Yes, Activate My ₹99 Price <span class="arrow">→</span></button>
 
 </div>
 </div>
@@ -2220,7 +2228,7 @@ html[data-theme="dark"] #leadOverlay.entry-offer .field-shell{
 <h3 id="previewTitle">Module Title</h3>
 <p id="previewDesc">Description</p>
 <ul id="previewPoints"></ul>
-<button class="btn btn-cta btn-block" data-checkout="" id="previewCta" style="margin-top:16px;">Get GARMI GUARD ₹279 <span class="arrow">→</span></button>
+<button class="btn btn-cta btn-block" data-checkout="" id="previewCta" style="margin-top:16px;">Get Instant Access — ₹149 <span class="arrow">→</span></button>
 </div>
 </div>
 </div>
@@ -2233,7 +2241,7 @@ html[data-theme="dark"] #leadOverlay.entry-offer .field-shell{
 <h3 id="lightboxTitle">Preview</h3>
 <p id="lightboxSub"></p>
 </div>
-<button class="btn btn-cta btn-block lightbox-cta" data-checkout="" id="lightboxCta">Get GARMI GUARD ₹279 <span class="arrow">→</span></button>
+<button class="btn btn-cta btn-block lightbox-cta" data-checkout="" id="lightboxCta">Get Instant Access — ₹149 <span class="arrow">→</span></button>
 </div>
 </div>
 <!-- SHARE MODAL -->
@@ -2297,8 +2305,8 @@ const CHECKOUT_CONFIG = Object.freeze({
   workerBaseUrl: "https://garmiguardpayments.ankurkatel2.workers.dev", // Deployed Cloudflare Worker base URL (see worker.js) — no trailing slash
   razorpayKeyId: "rzp_live_TI9aRoRIPKIwOu", // Razorpay Key ID — this is PUBLIC/publishable, safe on the frontend. Never put the Key Secret here.
   payeeName: "Garmi Guard",
-  normalPrice: 279,
-  offerPrice: 199,
+  normalPrice: 149,
+  offerPrice: 99,
   mrp: 999,
   checkoutMinutes: 15,
   currency: "INR",
@@ -2616,7 +2624,7 @@ const PAYMENT_CONFIG = Object.freeze({
   fallbackUrl: "contact.html?intent=purchase"
 });
 
-const PRICE = { mrp: 999, public: 279, unlock: 199, savingFromMrp: 800, extraVsPublic: 80 };
+const PRICE = { mrp: 999, public: 149, unlock: 99, savingFromMrp: 900, extraVsPublic: 50 };
 
 /* ============================================================
    VIDEO REVIEWS — toggle + data
@@ -2717,7 +2725,7 @@ function initVideoReviewViewportControl(track) {
   }, { threshold: 0.3, rootMargin: '80px 0px' });
   cards.forEach(c => obs.observe(c));
 }
-const OFFER_WINDOW_MS = 30 * 60 * 1000;
+const OFFER_WINDOW_MS = 10 * 60 * 1000;
 const CAMPAIGN_CYCLE_MS = 5 * 24 * 60 * 60 * 1000;
 
 const MODULES = [
@@ -2882,8 +2890,8 @@ const FAQS = [
   { q:"Is GARMI GUARD just a PDF?", a:"No. It's an interactive digital summer system with modules, trackers, checklists and self-check tools — not a static PDF." },
   { q:"Does it work on mobile?", a:"Yes. It's fully mobile-friendly and runs smoothly even on mid-range Android phones." },
   { q:"Will my progress save?", a:"Yes. Your answers and trackers save locally on your device so you can continue later." },
-  { q:"How does the ₹199 welcome price unlock?", a:"Submit your name and WhatsApp number inside the welcome window, and a private ₹199 price unlocks for the next 30 minutes." },
-  { q:"What happens after the timer ends?", a:"The price returns to the public price of ₹279. Offer windows follow a device-based 5-day cycle; a valid A=offer link can also activate one 30-minute window per 5-day cycle." },
+  { q:"How does the ₹99 welcome price unlock?", a:"Submit your name and WhatsApp number inside the welcome window, and a private ₹99 price unlocks for the next 10 minutes." },
+  { q:"What happens after the timer ends?", a:"The price returns to the public price of ₹149. Offer windows follow a device-based 5-day cycle; a valid A=offer link can also activate one 10-minute window per 5-day cycle." },
   { q:"How do I get access after payment?", a:"Once payments are enabled, successful purchases are intended to receive digital access through the post-payment access flow and/or the contact details provided. If confirmed payment does not produce access, use the Contact Us page for support." },
   { q:"Can I share access?", a:"GARMI GUARD access is licensed for the purchaser’s personal use and should not be redistributed, resold or publicly shared." },
   { q:"Is this medical treatment?", a:"No. It's an educational summer preparedness product, not a substitute for professional medical care. For serious symptoms, see a doctor immediately." },
@@ -2997,7 +3005,7 @@ function processSpecialOfferParam() {
   return activated;
 }
 // Simple, no-cooldown re-trigger: opening the page with ?offer=1 always restarts a fresh
-// ₹199 offer window immediately — this is the link to share/bookmark so the offer can be
+// ₹99 offer window immediately — this is the link to share/bookmark so the offer can be
 // unlocked again any time after it has expired (e.g. garmiguard.pages.dev/?offer=1).
 function processForceOfferParam() {
   const url = new URL(location.href);
@@ -3058,22 +3066,23 @@ function renderPriceState() {
   $('#heroPriceBadge').style.display = 'inline-flex';
   $('#heroPriceBadge').innerHTML = offerBadgeHtml;
   $('#heroTimerPill').classList.toggle('show', s.offerActive);
-  $('#heroCta').innerHTML = s.offerActive ? 'Buy Now ₹199 <span class="arrow">→</span>' : 'Get GARMI GUARD ₹279 <span class="arrow">→</span>';
+  $('#heroCta').innerHTML = s.offerActive ? 'Yes, I Want This — ₹99 <span class="arrow">→</span>' : 'Get Instant Access — ₹149 <span class="arrow">→</span>';
 
   $('#pcOldPrice').innerHTML = 'MRP <span class="pc-mrp-strike">₹999</span>';
   $('#pcPrice').textContent = s.price;
-  $('#pcBadge').textContent = s.offerActive ? '30-Minute Offer Price' : 'Public Price';
+  $('#pcBadge').textContent = s.offerActive ? '10-Minute Offer Price' : 'Public Price';
   $('#pcSave').classList.add('show');
   $('#pcSave').innerHTML = offerBadgeHtml;
   $('#pcTimer').classList.toggle('show', s.offerActive);
-  $('#pricingCta').innerHTML = s.offerActive ? 'Buy Now ₹199 <span class="arrow">→</span>' : 'Get Access ₹279 <span class="arrow">→</span>';
+  const pcTimerNote = $('#pcTimerNote'); if (pcTimerNote) pcTimerNote.classList.toggle('show', s.offerActive);
+  $('#pricingCta').innerHTML = s.offerActive ? 'Yes, Unlock My ₹99 Price <span class="arrow">→</span>' : 'Get Instant Access — ₹149 <span class="arrow">→</span>';
 
   const leadPct = $('#leadSavePct'), leadAmt = $('#leadSaveAmt');
   if (leadPct) leadPct.textContent = pct + '% OFF';
   if (leadAmt) leadAmt.textContent = 'You save ₹' + (PRICE.mrp - s.price);
 
   const costFinal = $('#costFinalPrice');
-  if (costFinal) costFinal.innerHTML = s.offerActive ? '<span class="cost-offer-old">₹999</span><span class="cost-offer-now">₹199</span>' : '<span class="cost-offer-old">₹999</span><span class="cost-offer-now">₹279</span>';
+  if (costFinal) costFinal.innerHTML = s.offerActive ? '<span class="cost-offer-old">₹999</span><span class="cost-offer-now">₹99</span>' : '<span class="cost-offer-old">₹999</span><span class="cost-offer-now">₹149</span>';
 
   const sc = $('#stickyCtaBtn'), cap = $('#stickyCapsule'), timer = $('#stickyTimer'), save = $('#stickyOfferCopy'), priceTab = $('#stickyPriceTab');
   cap.classList.toggle('public-mode', !s.offerActive);
@@ -3081,21 +3090,21 @@ function renderPriceState() {
   save.classList.toggle('save-tag-inline', s.offerActive);
   save.classList.toggle('save-tag-float', !s.offerActive);
   if (s.offerActive) {
-    sc.innerHTML = 'Buy Now ₹199 <span class="arrow">→</span>';
+    sc.innerHTML = 'Grab It Now — ₹99 <span class="arrow">→</span>';
     timer.classList.add('show');
     if (priceTab) priceTab.classList.remove('hide');
   } else {
-    sc.innerHTML = 'Get Access ₹279 <span class="arrow">→</span>';
+    sc.innerHTML = 'Get Access — ₹149 <span class="arrow">→</span>';
     timer.classList.remove('show');
     if (priceTab) priceTab.classList.add('hide');
   }
 
-  $('#finalCta').innerHTML = s.offerActive ? 'Buy Now ₹199 <span class="arrow">→</span>' : 'Get GARMI GUARD ₹279 <span class="arrow">→</span>';
-  const drawerAccess = $('#drawerAccess'); if (drawerAccess) drawerAccess.innerHTML = s.offerActive ? 'Buy Now ₹199 <span class="arrow">→</span>' : 'Get Access ₹279 <span class="arrow">→</span>';
-  const quizCta = $('#quizCta'); if (quizCta) quizCta.innerHTML = s.offerActive ? 'Buy Now ₹199 <span class="arrow">→</span>' : 'Get Access ₹279 <span class="arrow">→</span>';
-  const pvCta = $('#previewCta'); if (pvCta) pvCta.innerHTML = s.offerActive ? 'Get GARMI GUARD ₹199 <span class="arrow">→</span>' : 'Get GARMI GUARD ₹279 <span class="arrow">→</span>';
-  const lbCta = $('#lightboxCta'); if (lbCta) lbCta.innerHTML = s.offerActive ? 'Get GARMI GUARD ₹199 <span class="arrow">→</span>' : 'Get GARMI GUARD ₹279 <span class="arrow">→</span>';
-  const scCta = $('#successCta'); if (scCta) scCta.innerHTML = s.offerActive ? 'Buy Now ₹199 <span class="arrow">→</span>' : 'Get Access ₹279 <span class="arrow">→</span>';
+  $('#finalCta').innerHTML = s.offerActive ? 'Yes, Claim My ₹99 Deal <span class="arrow">→</span>' : 'Get Instant Access — ₹149 <span class="arrow">→</span>';
+  const drawerAccess = $('#drawerAccess'); if (drawerAccess) drawerAccess.innerHTML = s.offerActive ? 'Buy Now — ₹99 <span class="arrow">→</span>' : 'Get Access — ₹149 <span class="arrow">→</span>';
+  const quizCta = $('#quizCta'); if (quizCta) quizCta.innerHTML = s.offerActive ? 'Unlock My Plan — ₹99 <span class="arrow">→</span>' : 'Get Access — ₹149 <span class="arrow">→</span>';
+  const pvCta = $('#previewCta'); if (pvCta) pvCta.innerHTML = s.offerActive ? 'Get Instant Access — ₹99 <span class="arrow">→</span>' : 'Get Instant Access — ₹149 <span class="arrow">→</span>';
+  const lbCta = $('#lightboxCta'); if (lbCta) lbCta.innerHTML = s.offerActive ? 'Get Instant Access — ₹99 <span class="arrow">→</span>' : 'Get Instant Access — ₹149 <span class="arrow">→</span>';
+  const scCta = $('#successCta'); if (scCta) scCta.innerHTML = s.offerActive ? 'Yes, Activate My ₹99 Price <span class="arrow">→</span>' : 'Get Access — ₹149 <span class="arrow">→</span>';
   renderLeadPopupMode(s);
 }
 
@@ -3154,7 +3163,7 @@ function renderPersonalization() {
     }
   }
   const s = getOfferState(); const fp = $('#finalPersonal');
-  if (s.offerActive && name) { fp.textContent = `Hi ${name}, your ₹199 welcome price is active now.`; fp.classList.add('show'); }
+  if (s.offerActive && name) { fp.textContent = `Hi ${name}, your ₹99 welcome price is active now.`; fp.classList.add('show'); }
   else fp.classList.remove('show');
 }
 
@@ -3172,11 +3181,11 @@ function renderLeadPopupMode(s=getOfferState()) {
   if (active) {
     badge.textContent = 'Limited-Time Welcome Offer';
     $('#leadHeadline').textContent = 'You came at the perfect time ☀️';
-    copy.textContent = 'Enter your name & WhatsApp number to lock in ₹199 before the timer runs out.';
+    copy.textContent = 'Enter your name & WhatsApp number to lock in ₹99 before the timer runs out.';
     if (priceRow) priceRow.style.display = 'flex';
     if (saveBadge) saveBadge.style.display = 'flex';
     if (timer) timer.style.display = 'block';
-    submit.innerHTML = 'Unlock ₹199 Price <span class="arrow">→</span>';
+    submit.innerHTML = 'Unlock ₹99 Price <span class="arrow">→</span>';
   } else {
     badge.textContent = 'Get Offer';
     $('#leadHeadline').textContent = 'Get the next available offer ☀️';
@@ -3230,7 +3239,7 @@ function setupLeadForm() {
       }
       onLeadSaved(cleanName, cleanPhone, eligible, payload);
     } catch (err) {
-      submitBtn.disabled = false; submitBtn.innerHTML = getOfferState().offerActive ? 'Unlock ₹199 Price <span class="arrow">→</span>' : 'Continue <span class="arrow">→</span>';
+      submitBtn.disabled = false; submitBtn.innerHTML = getOfferState().offerActive ? 'Unlock ₹99 Price <span class="arrow">→</span>' : 'Continue <span class="arrow">→</span>';
       msg.className = 'lead-submit-msg error'; msg.textContent = '⚠️ Could not save just now. Please try again.';
       trackEvent('lead_submit_failed', { reason:(err&&err.message)||'unknown' });
     }
@@ -3278,13 +3287,13 @@ function showSuccessState() {
   const s = getOfferState();
   $('#successHeadline').textContent = `You're In, ${name}!`;
   if (s.offerActive) {
-    $('#successCopy').textContent = 'Your ₹199 offer price is active for the remaining time shown below.';
+    $('#successCopy').textContent = 'Your ₹99 offer price is active for the remaining time shown below.';
     $('#successTimer').style.display = 'block'; $('#successTimer').textContent = fmt(s.offerRemaining);
     $('#successCta').style.display = '';
   } else {
     $('#successCopy').textContent = 'The limited-time offer has ended. Your details are saved, but there is no active offer for you right now.';
     $('#successTimer').style.display = 'none';
-    $('#successCta').innerHTML = 'Get Access ₹279 <span class="arrow">→</span>';
+    $('#successCta').innerHTML = 'Get Access ₹149 <span class="arrow">→</span>';
   }
   if (!store.get('gg_main_problem') || !store.get('gg_living_type')) $('#surveyBlock').classList.add('show');
 }
@@ -3773,9 +3782,11 @@ else init();
   $('#ggShareBtn')?.addEventListener('click',openSharePopup); $('#drawerShareBtn')?.addEventListener('click',openSharePopup); $('#ggShareClose')?.addEventListener('click',closeSharePopup); $('#ggShareOverlay')?.addEventListener('click',e=>{if(e.target.id==='ggShareOverlay')closeSharePopup()}); $('#ggCopyShareLink')?.addEventListener('click',copyShare); $('#ggNativeShareBtn')?.addEventListener('click',nativeShare);
   const first=['Aarav','Riya','Kabir','Anaya','Rahul','Priya','Dev','Meera','Ishan','Kavya','Rohit','Nisha','Arjun','Pooja','Sahil','Tanya','Vikram','Sneha','Aditya','Neha','Amit','Simran','Karan','Muskan','Harsh'];
   const last=['S.','K.','M.','D.','R.','V.','P.','A.','G.','B.'];
+  // Real customers with photos (pulled from actual reviews) power the buy/purchase notifications, so the circle shows a genuine face instead of a generic icon.
+  const reviewerPhotos = (typeof REVIEWS_DATA!=='undefined' ? REVIEWS_DATA : []).filter(r=>r && r.img);
   // Purchase-led notifications dominate the loop for conversion; a smaller set of exploration actions keeps variety.
   const purchaseActions=[
-    ['just purchased GARMI GUARD','fa-circle-check'],['successfully purchased GARMI GUARD','fa-circle-check'],['unlocked GARMI GUARD System','fa-unlock'],['started GARMI GUARD Cooling System','fa-fan'],['just got instant access to GARMI GUARD','fa-bolt'],['completed their GARMI GUARD order','fa-bag-shopping'],['just saved ₹800 on GARMI GUARD','fa-tag']
+    ['just purchased GARMI GUARD','fa-circle-check'],['successfully purchased GARMI GUARD','fa-circle-check'],['unlocked GARMI GUARD System','fa-unlock'],['started GARMI GUARD Cooling System','fa-fan'],['just got instant access to GARMI GUARD','fa-bolt'],['completed their GARMI GUARD order','fa-bag-shopping'],['just claimed the summer offer','fa-tag']
   ];
   const exploreActions=[
     ['explored the Room Cooling Blueprint','fa-fan'],['opened the Hydration System','fa-droplet'],['checked the ₹0 Budget Plan','fa-indian-rupee-sign'],['started the 7-Day Challenge','fa-calendar-check'],['saved the Hot-Night Sleep Plan','fa-moon'],['viewed Emergency Guide steps','fa-kit-medical'],['created a summer routine','fa-clock'],['checked GARMI GUARD pricing','fa-tag']
@@ -3799,8 +3810,40 @@ else init();
       });
     }catch(e){}
   }
-  function showNotice(title,action,icon){const n=$('#liveNotif');if(!n)return;$('#lnTitle').textContent=title;$('#lnAction').textContent=action;$('#lnTime').textContent=timeAgo[Math.floor(Math.random()*timeAgo.length)];const ic=n.querySelector('.ln-icon i'); if(ic) ic.className='fa-solid '+icon; n.classList.add('show'); playNotifSound(); setTimeout(()=>{n.classList.remove('show')},3200)}
-  function schedule(){clearTimeout(nt);nt=setTimeout(()=>{const name=first[Math.floor(Math.random()*first.length)]+' '+last[Math.floor(Math.random()*last.length)]; const pool=Math.random()<0.75?purchaseActions:exploreActions; const a=pool[Math.floor(Math.random()*pool.length)]; showNotice(name,a[0],a[1]); schedule();},5000+Math.random()*20000)}
+  function showNotice(title,action,icon,photo){
+    const n=$('#liveNotif');if(!n)return;
+    $('#lnTitle').textContent=title;$('#lnAction').textContent=action;$('#lnTime').textContent=timeAgo[Math.floor(Math.random()*timeAgo.length)];
+    const circle=n.querySelector('.ln-icon');
+    if(circle){
+      if(photo){
+        circle.classList.add('has-photo');
+        circle.innerHTML='<img src="'+photo+'" alt="'+title+'" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentElement.classList.remove(\'has-photo\');this.outerHTML=\'<i class=\\\'fa-solid '+icon+'\\\'></i>\'">';
+      } else {
+        circle.classList.remove('has-photo');
+        circle.innerHTML='<i class="fa-solid '+icon+'"></i>';
+      }
+    }
+    n.classList.add('show'); playNotifSound(); setTimeout(()=>{n.classList.remove('show')},3200)
+  }
+  function schedule(){clearTimeout(nt);nt=setTimeout(()=>{
+    const isPurchase = Math.random()<0.75;
+    if(isPurchase){
+      const a=purchaseActions[Math.floor(Math.random()*purchaseActions.length)];
+      // Prefer a real reviewer photo+name for buy notifications when one is available; otherwise fall back to a generated name + icon.
+      if(reviewerPhotos.length && Math.random()<0.5){
+        const r=reviewerPhotos[Math.floor(Math.random()*reviewerPhotos.length)];
+        showNotice(r.name,a[0],a[1],r.img);
+      } else {
+        const name=first[Math.floor(Math.random()*first.length)]+' '+last[Math.floor(Math.random()*last.length)];
+        showNotice(name,a[0],a[1]);
+      }
+    } else {
+      const name=first[Math.floor(Math.random()*first.length)]+' '+last[Math.floor(Math.random()*last.length)];
+      const a=exploreActions[Math.floor(Math.random()*exploreActions.length)];
+      showNotice(name,a[0],a[1]);
+    }
+    schedule();
+  },5000+Math.random()*20000)}
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',schedule);else schedule();
 })();
 </script>
